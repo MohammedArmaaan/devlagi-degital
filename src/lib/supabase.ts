@@ -1,9 +1,5 @@
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Supabase is disabled for now as requested.
+// We are keeping the types and function signature so the forms don't break.
 
 export type Enquiry = {
   id?: string;
@@ -18,18 +14,10 @@ export type Enquiry = {
 };
 
 export async function submitEnquiry(data: Enquiry): Promise<{ success: boolean; error?: string }> {
-  try {
-    const { error } = await supabase.from('enquiries').insert({
-      name: data.name,
-      phone: data.phone,
-      email: data.email || null,
-      service: data.service,
-      project_type: data.project_type || null,
-      message: data.message || null,
-    });
-    if (error) return { success: false, error: error.message };
-    return { success: true };
-  } catch {
-    return { success: false, error: 'Network error. Please try again or call us directly.' };
-  }
+  // Simulate network delay
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  
+  // Always return success for the static version
+  console.log('Form submission received:', data);
+  return { success: true };
 }
