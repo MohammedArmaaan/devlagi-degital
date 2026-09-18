@@ -291,7 +291,7 @@ export default function Home({ navigate }: Props) {
           </FadeIn>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            {productsList.filter(p => p.isNewArrival).slice(0, 4).map((product, i) => (
+            {productsList.filter(p => p.isNewArrival).slice(0, 8).map((product, i) => (
               <FadeIn key={product.slug} delay={i * 0.1} y={40}>
                 <TiltCard intensity={4} className="h-full">
                   <motion.button

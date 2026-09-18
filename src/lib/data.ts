@@ -397,5 +397,74 @@ export const productsList: Product[] = [
     gallery: [
       'https://images.pexels.com/photos/1098982/pexels-photo-1098982.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'
     ]
+  },
+  {
+    id: 'p7',
+    slug: 'vintage-floral-wallpaper',
+    title: 'Vintage Floral Wallpaper',
+    category: 'Wallpaper',
+    price: 1900,
+    description: 'Charming vintage floral design that adds a romantic, timeless feel to bedrooms and boutique spaces. Features rich, color-fast pigments.',
+    features: ['Color-fast pigments', 'Tear resistant', 'Smooth finish', 'Wipeable surface'],
+    image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    gallery: [
+      'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'
+    ],
+    isNewArrival: true,
+  },
+  {
+    id: 'p8',
+    slug: 'stained-glass-film',
+    title: 'Stained Glass Window Film',
+    category: 'Glass Film',
+    price: 1400,
+    description: 'Beautiful faux stained glass film that transforms plain windows into vibrant works of art while obscuring the view for privacy.',
+    features: ['Vibrant colors', 'Light filtering', 'Peel and stick', 'Water resistant'],
+    image: 'https://images.pexels.com/photos/1585325/pexels-photo-1585325.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    gallery: [
+      'https://images.pexels.com/photos/1585325/pexels-photo-1585325.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'
+    ],
+    isNewArrival: true,
+  },
+  {
+    id: 'p9',
+    slug: 'marble-texture-wallpaper',
+    title: 'Luxury Marble Texture Wallpaper',
+    category: 'Wallpaper',
+    price: 3200,
+    description: 'High-end faux marble wallpaper with stunning realistic veining. Perfect for modern living rooms, hotel lobbies, and executive suites.',
+    features: ['Ultra-realistic print', 'Thick vinyl', 'Seamless matching', 'Moisture resistant'],
+    image: 'https://images.pexels.com/photos/1409215/pexels-photo-1409215.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    gallery: [
+      'https://images.pexels.com/photos/1409215/pexels-photo-1409215.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'
+    ],
+    isNewArrival: true,
+  },
+  {
+    id: 'p10',
+    slug: 'blackout-privacy-film',
+    title: 'Total Blackout Window Film',
+    category: 'Glass Film',
+    price: 1100,
+    description: '100% light-blocking blackout film. Ideal for media rooms, photography darkrooms, or shift-worker bedrooms requiring complete darkness.',
+    features: ['100% light block', 'Two-way privacy', 'Residue-free removal', 'Easy application'],
+    image: 'https://images.pexels.com/photos/2034335/pexels-photo-2034335.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    gallery: [
+      'https://images.pexels.com/photos/2034335/pexels-photo-2034335.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'
+    ],
+    isNewArrival: true,
+  },
+  {
+    id: 'p11',
+    slug: '3d-brick-wallpaper',
+    title: 'Urban 3D Brick Wallpaper',
+    category: 'Wallpaper',
+    price: 1600,
+    description: 'Create an instant industrial loft vibe with this highly textured 3D faux brick wallpaper. Great for cafes, studios, and accent walls.',
+    features: ['Embossed texture', 'Paintable', 'Sound dampening', 'Thick material'],
+    image: 'https://images.pexels.com/photos/172289/pexels-photo-172289.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    gallery: [
+      'https://images.pexels.com/photos/172289/pexels-photo-172289.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'
+    ]
   }
 ];
