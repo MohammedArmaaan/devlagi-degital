@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
-import { ArrowLeft, Check, ShoppingBag, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 import FadeIn from '@/components/FadeIn';
-import EnquiryForm from '@/components/EnquiryForm';
 import { productsList } from '@/lib/data';
 
 type Props = {
@@ -15,6 +14,9 @@ export default function ProductDetail({ slug, navigate }: Props) {
   const relatedProducts = productsList.filter((p) => p.category === product?.category && p.slug !== slug).slice(0, 3);
   
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [backgroundPosition, setBackgroundPosition] = useState('0% 0%');
+  const [isHovered, setIsHovered] = useState(false);
+  
   const allImages = product ? [product.image, ...(product.gallery || [])] : [];
 
   useEffect(() => {
@@ -22,22 +24,17 @@ export default function ProductDetail({ slug, navigate }: Props) {
     setSelectedImageIndex(0);
   }, [slug]);
 
-  const handleShare = async () => {
+  const handleEnquire = () => {
     if (!product) return;
-    try {
-      if (navigator.share) {
-        await navigator.share({
-          title: product.title,
-          text: `Check out this beautiful ${product.title} from Annai Jewellers!`,
-          url: window.location.href,
-        });
-      } else {
-        await navigator.clipboard.writeText(window.location.href);
-        alert('Link copied to clipboard!');
-      }
-    } catch (err) {
-      console.error('Error sharing:', err);
-    }
+    const text = `Hi, I am interested in ${product.title}. Please provide more details.\n\nLink: ${window.location.href}`;
+    window.open(`https://wa.me/919023791865?text=${encodeURIComponent(text)}`, '_blank');
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+    setBackgroundPosition(`${x}% ${y}%`);
   };
 
   if (!product) {
@@ -55,112 +52,145 @@ export default function ProductDetail({ slug, navigate }: Props) {
 
   return (
     <div className="bg-white min-h-screen pt-24 md:pt-32 pb-20">
-      <div className="container-luxe">
+      <div className="container-luxe max-w-6xl">
         <FadeIn>
-          <button onClick={() => navigate('/products')} className="flex items-center gap-2 text-ink-600 hover:text-burgundy-600 transition-colors duration-300 font-sans text-sm tracking-wide-2 uppercase mb-8 md:mb-12 group">
+          <button onClick={() => navigate('/products')} className="flex items-center gap-2 text-ink-600 hover:text-burgundy-600 transition-colors duration-300 font-sans text-xs tracking-wide-2 uppercase mb-8 group">
             <ArrowLeft className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" />
-            Back to Products
+            Back
           </button>
         </FadeIn>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 mb-20 md:mb-32">
-          {/* Left Column - Images */}
-          <div className="flex flex-col gap-4">
-            <FadeIn>
-              <div className="relative aspect-[4/5] w-full rounded-[2rem] overflow-hidden bg-[#f4f2ee]">
-                <img src={allImages[selectedImageIndex]} alt={product.title} className="w-full h-full object-cover transition-all duration-300" />
-                <button 
-                  onClick={handleShare}
-                  className="absolute top-6 right-6 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform text-ink-600 hover:text-burgundy-600 z-10"
+        {/* Top Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 mb-16">
+          
+          {/* Left Column - Images (No Card Background) */}
+          <FadeIn>
+            <div className="flex flex-col">
+              <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+                {/* Thumbnails */}
+                {allImages.length > 1 && (
+                  <div className="flex md:flex-col gap-3 overflow-x-auto md:w-20 shrink-0 order-2 md:order-1 custom-scrollbar pb-2 md:pb-0">
+                    {allImages.map((img, i) => (
+                      <button 
+                        key={i} 
+                        onClick={() => setSelectedImageIndex(i)}
+                        className={`w-16 h-16 md:w-20 md:h-20 shrink-0 overflow-hidden cursor-pointer border transition-all ${selectedImageIndex === i ? 'border-ink-950 p-0.5' : 'border-transparent opacity-60 hover:opacity-100'}`}
+                      >
+                        <img src={img} alt={`${product.title} thumbnail ${i + 1}`} className="w-full h-full object-cover" />
+                      </button>
+                    ))}
+                  </div>
+                )}
+                {/* Main Image */}
+                <div 
+                  className="flex-1 bg-[#f4f2ee] overflow-hidden order-1 md:order-2 aspect-[4/5] md:aspect-square relative cursor-crosshair group"
+                  onMouseMove={handleMouseMove}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-                </button>
-              </div>
-            </FadeIn>
-            
-            {allImages.length > 1 && (
-              <FadeIn delay={0.1}>
-                <div className="flex gap-4 overflow-x-auto pb-2 snap-x">
-                  {allImages.map((img, i) => (
-                    <button 
-                      key={i} 
-                      onClick={() => setSelectedImageIndex(i)}
-                      className={`w-20 h-20 shrink-0 rounded-xl overflow-hidden cursor-pointer border-2 transition-all shadow-sm snap-start ${selectedImageIndex === i ? 'border-blue-500 scale-95 opacity-100' : 'border-transparent hover:border-ink-200 opacity-70 hover:opacity-100'}`}
-                    >
-                      <img src={img} alt={`${product.title} thumbnail ${i + 1}`} className="w-full h-full object-cover" />
-                    </button>
-                  ))}
+                  <img 
+                    src={allImages[selectedImageIndex]} 
+                    alt={product.title} 
+                    className={`w-full h-full object-cover object-center transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`} 
+                  />
+                  {isHovered && (
+                    <div 
+                      className="absolute inset-0 bg-no-repeat transition-transform duration-200"
+                      style={{
+                        backgroundImage: `url(${allImages[selectedImageIndex]})`,
+                        backgroundPosition: backgroundPosition,
+                        backgroundSize: '200%' // Zoom factor
+                      }}
+                    />
+                  )}
                 </div>
-              </FadeIn>
-            )}
-          </div>
+              </div>
+            </div>
+          </FadeIn>
 
           {/* Right Column - Details */}
-          <div className="flex flex-col">
-            <FadeIn delay={0.2}>
-              <div className="flex items-center gap-3 mb-6">
-                <span className="bg-[#f0eee9] text-[#6b665c] px-3 py-1.5 rounded-full font-sans text-xs font-bold tracking-wide uppercase">
-                  {product.category}
-                </span>
-                <span className="text-[#6b665c] font-sans text-xs font-bold tracking-wide uppercase">
-                  {product.category} COLLECTION
-                </span>
-              </div>
-              
-              <h1 className="font-serif text-5xl md:text-6xl text-ink-950 mb-6 italic leading-tight">
-                {product.title}
+          <FadeIn delay={0.1}>
+            <div className="flex flex-col pt-4 md:pt-8 md:pr-8">
+              <h1 className="heading-3 md:!text-[32px] text-ink-950 uppercase mb-3 leading-snug">
+                {product.title} - PREMIUM {product.category.toUpperCase()}
               </h1>
               
-              <div className="font-serif text-3xl md:text-4xl text-ink-950 mb-8 font-medium flex items-baseline gap-2">
-                ₹{product.price.toLocaleString('en-IN')} 
-                <span className="font-sans text-sm font-semibold tracking-wider text-[#8b867c] uppercase">
-                  / PIECE
-                </span>
+              <div className="flex items-center gap-2 mb-6 text-sm">
+                <div className="flex text-burgundy-600">
+                  {[...Array(5)].map((_, i) => <Star key={i} fill="currentColor" strokeWidth={0} className="w-3.5 h-3.5" />)}
+                </div>
+                <span className="text-[#8b867c] text-xs font-sans tracking-wide">(12 Reviews)</span>
               </div>
-              
-              <div className="w-full h-px bg-ink-200/40 mb-8" />
-              
-              {/* Description */}
-              <div className="mb-12">
-                <h3 className="font-sans text-xs font-bold tracking-widest uppercase text-[#8b867c] mb-3">About this piece</h3>
-                <p className="body-text text-[15px] text-[#4a4740] leading-relaxed">
-                  {product.description}
-                </p>
-                {/* Adding feature list if available, blending into description */}
-                {product.features && product.features.length > 0 && (
-                  <ul className="mt-4 space-y-2">
-                    {product.features.map((f, i) => (
-                      <li key={i} className="flex items-center gap-2 text-[15px] text-[#4a4740]">
-                        <span className="w-1 h-1 rounded-full bg-burgundy-400 block" /> {f}
-                      </li>
-                    ))}
-                  </ul>
-                )}
+
+              <div className="font-serif text-3xl md:text-4xl text-ink-950 mb-2 font-medium">
+                Rs. {product.price.toLocaleString('en-IN')}.00
               </div>
+              <p className="text-[#8b867c] text-xs mb-8 font-sans tracking-wide">Tax included. Shipping calculated at checkout.</p>
 
               {/* Action Buttons */}
-              <div className="flex items-center gap-4 mt-auto">
+              <div className="flex flex-col mt-4">
                 <button 
-                  onClick={() => {
-                    const text = `Hi, I am interested in ${product.title}. Please provide more details.\n\nLink: ${window.location.href}`;
-                    window.open(`https://wa.me/919023791865?text=${encodeURIComponent(text)}`, '_blank');
-                  }}
-                  className="flex-1 bg-[#22c55e] hover:bg-[#1ea34d] text-white py-4 px-6 rounded-2xl flex items-center justify-center gap-2 font-sans font-bold text-sm tracking-wide transition-colors shadow-sm"
+                  onClick={handleEnquire}
+                  className="w-full h-14 bg-[#25D366] text-white text-[12px] font-sans font-bold tracking-widest uppercase hover:bg-[#128C7E] transition-colors shadow-lg flex items-center justify-center gap-3"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                  Inquire on WhatsApp
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.888-.788-1.487-1.761-1.663-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                  Enquire via WhatsApp
                 </button>
               </div>
-            </FadeIn>
-          </div>
+            </div>
+          </FadeIn>
         </div>
 
+        {/* Product Details Card */}
+        <FadeIn delay={0.2}>
+          <div className="max-w-4xl mx-auto border-t border-ink-200/50 pt-16 md:pt-20 mb-24 relative">
+            <h2 className="heading-3 md:!text-2xl text-ink-950 uppercase mb-8 pb-4">
+              Product Details
+            </h2>
+            <h3 className="font-sans font-bold text-ink-950 mb-6 text-sm tracking-wide uppercase text-[#8b867c]">About this item</h3>
+            
+            <ul className="space-y-4 mb-12 pl-2">
+              <li className="flex gap-4 text-[14px] md:text-[15px] text-[#4a4740] leading-relaxed font-sans">
+                <div className="w-1.5 h-1.5 rounded-sm bg-burgundy-400 mt-2 shrink-0" />
+                <p><strong className="text-ink-950 capitalize">{product.category} blend:</strong> {product.description}</p>
+              </li>
+              {product.features?.map((f, i) => (
+                <li key={i} className="flex gap-4 text-[14px] md:text-[15px] text-[#4a4740] leading-relaxed font-sans">
+                  <div className="w-1.5 h-1.5 rounded-sm bg-burgundy-400 mt-2 shrink-0" />
+                  <p><strong className="text-ink-950 capitalize">{f.split(' ')[0]}:</strong> {f}</p>
+                </li>
+              ))}
+            </ul>
+
+            {/* Rich Imagery Banners (mockup) */}
+            <div className="w-full h-48 md:h-64 bg-ink-950 overflow-hidden relative mb-4 group">
+              <img src={product.image} className="w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-1000" />
+              <div className="absolute inset-0 bg-gradient-to-r from-ink-950/90 via-ink-950/50 to-transparent flex items-center p-8 md:p-12">
+                <div className="text-white max-w-md">
+                  <h4 className="heading-2 md:!text-4xl text-white mb-2">{product.title.split(' ')[0].toUpperCase()}</h4>
+                  <p className="text-xs md:text-sm opacity-80 uppercase tracking-widest font-sans">Premium {product.category} Collection</p>
+                </div>
+              </div>
+            </div>
+            
+            {allImages.length > 1 && (
+              <div className="w-full h-32 md:h-40 bg-ink-100 overflow-hidden relative group">
+                <img src={allImages[1]} className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000" />
+                <div className="absolute inset-0 bg-ink-950/30 flex items-center justify-center p-8 backdrop-blur-[2px]">
+                   <h4 className="heading-3 md:!text-2xl text-white tracking-widest uppercase">Elevate Your Space</h4>
+                </div>
+              </div>
+            )}
+          </div>
+        </FadeIn>
+
+        {/* Related Products */}
         {relatedProducts.length > 0 && (
           <FadeIn>
             <div className="border-t border-ink-200/50 pt-16 md:pt-20">
               <div className="flex items-center justify-between mb-8 md:mb-10">
-                <h2 className="heading-3">Related Products</h2>
-                <button onClick={() => navigate('/products')} className="flex items-center gap-2 text-burgundy-600 font-sans text-xs md:text-sm tracking-wide-2 uppercase group hover:text-burgundy-800 transition-colors">
+                <h2 className="heading-3 md:!text-2xl text-ink-950 uppercase tracking-widest">Related Products</h2>
+                <button onClick={() => navigate('/products')} className="flex items-center gap-2 text-burgundy-600 font-sans text-xs tracking-wide-2 uppercase hover:text-burgundy-800 transition-colors group">
                   View All <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </button>
               </div>
@@ -176,7 +206,7 @@ export default function ProductDetail({ slug, navigate }: Props) {
                       <img src={relProduct.image} alt={relProduct.title} className="w-full h-full object-cover transition-transform duration-[1.5s] ease-lux group-hover:scale-110" />
                       <div className="absolute inset-0 bg-gradient-to-t from-ink-950/60 via-transparent to-transparent" />
                     </div>
-                    <div className="p-3 md:p-6 flex flex-col flex-1">
+                    <div className="p-4 md:p-6 flex flex-col flex-1 bg-white">
                       <span className="font-sans text-[10px] md:text-xs tracking-wide-2 uppercase text-burgundy-600 mb-1 md:mb-2 block truncate">{relProduct.category}</span>
                       <h3 className="heading-3 text-sm md:!text-xl mb-2 md:mb-3 group-hover:text-burgundy-700 transition-colors duration-500">{relProduct.title}</h3>
                       <div className="flex items-center justify-between mt-auto">
@@ -193,4 +223,3 @@ export default function ProductDetail({ slug, navigate }: Props) {
     </div>
   );
 }
-
