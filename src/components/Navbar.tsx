@@ -42,9 +42,17 @@ export default function Navbar({ route, navigate }: Props) {
   // Map 0 to 300px of scroll to a progress of 0 to 1
   const progress = useTransform(scrollY, [0, 300], [0, 1]);
 
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth < 768 : false);
+  
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const x = useTransform(progress, [0, 1], [isHome ? offsets.x : 0, 0]);
   const y = useTransform(progress, [0, 1], [isHome ? offsets.y : 0, 0]);
-  const scale = useTransform(progress, [0, 1], [isHome ? 2.5 : 1, 1]);
+  const scale = useTransform(progress, [0, 1], [isHome ? (isMobile ? 1.6 : 2.5) : 1, 1]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -63,8 +71,8 @@ export default function Navbar({ route, navigate }: Props) {
         const centerX = window.innerWidth / 2;
         const targetX = centerX - (rect.left + rect.width / 2);
         
-        // 25vh target in the hero
-        const centerY = window.innerHeight * 0.25;
+        // 20vh target in the hero
+        const centerY = window.innerHeight * 0.20;
         const targetY = centerY - (rect.top + rect.height / 2);
         
         setOffsets({ x: targetX, y: targetY });

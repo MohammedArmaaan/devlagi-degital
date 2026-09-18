@@ -104,7 +104,7 @@ export default function Home({ navigate }: Props) {
         </div>
 
         {/* Centered Text Overlay */}
-        <div className="absolute inset-0 flex flex-col items-center justify-end text-center p-6 pb-24 md:pb-32 z-10 pointer-events-none">
+        <div className="absolute inset-0 flex flex-col items-center justify-start text-center p-6 pt-[45vh] md:pt-[45vh] z-10 pointer-events-none">
           <AnimatePresence mode="wait">
             <motion.div
               key={selectedIndex}
@@ -114,7 +114,7 @@ export default function Home({ navigate }: Props) {
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
               className="max-w-5xl mx-auto flex flex-col items-center"
             >
-              <h1 className="font-serif text-5xl md:text-7xl lg:text-[6rem] text-white leading-[1.1] mb-6 md:mb-8 font-medium drop-shadow-lg">
+              <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-[6rem] text-white leading-[1.1] mb-6 md:mb-8 font-medium drop-shadow-lg">
                 {heroSlides[selectedIndex].title.replace('.', '')}
                 <br />
                 {heroSlides[selectedIndex].subtitle.replace('.', '')}
@@ -142,13 +142,13 @@ export default function Home({ navigate }: Props) {
       {/* Benefits Strip */}
       <section className="py-6 md:py-8 bg-ink-50 border-y border-burgundy-600/10">
         <div className="container-luxe px-0 md:px-4">
-          <div className="flex flex-nowrap md:flex-wrap items-center justify-start md:justify-center gap-6 md:gap-x-16 overflow-x-auto hide-scrollbar snap-x snap-mandatory px-6 md:px-0 pb-2 md:pb-0">
+          <div className="flex justify-between md:justify-center items-start md:items-center gap-1 sm:gap-2 md:gap-16 px-2 md:px-0">
             {heroBenefits.map((b, i) => (
-              <div key={b.label} className="flex-none flex items-center gap-3 group cursor-default snap-center">
-                <div className="w-10 h-10 rounded-full border border-burgundy-600/20 flex items-center justify-center group-hover:border-burgundy-600/50 group-hover:bg-burgundy-600/5 transition-all duration-500 shrink-0">
-                  <b.icon className="w-4 h-4 text-burgundy-600" />
+              <div key={b.label} className="flex-1 flex flex-col md:flex-row items-center gap-1.5 md:gap-3 group cursor-default">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-burgundy-600/20 flex items-center justify-center group-hover:border-burgundy-600/50 group-hover:bg-burgundy-600/5 transition-all duration-500 shrink-0">
+                  <b.icon className="w-3.5 h-3.5 md:w-4 md:h-4 text-burgundy-600" />
                 </div>
-                <span className="font-sans text-sm md:text-base text-ink-800 tracking-wide font-medium uppercase whitespace-nowrap">{b.label}</span>
+                <span className="font-sans text-[9px] sm:text-[10px] md:text-base text-ink-800 tracking-wider font-medium uppercase text-center leading-tight md:whitespace-nowrap">{b.label}</span>
               </div>
             ))}
           </div>
