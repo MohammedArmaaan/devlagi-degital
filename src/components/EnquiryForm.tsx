@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { submitEnquiry } from '@/lib/supabase';
 import { services } from '@/lib/data';
 
 type Props = {
@@ -29,14 +28,25 @@ export default function EnquiryForm({ defaultService = '', compact = false }: Pr
       return;
     }
     setStatus('loading');
-    const result = await submitEnquiry(form);
-    if (result.success) {
-      setStatus('success');
-      setForm({ name: '', phone: '', email: '', service: '', project_type: '', message: '' });
-    } else {
-      setStatus('error');
-      setErrorMsg(result.error || 'Something went wrong. Please try again.');
-    }
+    
+    // Simulate short loading to feel responsive
+    await new Promise(resolve => setTimeout(resolve, 600));
+    
+    // Format the message for WhatsApp
+    const messageLines = [
+      `*New Enquiry from ${form.name.trim()}*`,
+      `*Phone:* ${form.phone.trim()}`,
+      form.email ? `*Email:* ${form.email.trim()}` : null,
+      `*Service:* ${form.service}`,
+      form.project_type ? `*Project Type:* ${form.project_type}` : null,
+      form.message ? `\n*Details:*\n${form.message}` : null
+    ].filter(Boolean);
+    
+    const whatsappText = encodeURIComponent(messageLines.join('\n'));
+    window.open(`https://wa.me/919023791865?text=${whatsappText}`, '_blank');
+    
+    setStatus('success');
+    setForm({ name: '', phone: '', email: '', service: '', project_type: '', message: '' });
   };
 
   if (status === 'success') {

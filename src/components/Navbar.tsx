@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Menu, X, Phone } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { business } from '@/lib/data';
 import type { Route } from '@/hooks/useRouter';
 
@@ -33,6 +33,18 @@ function isActive(route: Route, path: string): boolean {
 export default function Navbar({ route, navigate }: Props) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  
+  const logoRef = useRef<HTMLDivElement>(null);
+  const [offsets, setOffsets] = useState({ x: 0, y: 0 });
+  const isHome = route.name === 'home';
+
+  const { scrollY } = useScroll();
+  // Map 0 to 300px of scroll to a progress of 0 to 1
+  const progress = useTransform(scrollY, [0, 300], [0, 1]);
+
+  const x = useTransform(progress, [0, 1], [isHome ? offsets.x : 0, 0]);
+  const y = useTransform(progress, [0, 1], [isHome ? offsets.y : 0, 0]);
+  const scale = useTransform(progress, [0, 1], [isHome ? 2.5 : 1, 1]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -43,6 +55,27 @@ export default function Navbar({ route, navigate }: Props) {
   useEffect(() => {
     setMenuOpen(false);
   }, [route]);
+
+  useEffect(() => {
+    const updateOffsets = () => {
+      if (logoRef.current) {
+        const rect = logoRef.current.getBoundingClientRect();
+        const centerX = window.innerWidth / 2;
+        const targetX = centerX - (rect.left + rect.width / 2);
+        
+        // 35svh target in the hero
+        const centerY = window.innerHeight * 0.35;
+        const targetY = centerY - (rect.top + rect.height / 2);
+        
+        setOffsets({ x: targetX, y: targetY });
+      }
+    };
+    updateOffsets();
+    window.addEventListener('resize', updateOffsets);
+    // Add a slight delay for initial layout measuring
+    setTimeout(updateOffsets, 100);
+    return () => window.removeEventListener('resize', updateOffsets);
+  }, []);
 
   return (
     <>
@@ -62,30 +95,27 @@ export default function Navbar({ route, navigate }: Props) {
               onClick={() => navigate('/')}
               className="flex items-center group relative h-14 md:h-16 w-[120px] md:w-[160px]"
             >
-              <AnimatePresence>
-                {(scrolled || route.name !== 'home') && (
-                  <motion.div
-                    layoutId="main-logo"
-                    transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="flex items-center justify-start origin-left bg-transparent absolute left-0"
-                  >
-                    <div className="relative flex items-center justify-start">
-                      <img src="/Logo4.png" alt="Devlaji Digital Home Decor" className="h-12 md:h-16 w-auto object-contain pointer-events-none" />
-                      <div 
-                        className="absolute inset-0 pointer-events-none"
-                        style={{
-                          WebkitMaskImage: 'url(/Logo4.png)',
-                          WebkitMaskSize: 'contain',
-                          WebkitMaskRepeat: 'no-repeat',
-                          WebkitMaskPosition: 'left center',
-                        }}
-                      >
-                        <div className="absolute inset-0 w-[150%] bg-gradient-to-r from-transparent via-white/70 to-transparent animate-shimmer-sweep" />
-                      </div>
+              <div ref={logoRef} className="absolute left-0 top-1/2 -translate-y-1/2">
+                <motion.div
+                  style={{ x, y, scale }}
+                  className="flex items-center justify-start origin-center bg-transparent drop-shadow-[0_0_15px_rgba(255,255,255,1)]"
+                >
+                  <div className="relative flex items-center justify-start">
+                    <img src="/Logo4.png" alt="Devlaji Digital Home Decor" className="h-12 md:h-16 w-auto object-contain pointer-events-none" />
+                    <div 
+                      className="absolute inset-0 pointer-events-none"
+                      style={{
+                        WebkitMaskImage: 'url(/Logo4.png)',
+                        WebkitMaskSize: 'contain',
+                        WebkitMaskRepeat: 'no-repeat',
+                        WebkitMaskPosition: 'left center',
+                      }}
+                    >
+                      <div className="absolute inset-0 w-[150%] bg-gradient-to-r from-transparent via-white/70 to-transparent animate-shimmer-sweep" />
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                  </div>
+                </motion.div>
+              </div>
             </button>
 
             <nav className="hidden lg:flex items-center gap-8">

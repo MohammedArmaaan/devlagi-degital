@@ -85,7 +85,7 @@ export default function Home({ navigate }: Props) {
   return (
     <div className="bg-white">
       {/* Hero */}
-      <section ref={heroRef} className="relative h-[100vh] min-h-[600px] w-full overflow-hidden">
+      <section ref={heroRef} className="relative h-[100svh] min-h-[600px] w-full overflow-hidden">
         <div className="absolute inset-0 w-full h-full" ref={emblaRef}>
           <div className="flex h-full">
             {heroSlides.map((slide, index) => (
@@ -104,32 +104,7 @@ export default function Home({ navigate }: Props) {
         </div>
 
         {/* Centered Text Overlay */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 md:p-12 z-10 pointer-events-none mt-16">
-          <AnimatePresence>
-            {!scrolled && (
-              <motion.div 
-                layoutId="main-logo" 
-                className="mb-8 pointer-events-none"
-                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <div className="relative flex items-center justify-center">
-                  <img src="/Logo4.png" alt="Devlaji Digital Home Decor" className="h-28 md:h-40 w-auto object-contain" />
-                  <div 
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      WebkitMaskImage: 'url(/Logo4.png)',
-                      WebkitMaskSize: 'contain',
-                      WebkitMaskRepeat: 'no-repeat',
-                      WebkitMaskPosition: 'center',
-                    }}
-                  >
-                    <div className="absolute inset-0 w-[150%] h-full bg-gradient-to-r from-transparent via-white/70 to-transparent animate-shimmer-sweep" />
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 md:p-12 z-10 pointer-events-none mt-16 pt-32 md:pt-48">
           <AnimatePresence mode="wait">
             <motion.div
               key={selectedIndex}

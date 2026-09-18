@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowLeft, Check, ShoppingBag, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import FadeIn from '@/components/FadeIn';
@@ -13,10 +13,32 @@ type Props = {
 export default function ProductDetail({ slug, navigate }: Props) {
   const product = productsList.find((p) => p.slug === slug);
   const relatedProducts = productsList.filter((p) => p.category === product?.category && p.slug !== slug).slice(0, 3);
+  
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const allImages = product ? [product.image, ...(product.gallery || [])] : [];
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setSelectedImageIndex(0);
   }, [slug]);
+
+  const handleShare = async () => {
+    if (!product) return;
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: product.title,
+          text: `Check out this beautiful ${product.title} from Annai Jewellers!`,
+          url: window.location.href,
+        });
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        alert('Link copied to clipboard!');
+      }
+    } catch (err) {
+      console.error('Error sharing:', err);
+    }
+  };
 
   if (!product) {
     return (
@@ -41,61 +63,93 @@ export default function ProductDetail({ slug, navigate }: Props) {
           </button>
         </FadeIn>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20 md:mb-32">
-          <div className="lg:col-span-7">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 mb-20 md:mb-32">
+          {/* Left Column - Images */}
+          <div className="flex flex-col gap-4">
             <FadeIn>
-              <div className="flex flex-col gap-4 md:gap-6">
-                <div className="aspect-[4/3] w-full rounded-sm overflow-hidden bg-ink-100 relative">
-                  <img src={product.image} alt={product.title} className="w-full h-full object-cover" />
-                  {product.isNewArrival && (
-                    <div className="absolute top-4 right-4 bg-burgundy-600 text-white px-3 py-1.5 rounded-sm">
-                      <span className="font-sans text-xs tracking-wide-2 uppercase">New</span>
-                    </div>
-                  )}
-                </div>
-                {product.gallery && product.gallery.length > 1 && (
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {product.gallery.map((img, i) => (
-                      <div key={i} className="aspect-square rounded-sm overflow-hidden bg-ink-100">
-                        <img src={img} alt={`${product.title} gallery ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
-                      </div>
-                    ))}
-                  </div>
-                )}
+              <div className="relative aspect-[4/5] w-full rounded-[2rem] overflow-hidden bg-[#f4f2ee]">
+                <img src={allImages[selectedImageIndex]} alt={product.title} className="w-full h-full object-cover transition-all duration-300" />
+                <button 
+                  onClick={handleShare}
+                  className="absolute top-6 right-6 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform text-ink-600 hover:text-burgundy-600 z-10"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                </button>
               </div>
             </FadeIn>
+            
+            {allImages.length > 1 && (
+              <FadeIn delay={0.1}>
+                <div className="flex gap-4 overflow-x-auto pb-2 snap-x">
+                  {allImages.map((img, i) => (
+                    <button 
+                      key={i} 
+                      onClick={() => setSelectedImageIndex(i)}
+                      className={`w-20 h-20 shrink-0 rounded-xl overflow-hidden cursor-pointer border-2 transition-all shadow-sm snap-start ${selectedImageIndex === i ? 'border-blue-500 scale-95 opacity-100' : 'border-transparent hover:border-ink-200 opacity-70 hover:opacity-100'}`}
+                    >
+                      <img src={img} alt={`${product.title} thumbnail ${i + 1}`} className="w-full h-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+              </FadeIn>
+            )}
           </div>
 
-          <div className="lg:col-span-5">
+          {/* Right Column - Details */}
+          <div className="flex flex-col">
             <FadeIn delay={0.2}>
-              <div className="sticky top-32">
-                <span className="font-sans text-xs tracking-wide-2 uppercase text-burgundy-600 mb-3 block">{product.category}</span>
-                <h1 className="heading-2 mb-4">{product.title}</h1>
-                <div className="font-serif text-3xl text-ink-950 mb-6 font-medium">₹{product.price.toLocaleString('en-IN')} <span className="text-sm text-ink-500 font-sans font-normal">(Base price / roll or sq.ft)</span></div>
-                
-                <div className="gold-divider-left mb-6" />
-                
-                <p className="body-text text-lg mb-8">{product.description}</p>
-
-                <div className="bg-grain rounded-sm p-6 mb-8 border border-ink-200/50">
-                  <h3 className="font-sans text-sm tracking-wide-2 uppercase text-ink-900 mb-4">Key Features</h3>
-                  <ul className="space-y-3">
-                    {product.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-3 text-ink-700">
-                        <div className="w-5 h-5 rounded-full bg-gold-400/20 flex items-center justify-center shrink-0 mt-0.5">
-                          <Check className="w-3 h-3 text-gold-600" />
-                        </div>
-                        <span className="body-text">{feature}</span>
+              <div className="flex items-center gap-3 mb-6">
+                <span className="bg-[#f0eee9] text-[#6b665c] px-3 py-1.5 rounded-full font-sans text-xs font-bold tracking-wide uppercase">
+                  {product.category}
+                </span>
+                <span className="text-[#6b665c] font-sans text-xs font-bold tracking-wide uppercase">
+                  {product.category} COLLECTION
+                </span>
+              </div>
+              
+              <h1 className="font-serif text-5xl md:text-6xl text-ink-950 mb-6 italic leading-tight">
+                {product.title}
+              </h1>
+              
+              <div className="font-serif text-3xl md:text-4xl text-ink-950 mb-8 font-medium flex items-baseline gap-2">
+                ₹{product.price.toLocaleString('en-IN')} 
+                <span className="font-sans text-sm font-semibold tracking-wider text-[#8b867c] uppercase">
+                  / PIECE
+                </span>
+              </div>
+              
+              <div className="w-full h-px bg-ink-200/40 mb-8" />
+              
+              {/* Description */}
+              <div className="mb-12">
+                <h3 className="font-sans text-xs font-bold tracking-widest uppercase text-[#8b867c] mb-3">About this piece</h3>
+                <p className="body-text text-[15px] text-[#4a4740] leading-relaxed">
+                  {product.description}
+                </p>
+                {/* Adding feature list if available, blending into description */}
+                {product.features && product.features.length > 0 && (
+                  <ul className="mt-4 space-y-2">
+                    {product.features.map((f, i) => (
+                      <li key={i} className="flex items-center gap-2 text-[15px] text-[#4a4740]">
+                        <span className="w-1 h-1 rounded-full bg-burgundy-400 block" /> {f}
                       </li>
                     ))}
                   </ul>
-                </div>
+                )}
+              </div>
 
-                <div className="bg-white rounded-sm p-6 border border-ink-200/50 shadow-sm">
-                  <h3 className="heading-4 mb-4">Interested in this product?</h3>
-                  <p className="body-text text-sm mb-6">Leave your details and our team will get back to you with a customized quote based on your measurements.</p>
-                  <EnquiryForm defaultService={product.title} compact />
-                </div>
+              {/* Action Buttons */}
+              <div className="flex items-center gap-4 mt-auto">
+                <button 
+                  onClick={() => {
+                    const text = `Hi, I am interested in ${product.title}. Please provide more details.\n\nLink: ${window.location.href}`;
+                    window.open(`https://wa.me/919023791865?text=${encodeURIComponent(text)}`, '_blank');
+                  }}
+                  className="flex-1 bg-[#22c55e] hover:bg-[#1ea34d] text-white py-4 px-6 rounded-2xl flex items-center justify-center gap-2 font-sans font-bold text-sm tracking-wide transition-colors shadow-sm"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                  Inquire on WhatsApp
+                </button>
               </div>
             </FadeIn>
           </div>
