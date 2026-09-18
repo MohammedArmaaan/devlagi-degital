@@ -104,7 +104,7 @@ export default function Home({ navigate }: Props) {
         </div>
 
         {/* Centered Text Overlay */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 md:p-12 z-10 pointer-events-none mt-16 pt-32 md:pt-48">
+        <div className="absolute inset-0 flex flex-col items-center justify-end text-center p-6 pb-24 md:pb-32 z-10 pointer-events-none">
           <AnimatePresence mode="wait">
             <motion.div
               key={selectedIndex}
@@ -114,7 +114,7 @@ export default function Home({ navigate }: Props) {
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
               className="max-w-5xl mx-auto flex flex-col items-center"
             >
-              <h1 className="font-serif text-5xl md:text-7xl lg:text-[6rem] text-white leading-[1.1] mb-6 md:mb-8 font-medium">
+              <h1 className="font-serif text-5xl md:text-7xl lg:text-[6rem] text-white leading-[1.1] mb-6 md:mb-8 font-medium drop-shadow-lg">
                 {heroSlides[selectedIndex].title.replace('.', '')}
                 <br />
                 {heroSlides[selectedIndex].subtitle.replace('.', '')}
