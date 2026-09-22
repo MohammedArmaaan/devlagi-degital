@@ -17,9 +17,9 @@ export type Route =
   | { name: 'terms' }
   | { name: 'returns' };
 
-function parseHash(): Route {
-  const hash = window.location.hash.replace(/^#\/?/, '');
-  const parts = hash.split('/').filter(Boolean);
+function parsePath(): Route {
+  const path = window.location.pathname.replace(/^\/?/, '');
+  const parts = path.split('/').filter(Boolean);
 
   if (parts.length === 0) return { name: 'home' };
   if (parts[0] === 'services' && parts.length === 1) return { name: 'services' };
@@ -40,19 +40,27 @@ function parseHash(): Route {
 }
 
 export function useRouter() {
-  const [route, setRoute] = useState<Route>(() => parseHash());
+  const [route, setRoute] = useState<Route>(() => parsePath());
 
   useEffect(() => {
     const onChange = () => {
-      setRoute(parseHash());
+      setRoute(parsePath());
       window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
     };
-    window.addEventListener('hashchange', onChange);
-    return () => window.removeEventListener('hashchange', onChange);
+    
+    window.addEventListener('popstate', onChange);
+    window.addEventListener('pushstate', onChange);
+    
+    return () => {
+      window.removeEventListener('popstate', onChange);
+      window.removeEventListener('pushstate', onChange);
+    };
   }, []);
 
   const navigate = useCallback((path: string) => {
-    window.location.hash = path;
+    const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+    window.history.pushState({}, '', normalizedPath);
+    window.dispatchEvent(new Event('pushstate'));
   }, []);
 
   return { route, navigate };
