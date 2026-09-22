@@ -12,6 +12,157 @@ export const business = {
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Devlaji+Digital+Home+Decor+Ahmedabad',
 };
 
+export type SubCategory = {
+  id: string;
+  slug: string;
+  title: string;
+  image: string;
+};
+
+export type Category = {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  image: string;
+  subcategories?: SubCategory[];
+};
+
+export const categories: Category[] = [
+  {
+    id: 'c1',
+    slug: 'wpc-wall-panel',
+    title: 'WPC Wall Panel',
+    description: 'Durable, water-resistant, and stylish wall panels for modern interiors.',
+    image: 'https://images.pexels.com/photos/1005058/pexels-photo-1005058.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    subcategories: [
+      { id: 'sc1-1', slug: 'fluted-panels', title: 'Fluted Panels', image: 'https://images.pexels.com/photos/1005058/pexels-photo-1005058.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc1-2', slug: 'wood-finish', title: 'Wood Finish', image: 'https://images.pexels.com/photos/172289/pexels-photo-172289.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+    ]
+  },
+  {
+    id: 'c2',
+    slug: 'wpc-cutout-wallpaper',
+    title: 'WPC Cutout Wallpaper',
+    description: 'Innovative cutout designs combined with WPC durability for feature walls.',
+    image: 'https://images.pexels.com/photos/12995673/pexels-photo-12995673.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    subcategories: [
+      { id: 'sc2-1', slug: 'geometric-cutout', title: 'Geometric', image: 'https://images.pexels.com/photos/1109015/pexels-photo-1109015.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc2-2', slug: 'floral-cutout', title: 'Floral Patterns', image: 'https://images.pexels.com/photos/2034335/pexels-photo-2034335.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+    ]
+  },
+  {
+    id: 'c3',
+    slug: 'metallic-wallpaper',
+    title: 'Metallic Wallpaper',
+    description: 'Add a touch of luxury and shine with our premium metallic finish wallpapers.',
+    image: 'https://images.pexels.com/photos/3705539/pexels-photo-3705539.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    subcategories: [
+      { id: 'sc3-1', slug: 'gold-foil', title: 'Gold Foil', image: 'https://images.pexels.com/photos/10123545/pexels-photo-10123545.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc3-2', slug: 'silver-accents', title: 'Silver Accents', image: 'https://images.pexels.com/photos/3629471/pexels-photo-3629471.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+    ]
+  },
+  {
+    id: 'c4',
+    slug: 'metallic-blinds',
+    title: 'Metallic Blinds',
+    description: 'Sleek, modern blinds with metallic finishes for contemporary light control.',
+    image: 'https://images.pexels.com/photos/205629/pexels-photo-205629.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    subcategories: [
+      { id: 'sc4-1', slug: 'venetian', title: 'Venetian Blinds', image: 'https://images.pexels.com/photos/168438/pexels-photo-168438.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc4-2', slug: 'roller', title: 'Roller Blinds', image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+    ]
+  },
+  {
+    id: 'c5',
+    slug: 'wall-murals',
+    title: 'Wall Murals',
+    description: 'Breathtaking, large-scale custom murals that transform your entire room.',
+    image: 'https://images.pexels.com/photos/135018/pexels-photo-135018.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    subcategories: [
+      { id: 'sc5-1', slug: 'nature', title: 'Nature & Landscapes', image: 'https://images.pexels.com/photos/1098982/pexels-photo-1098982.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc5-2', slug: 'abstract', title: 'Abstract Art', image: 'https://images.pexels.com/photos/1585325/pexels-photo-1585325.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+    ]
+  },
+  {
+    id: 'c6',
+    slug: 'metallic-glass-films',
+    title: 'Metallic Glass Films',
+    description: 'Reflective and privacy-enhancing glass films with a premium metallic sheen.',
+    image: 'https://images.pexels.com/photos/5869295/pexels-photo-5869295.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    subcategories: [
+      { id: 'sc6-1', slug: 'mirror-finish', title: 'Mirror Finish', image: 'https://images.pexels.com/photos/5869295/pexels-photo-5869295.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc6-2', slug: 'tinted-metallic', title: 'Tinted Metallic', image: 'https://images.pexels.com/photos/1098982/pexels-photo-1098982.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+    ]
+  },
+  {
+    id: 'c7',
+    slug: 'metallic-canvas-frames',
+    title: 'Metallic Canvas Frames',
+    description: 'Stunning wall art printed on canvas with metallic foil accents.',
+    image: 'https://images.pexels.com/photos/1838144/pexels-photo-1838144.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    subcategories: [
+      { id: 'sc7-1', slug: 'gold-leaf', title: 'Gold Leaf Art', image: 'https://images.pexels.com/photos/1838144/pexels-photo-1838144.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc7-2', slug: 'silver-brush', title: 'Silver Brush', image: 'https://images.pexels.com/photos/3705539/pexels-photo-3705539.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+    ]
+  },
+  {
+    id: 'c8',
+    slug: 'terra-floors',
+    title: 'Terra Floors',
+    description: 'Elegant, durable flooring solutions with natural textures and earthy tones.',
+    image: 'https://images.pexels.com/photos/209315/pexels-photo-209315.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    subcategories: [
+      { id: 'sc8-1', slug: 'terrazzo', title: 'Terrazzo Finish', image: 'https://images.pexels.com/photos/209315/pexels-photo-209315.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc8-2', slug: 'stone-texture', title: 'Stone Texture', image: 'https://images.pexels.com/photos/168438/pexels-photo-168438.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+    ]
+  },
+  {
+    id: 'c9',
+    slug: 'digital-curtains',
+    title: 'Digital Curtains',
+    description: 'High-definition digitally printed curtains to match your custom decor.',
+    image: 'https://images.pexels.com/photos/205629/pexels-photo-205629.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    subcategories: [
+      { id: 'sc9-1', slug: 'sheer', title: 'Sheer Curtains', image: 'https://images.pexels.com/photos/205629/pexels-photo-205629.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc9-2', slug: 'blackout', title: 'Blackout Curtains', image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+    ]
+  },
+  {
+    id: 'c10',
+    slug: 'blinds',
+    title: 'Blinds',
+    description: 'Classic and modern window blinds tailored to your exact measurements.',
+    image: 'https://images.pexels.com/photos/168438/pexels-photo-168438.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    subcategories: [
+      { id: 'sc10-1', slug: 'roman-blinds', title: 'Roman Blinds', image: 'https://images.pexels.com/photos/168438/pexels-photo-168438.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc10-2', slug: 'vertical-blinds', title: 'Vertical Blinds', image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+    ]
+  },
+  {
+    id: 'c11',
+    slug: 'decorative-glass-films',
+    title: 'Decorative Glass Films',
+    description: 'Frosted, patterned, and stained glass films for privacy and aesthetics.',
+    image: 'https://images.pexels.com/photos/29508048/pexels-photo-29508048.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    subcategories: [
+      { id: 'sc11-1', slug: 'frosted', title: 'Frosted Films', image: 'https://images.pexels.com/photos/5869295/pexels-photo-5869295.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc11-2', slug: 'stained-glass', title: 'Stained Glass', image: 'https://images.pexels.com/photos/1585325/pexels-photo-1585325.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+    ]
+  },
+  {
+    id: 'c12',
+    slug: 'canvas-frames',
+    title: 'Canvas Frames',
+    description: 'Custom printed canvas wall art stretched on premium wooden frames.',
+    image: 'https://images.pexels.com/photos/1838144/pexels-photo-1838144.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    subcategories: [
+      { id: 'sc12-1', slug: 'multi-panel', title: 'Multi-Panel Canvas', image: 'https://images.pexels.com/photos/1838144/pexels-photo-1838144.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc12-2', slug: 'single-panel', title: 'Single Panel', image: 'https://images.pexels.com/photos/135018/pexels-photo-135018.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+    ]
+  },
+];
+
 export type Service = {
   slug: string;
   title: string;

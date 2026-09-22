@@ -8,10 +8,14 @@ import Projects from '@/pages/Projects';
 import ProjectDetail from '@/pages/ProjectDetail';
 import Products from '@/pages/Products';
 import ProductDetail from '@/pages/ProductDetail';
+import CategoryDetail from '@/pages/CategoryDetail';
 import Brochures from '@/pages/Brochures';
 import About from '@/pages/About';
 import Contact from '@/pages/Contact';
-
+import Collections from '@/pages/Collections';
+import Privacy from '@/pages/Privacy';
+import Terms from '@/pages/Terms';
+import Returns from '@/pages/Returns';
 import MobileBottomBar from '@/components/MobileBottomBar';
 
 function App() {
@@ -33,12 +37,22 @@ function App() {
         return <Products navigate={navigate} />;
       case 'product':
         return <ProductDetail slug={route.slug} navigate={navigate} />;
+      case 'category':
+        return <CategoryDetail slug={route.slug} navigate={navigate} />;
+      case 'collections':
+        return <Collections navigate={navigate} />;
       case 'brochures':
         return <Brochures navigate={navigate} />;
       case 'about':
         return <About navigate={navigate} />;
       case 'contact':
         return <Contact />;
+      case 'privacy':
+        return <Privacy />;
+      case 'terms':
+        return <Terms />;
+      case 'returns':
+        return <Returns />;
       default:
         return <Home navigate={navigate} />;
     }

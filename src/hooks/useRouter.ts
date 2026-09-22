@@ -10,7 +10,12 @@ export type Route =
   | { name: 'product'; slug: string }
   | { name: 'brochures' }
   | { name: 'about' }
-  | { name: 'contact' };
+  | { name: 'contact' }
+  | { name: 'category'; slug: string }
+  | { name: 'collections' }
+  | { name: 'privacy' }
+  | { name: 'terms' }
+  | { name: 'returns' };
 
 function parseHash(): Route {
   const hash = window.location.hash.replace(/^#\/?/, '');
@@ -23,9 +28,14 @@ function parseHash(): Route {
   if (parts[0] === 'projects' && parts[1]) return { name: 'project', slug: parts[1] };
   if (parts[0] === 'products' && parts.length === 1) return { name: 'products' };
   if (parts[0] === 'products' && parts[1]) return { name: 'product', slug: parts[1] };
+  if (parts[0] === 'category' && parts[1]) return { name: 'category', slug: parts[1] };
   if (parts[0] === 'brochures') return { name: 'brochures' };
   if (parts[0] === 'about') return { name: 'about' };
   if (parts[0] === 'contact') return { name: 'contact' };
+  if (parts[0] === 'collections') return { name: 'collections' };
+  if (parts[0] === 'privacy') return { name: 'privacy' };
+  if (parts[0] === 'terms') return { name: 'terms' };
+  if (parts[0] === 'returns') return { name: 'returns' };
   return { name: 'home' };
 }
 

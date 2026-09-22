@@ -11,6 +11,7 @@ type Props = {
 
 const links = [
   { label: 'Home', path: '/' },
+  { label: 'Collections', path: '/collections' },
   { label: 'Services', path: '/services' },
   { label: 'Products', path: '/products' },
   { label: 'Projects', path: '/projects' },
@@ -21,6 +22,7 @@ const links = [
 
 function isActive(route: Route, path: string): boolean {
   if (path === '/') return route.name === 'home';
+  if (path === '/collections') return route.name === 'collections' || route.name === 'category';
   if (path === '/services') return route.name === 'services' || route.name === 'service';
   if (path === '/products') return route.name === 'products' || route.name === 'product';
   if (path === '/projects') return route.name === 'projects' || route.name === 'project';
@@ -37,6 +39,9 @@ export default function Navbar({ route, navigate }: Props) {
   const logoRef = useRef<HTMLDivElement>(null);
   const [offsets, setOffsets] = useState({ x: 0, y: 0 });
   const isHome = route.name === 'home';
+  
+  const noBannerRoutes = ['service', 'project', 'product', 'privacy', 'terms', 'returns'];
+  const hasBanner = !noBannerRoutes.includes(route.name);
 
   const { scrollY } = useScroll();
   // Map 0 to 300px of scroll to a progress of 0 to 1
@@ -93,15 +98,15 @@ export default function Navbar({ route, navigate }: Props) {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed z-50 transition-all duration-700 ease-lux ${
           scrolled 
-            ? 'top-4 left-4 right-4 lg:left-12 lg:right-12 rounded-2xl glass-strong py-0 border border-burgundy-600/10 shadow-[0_8px_30px_rgb(0,0,0,0.08)]' 
+            ? 'top-4 left-4 right-4 xl:left-12 xl:right-12 rounded-2xl glass-strong py-0 border border-burgundy-600/10 shadow-[0_8px_30px_rgb(0,0,0,0.08)]' 
             : 'top-0 left-0 right-0 bg-transparent py-4'
         }`}
       >
-        <div className="container-luxe px-4 lg:px-8">
+        <div className="container-luxe px-4 xl:px-8">
           <div className={`flex items-center justify-between transition-all duration-700 ${scrolled ? 'h-16 md:h-20' : 'h-20 md:h-24'}`}>
             <button
               onClick={() => navigate('/')}
-              className="flex items-center group relative h-14 md:h-16 w-[120px] md:w-[160px]"
+              className="flex items-center group relative h-14 md:h-16 w-[120px] md:w-[160px] shrink-0"
             >
               <div ref={logoRef} className="absolute left-0 top-1/2 -translate-y-1/2">
                 <motion.div
@@ -129,9 +134,8 @@ export default function Navbar({ route, navigate }: Props) {
               </div>
             </button>
 
-            <nav className="hidden lg:flex items-center gap-8">
+            <nav className="hidden xl:flex items-center gap-5 xl:gap-8">
               {links.map((link) => {
-                const hasBanner = !['service', 'project', 'product'].includes(route.name);
                 const isBannerTop = !scrolled && hasBanner;
                 const active = isActive(route, link.path);
                 
@@ -146,7 +150,7 @@ export default function Navbar({ route, navigate }: Props) {
                   <button
                     key={link.path}
                     onClick={() => navigate(link.path)}
-                    className={`relative font-sans text-sm tracking-wide-2 uppercase transition-colors duration-500 ${textColor}`}
+                    className={`relative font-sans text-xs tracking-wider uppercase transition-colors duration-500 whitespace-nowrap ${textColor}`}
                   >
                     {link.label}
                     {active && (
@@ -161,18 +165,18 @@ export default function Navbar({ route, navigate }: Props) {
               })}
             </nav>
 
-            <div className="hidden lg:flex items-center gap-4">
+            <div className="hidden xl:flex items-center gap-6 shrink-0">
               <a
                 href={`tel:${business.phoneRaw}`}
-                className={`flex items-center gap-2 transition-colors duration-500 font-sans text-sm ${
-                  !scrolled && !['service', 'project', 'product'].includes(route.name) ? 'text-white/90 hover:text-white' : 'text-ink-800 hover:text-burgundy-700'
+                className={`flex items-center gap-2 transition-colors duration-500 font-sans text-sm whitespace-nowrap ${
+                  !scrolled && hasBanner ? 'text-white/90 hover:text-white' : 'text-ink-800 hover:text-burgundy-700'
                 }`}
               >
                 <Phone className="w-4 h-4" />
                 <span>{business.phone}</span>
               </a>
-              <button onClick={() => navigate('/contact')} className={`px-5 py-2.5 rounded-sm font-sans text-xs tracking-wide-2 uppercase transition-all duration-500 ${
-                !scrolled && !['service', 'project', 'product'].includes(route.name)
+              <button onClick={() => navigate('/contact')} className={`px-6 py-2.5 rounded-sm font-sans text-xs font-semibold tracking-wider uppercase transition-all duration-500 whitespace-nowrap ${
+                !scrolled && hasBanner
                   ? 'bg-white text-ink-900 hover:bg-white/90'
                   : 'bg-burgundy-600 text-white hover:bg-burgundy-700'
               }`}>
@@ -182,8 +186,8 @@ export default function Navbar({ route, navigate }: Props) {
 
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className={`lg:hidden p-2 relative z-50 transition-colors duration-500 ${
-                !scrolled && !menuOpen && !['service', 'project', 'product'].includes(route.name) ? 'text-white' : 'text-ink-900'
+              className={`xl:hidden p-2 relative z-50 transition-colors duration-500 ${
+                !scrolled && !menuOpen && hasBanner ? 'text-white' : 'text-ink-900'
               }`}
               aria-label="Menu"
             >

@@ -1,4 +1,4 @@
-import { Home, Grid, ShoppingBag, Image, Phone } from 'lucide-react';
+import { Home, Grid, ShoppingBag, Image, Phone, Layers } from 'lucide-react';
 import { motion } from 'framer-motion';
 import type { Route } from '@/hooks/useRouter';
 
@@ -9,6 +9,7 @@ type Props = {
 
 const navItems = [
   { label: 'Home', path: '/', icon: Home, matchNames: ['home'] },
+  { label: 'Collections', path: '/collections', icon: Layers, matchNames: ['collections', 'category'] },
   { label: 'Services', path: '/services', icon: Grid, matchNames: ['services', 'service'] },
   { label: 'Products', path: '/products', icon: ShoppingBag, matchNames: ['products', 'product'] },
   { label: 'Projects', path: '/projects', icon: Image, matchNames: ['projects', 'project'] },
