@@ -24,10 +24,9 @@ export default function ServiceDetail({ slug, navigate }: Props) {
   const nextService = services[(currentIndex + 1) % services.length];
 
   return (
-    <div className="bg-white min-h-screen pt-20 md:pt-24">
-      <section className="relative h-[50vh] md:h-[60vh] overflow-hidden">
-        <motion.img initial={{ scale: 1.15 }} animate={{ scale: 1 }} transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }} src={service.image} alt={service.title} className="absolute inset-0 w-full h-full object-cover opacity-50" />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/60 to-ink-950/30" />
+    <div className="bg-white min-h-screen">
+      <section className="relative h-[60vh] md:h-[70vh] pt-32 overflow-hidden">
+        <motion.img initial={{ scale: 1.15 }} animate={{ scale: 1 }} transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }} src={service.image} alt={service.title} className="absolute inset-0 w-full h-full object-cover" />
         <div className="relative container-luxe h-full flex flex-col justify-end pb-12">
           <FadeIn>
             <button onClick={() => navigate('/services')} className="flex items-center gap-2 text-ink-700 hover:text-burgundy-700 transition-colors duration-500 mb-4 font-sans text-sm">

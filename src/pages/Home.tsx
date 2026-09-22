@@ -74,6 +74,13 @@ export default function Home({ navigate }: Props) {
 
   const [scrolled, setScrolled] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
+  const productsRef = useRef<HTMLDivElement>(null);
+  const scrollProducts = (direction: 'left' | 'right') => {
+    if (productsRef.current) {
+      const scrollAmount = window.innerWidth >= 1024 ? 400 : 300;
+      productsRef.current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
+    }
+  };
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end start'],
@@ -242,81 +249,105 @@ export default function Home({ navigate }: Props) {
           </FadeIn>
 
           <div className="relative min-h-[400px] md:min-h-[450px] flex items-center">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentServiceIdx}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.5, ease: 'easeOut' }}
-                className="w-full grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 items-center"
-              >
-                {/* Left Side - Text */}
-                <div className="order-2 md:order-1 text-center md:text-left flex flex-col justify-center">
-                  <h3 className="text-3xl md:text-4xl font-serif text-ink-950 mb-6 leading-tight">
-                    {services[currentServiceIdx].title}
-                  </h3>
-                  
-                  <p className="body-text text-ink-600 mb-8 md:mb-10 line-clamp-4 text-base md:text-lg">
-                    {services[currentServiceIdx].description}
-                  </p>
-                  
-                  <div>
-                    <button
-                      onClick={() => navigate(`/services/${services[currentServiceIdx].slug}`)}
-                      className="inline-flex items-center justify-center rounded-full border border-ink-200 px-8 py-3 text-ink-900 font-sans text-sm tracking-wide hover:border-burgundy-600 hover:text-burgundy-600 transition-colors duration-300"
+            <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+              {/* Left Side - Text */}
+              <div className="order-2 lg:order-1 flex flex-col justify-center h-full">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentServiceIdx}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <motion.h3 
+                      initial={{ opacity: 0, y: 15 }} 
+                      animate={{ opacity: 1, y: 0 }} 
+                      transition={{ duration: 0.4, delay: 0.1 }}
+                      className="text-3xl md:text-4xl lg:text-5xl font-serif text-ink-950 mb-6 leading-[1.15]"
                     >
-                      Read More
-                    </button>
-                  </div>
-                  
-                  {/* Indicators & Arrows */}
-                  <div className="flex items-center justify-center md:justify-start gap-4 mt-12">
-                    <button 
-                      onClick={() => setCurrentServiceIdx(prev => prev === 0 ? services.slice(0,3).length - 1 : prev - 1)}
-                      className="w-10 h-10 flex items-center justify-center rounded-full border border-ink-200 text-ink-600 hover:bg-ink-100 hover:text-burgundy-600 transition-colors"
-                      aria-label="Previous slide"
-                    >
-                      <ChevronLeft className="w-5 h-5" />
-                    </button>
+                      {services[currentServiceIdx].title}
+                    </motion.h3>
                     
-                    <div className="flex gap-2">
-                      {services.slice(0, 3).map((_, idx) => (
-                        <button
-                          key={idx}
-                          onClick={() => setCurrentServiceIdx(idx)}
-                          className={`transition-all duration-300 rounded-full ${
-                            currentServiceIdx === idx 
-                              ? 'w-8 h-2 bg-burgundy-600' 
-                              : 'w-2 h-2 bg-ink-200 hover:bg-ink-300'
-                          }`}
-                          aria-label={`Go to slide ${idx + 1}`}
-                        />
-                      ))}
-                    </div>
-
-                    <button 
-                      onClick={() => setCurrentServiceIdx(prev => (prev + 1) % services.slice(0,3).length)}
-                      className="w-10 h-10 flex items-center justify-center rounded-full border border-ink-200 text-ink-600 hover:bg-ink-100 hover:text-burgundy-600 transition-colors"
-                      aria-label="Next slide"
+                    <motion.p 
+                      initial={{ opacity: 0, y: 15 }} 
+                      animate={{ opacity: 1, y: 0 }} 
+                      transition={{ duration: 0.4, delay: 0.2 }}
+                      className="body-text text-ink-600 mb-8 md:mb-10 text-base md:text-lg leading-relaxed"
                     >
-                      <ChevronRight className="w-5 h-5" />
-                    </button>
+                      {services[currentServiceIdx].description}
+                    </motion.p>
+                    
+                    <motion.div
+                      initial={{ opacity: 0, y: 15 }} 
+                      animate={{ opacity: 1, y: 0 }} 
+                      transition={{ duration: 0.4, delay: 0.3 }}
+                    >
+                      <button
+                        onClick={() => navigate(`/services/${services[currentServiceIdx].slug}`)}
+                        className="inline-flex items-center justify-center rounded-sm bg-burgundy-600 text-white px-8 py-3.5 font-sans text-xs tracking-widest font-bold hover:bg-burgundy-700 transition-colors duration-300 shadow-sm"
+                      >
+                        READ MORE
+                      </button>
+                    </motion.div>
+                  </motion.div>
+                </AnimatePresence>
+                
+                {/* Indicators & Arrows - OUTSIDE ANIMATION */}
+                <div className="flex items-center gap-6 mt-12 pt-8 border-t border-ink-100 w-max">
+                  <button 
+                    onClick={() => setCurrentServiceIdx(prev => prev === 0 ? services.length - 1 : prev - 1)}
+                    className="w-12 h-12 flex items-center justify-center rounded-full border border-ink-200 text-ink-600 hover:bg-burgundy-600 hover:border-burgundy-600 hover:text-white transition-all"
+                    aria-label="Previous slide"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  
+                  <div className="flex gap-3 flex-wrap max-w-[150px] md:max-w-none">
+                    {services.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setCurrentServiceIdx(idx)}
+                        className={`transition-all duration-300 rounded-full ${
+                          currentServiceIdx === idx 
+                            ? 'w-10 h-2 bg-burgundy-600' 
+                            : 'w-2 h-2 bg-ink-200 hover:bg-ink-300'
+                        }`}
+                        aria-label={`Go to slide ${idx + 1}`}
+                      />
+                    ))}
                   </div>
-                </div>
 
-                {/* Right Side - Image */}
-                <div className="order-1 md:order-2">
-                  <div className="aspect-[4/3] md:aspect-[5/4] overflow-hidden rounded-2xl shadow-sm border border-ink-100">
+                  <button 
+                    onClick={() => setCurrentServiceIdx(prev => (prev + 1) % services.length)}
+                    className="w-12 h-12 flex items-center justify-center rounded-full border border-ink-200 text-ink-600 hover:bg-burgundy-600 hover:border-burgundy-600 hover:text-white transition-all"
+                    aria-label="Next slide"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Right Side - Image */}
+              <div className="order-1 lg:order-2 w-full">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentServiceIdx}
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -50 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    className="aspect-[4/3] lg:aspect-[5/4] overflow-hidden rounded-xl shadow-lg relative border border-ink-100"
+                  >
                     <img
                       src={services[currentServiceIdx].image}
                       alt={services[currentServiceIdx].title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-transform duration-[2s] hover:scale-105"
                     />
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
           </div>
 
           <div className="mt-16 md:mt-24 text-center">
@@ -330,65 +361,71 @@ export default function Home({ navigate }: Props) {
 
       {/* Products preview */}
       <section className="py-24 md:py-32 bg-grain relative overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-20 bg-gradient-to-b from-burgundy-600/40 to-transparent" />
         <div className="container-luxe">
           <FadeIn>
-            <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-16">
+            <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-8 md:mb-12">
               <div>
                 <div className="section-label mb-6">Shop Premium</div>
                 <h2 className="heading-2 text-balance"><AnimatedText text="New Arrivals" /></h2>
               </div>
-              <button onClick={() => navigate('/products')} className="btn-ghost group">
-                View All Products
-                <ArrowRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1" />
-              </button>
             </div>
           </FadeIn>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
-            {productsList.filter(p => p.isNewArrival).slice(0, 4).map((product, i) => (
-              <FadeIn key={product.slug} delay={i * 0.1}>
-                <TiltCard intensity={5} className="h-full">
-                  <div
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => navigate(`/products/${product.slug}`)}
-                    className="card-luxe group flex flex-col h-full glass-shine w-full text-left cursor-pointer"
-                  >
-                    <div className="aspect-square md:aspect-[4/3] overflow-hidden relative w-full">
-                      <img src={product.image} alt={product.title} className="w-full h-full object-cover transition-transform duration-[1.5s] ease-lux group-hover:scale-110" />
-                      <div className="absolute top-2 right-2 md:top-3 md:right-3 bg-burgundy-600 text-white px-1.5 py-0.5 md:px-2 md:py-1 rounded-sm z-10">
-                        <span className="font-sans text-[8px] md:text-[10px] tracking-widest uppercase font-semibold">New</span>
-                      </div>
-                      <div className="absolute inset-0 bg-gradient-to-t from-ink-950/60 via-transparent to-transparent opacity-60" />
-                    </div>
-                    <div className="p-3 md:p-4 flex flex-col flex-1">
-                      <span className="font-sans text-[9px] md:text-[10px] tracking-widest uppercase text-burgundy-600 mb-1 md:mb-1.5 block line-clamp-1">{product.category}</span>
-                      <h3 className="text-sm md:text-base font-serif text-ink-950 mb-2 md:mb-3 group-hover:text-burgundy-700 transition-colors duration-500 leading-snug line-clamp-2 min-h-[2.5rem] md:min-h-[2.75rem]">{product.title}</h3>
-                      
-                      <div className="flex flex-col gap-2 mt-auto pt-2 md:pt-3 border-t border-ink-100">
-                        <div className="flex items-center justify-between">
-                          <span className="font-serif text-sm md:text-base text-ink-950 font-medium">₹{product.price.toLocaleString('en-IN')}</span>
-                          <div className="flex items-center gap-1 md:gap-1.5 text-burgundy-600 font-sans text-[9px] md:text-[10px] tracking-widest uppercase">
-                            View <ArrowRight className="w-2.5 h-2.5 md:w-3 md:h-3 transition-transform duration-500 group-hover:translate-x-1" />
+          <div className="mt-8 md:mt-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+              {productsList.filter(p => p.isNewArrival).map((product, i) => (
+                <div key={product.slug} className="h-full">
+                  <FadeIn delay={i * 0.05} className="h-full">
+                    <TiltCard intensity={5} className="h-full">
+                      <div
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => navigate(`/products/${product.slug}`)}
+                        className="card-luxe group flex flex-col h-full glass-shine w-full text-left cursor-pointer"
+                      >
+                        <div className="aspect-square md:aspect-[4/3] overflow-hidden relative w-full">
+                          <img src={product.image} alt={product.title} className="w-full h-full object-cover transition-transform duration-[1.5s] ease-lux group-hover:scale-110" />
+                          <div className="absolute top-3 right-3 bg-burgundy-600 text-white px-2.5 py-1 rounded-sm z-10 shadow-md">
+                            <span className="font-sans text-[9px] md:text-[11px] tracking-widest uppercase font-bold">New</span>
+                          </div>
+                          <div className="absolute inset-0 bg-gradient-to-t from-ink-950/60 via-transparent to-transparent opacity-60" />
+                        </div>
+                        <div className="p-4 md:p-5 flex flex-col flex-1">
+                          <span className="font-sans text-[10px] md:text-xs tracking-widest uppercase text-burgundy-600 mb-1.5 md:mb-2 block line-clamp-1 font-semibold">{product.category}</span>
+                          <h3 className="text-base md:text-lg font-serif text-ink-950 mb-3 group-hover:text-burgundy-700 transition-colors duration-500 leading-snug line-clamp-2 min-h-[3rem]">{product.title}</h3>
+                          
+                          <div className="flex flex-col gap-3 mt-auto pt-3 md:pt-4 border-t border-ink-100">
+                            <div className="flex items-center justify-between">
+                              <span className="font-serif text-base md:text-lg text-ink-950 font-semibold">₹{product.price.toLocaleString('en-IN')}</span>
+                              <div className="flex items-center gap-1.5 text-burgundy-600 font-sans text-[10px] md:text-xs tracking-widest uppercase font-medium">
+                                View <ArrowRight className="w-3 h-3 transition-transform duration-500 group-hover:translate-x-1" />
+                              </div>
+                            </div>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                window.open(`https://wa.me/${business.phoneRaw.replace('+', '')}?text=${encodeURIComponent(`Hi, I am interested in ${product.title}`)}`, '_blank');
+                              }}
+                              className="w-full flex items-center justify-center gap-2 py-2 md:py-2.5 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-md font-sans text-[10px] md:text-xs font-bold tracking-widest transition-all shadow-sm hover:shadow-md"
+                            >
+                              <MessageCircle className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                              INQUIRE ON WHATSAPP
+                            </button>
                           </div>
                         </div>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            window.open(`https://wa.me/${business.phoneRaw.replace('+', '')}?text=${encodeURIComponent(`Hi, I am interested in ${product.title}`)}`, '_blank');
-                          }}
-                          className="w-full flex items-center justify-center gap-1.5 py-1.5 md:py-2 bg-[#25D366] hover:bg-[#128C7E] text-white rounded font-sans text-[9px] md:text-[10px] font-semibold tracking-wider transition-colors shadow-sm"
-                        >
-                          <MessageCircle className="w-3 h-3 md:w-3.5 md:h-3.5" />
-                          INQUIRE<span className="hidden lg:inline"> ON WHATSAPP</span>
-                        </button>
                       </div>
-                    </div>
-                  </div>
-                </TiltCard>
-              </FadeIn>
-            ))}
+                    </TiltCard>
+                  </FadeIn>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-4 text-center">
+            <button onClick={() => navigate('/products')} className="btn-primary group inline-flex items-center px-8 py-4">
+              <span className="text-sm tracking-widest font-bold">VIEW ALL PRODUCTS</span>
+              <ArrowRight className="w-4 h-4 ml-2 transition-transform duration-500 group-hover:translate-x-1" />
+            </button>
           </div>
         </div>
       </section>
@@ -544,7 +581,7 @@ export default function Home({ navigate }: Props) {
                     <div className="h-10 sm:h-24 bg-white w-full flex-shrink-0" />
                     
                     {/* Colored content area */}
-                    <div className="bg-burgundy-600 rounded-t-2xl sm:rounded-t-[2.5rem] flex-grow relative flex flex-col items-center text-center px-1.5 sm:px-6 pb-4 sm:pb-10 pt-8 sm:pt-16 mt-[-1px]">
+                    <div className="bg-burgundy-500 rounded-t-2xl sm:rounded-t-[2.5rem] flex-grow relative flex flex-col items-center text-center px-1.5 sm:px-6 pb-4 sm:pb-10 pt-8 sm:pt-16 mt-[-1px]">
                       
                       {/* Avatar overlapping the boundary */}
                       <div className="absolute -top-6 sm:-top-12 left-1/2 -translate-x-1/2 w-12 h-12 sm:w-24 sm:h-24 rounded-full border-[3px] sm:border-[6px] border-white bg-[#f4f2ee] shadow-sm overflow-hidden flex items-center justify-center">
