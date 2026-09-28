@@ -14,3 +14,6 @@ export default defineConfig({
     exclude: ['lucide-react'],
   },
 });
+
+// Trigger restart
+// Force Restart 3

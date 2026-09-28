@@ -5,16 +5,36 @@ import FadeIn from '@/components/FadeIn';
 import AnimatedText from '@/components/AnimatedText';
 import TiltCard from '@/components/TiltCard';
 import { productsList } from '@/lib/data';
+import LeadCaptureModal from '@/components/LeadCaptureModal';
+import { MessageCircle } from 'lucide-react';
 
 type Props = { navigate: (path: string) => void };
 const categories = ['All', 'Wallpaper', 'Glass Film'];
 
 export default function Products({ navigate }: Props) {
   const [filter, setFilter] = useState('All');
+  const [showLeadModal, setShowLeadModal] = useState(false);
+  const [selectedProductTitle, setSelectedProductTitle] = useState("");
+
+  const proceedToWhatsApp = (title: string) => {
+    const text = "Hi, I am interested in ";
+    window.open("https://wa.me/919023791865?text=", '_blank');
+  };
+
+  const handleEnquire = (e: React.MouseEvent, title: string) => {
+    e.stopPropagation();
+    if (!localStorage.getItem('lead_captured')) {
+      setSelectedProductTitle(title);
+      setShowLeadModal(true);
+    } else {
+      proceedToWhatsApp(title);
+    }
+  };
   const filtered = filter === 'All' ? productsList : productsList.filter((p) => p.category === filter);
 
   return (
     <div className="bg-white min-h-screen">
+      <LeadCaptureModal isOpen={showLeadModal} onClose={() => setShowLeadModal(false)} onSuccess={() => proceedToWhatsApp(selectedProductTitle)} productInterest={selectedProductTitle} />
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden flex items-center justify-center min-h-[50vh]">
         <div className="absolute inset-0 w-full h-full">
           <img 
@@ -60,7 +80,7 @@ export default function Products({ navigate }: Props) {
             </div>
           </FadeIn>
 
-          <motion.div layout className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          <motion.div layout className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
             <AnimatePresence mode="popLayout">
               {filtered.map((product, i) => (
                 <motion.div
@@ -108,4 +128,8 @@ export default function Products({ navigate }: Props) {
     </div>
   );
 }
+
+
+
+
 

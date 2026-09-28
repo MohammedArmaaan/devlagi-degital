@@ -15,13 +15,22 @@ export type Route =
   | { name: 'collections' }
   | { name: 'privacy' }
   | { name: 'terms' }
-  | { name: 'returns' };
+  | { name: 'returns' }
+  | { name: 'admin-login' }
+  | { name: 'admin-dashboard' }
+  | { name: 'admin-visitors' };
 
 function parsePath(): Route {
   const path = window.location.pathname.replace(/^\/?/, '');
   const parts = path.split('/').filter(Boolean);
 
   if (parts.length === 0) return { name: 'home' };
+    if (parts[0] === 'admin') {
+    if (parts.length === 1) return { name: 'admin-dashboard' };
+    if (parts[1] === 'login') return { name: 'admin-login' };
+    if (parts[1] === 'visitors') return { name: 'admin-visitors' };
+    return { name: 'admin-dashboard' };
+  }
   if (parts[0] === 'services' && parts.length === 1) return { name: 'services' };
   if (parts[0] === 'services' && parts[1]) return { name: 'service', slug: parts[1] };
   if (parts[0] === 'projects' && parts.length === 1) return { name: 'projects' };
@@ -65,3 +74,4 @@ export function useRouter() {
 
   return { route, navigate };
 }
+

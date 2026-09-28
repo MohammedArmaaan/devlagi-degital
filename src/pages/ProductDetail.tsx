@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 import FadeIn from '@/components/FadeIn';
 import { productsList } from '@/lib/data';
+import LeadCaptureModal from '@/components/LeadCaptureModal';
 
 type Props = {
   slug: string;
@@ -16,18 +17,30 @@ export default function ProductDetail({ slug, navigate }: Props) {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [backgroundPosition, setBackgroundPosition] = useState('0% 0%');
   const [isHovered, setIsHovered] = useState(false);
+  const [showLeadModal, setShowLeadModal] = useState(false);
   
   const allImages = product ? [product.image, ...(product.gallery || [])] : [];
 
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedImageIndex(0);
-  }, [slug]);
+    
+
+  }, [slug, product]);
+
+  const proceedToWhatsApp = () => {
+    if (!product) return;
+    const text = `Hi, I am interested in ${product.title}. Please provide more details.\n\nLink: \n${window.location.href}`;
+    window.open(`https://wa.me/919023791865?text=${encodeURIComponent(text)}`, '_blank');
+  };
 
   const handleEnquire = () => {
     if (!product) return;
-    const text = `Hi, I am interested in ${product.title}. Please provide more details.\n\nLink: ${window.location.href}`;
-    window.open(`https://wa.me/919023791865?text=${encodeURIComponent(text)}`, '_blank');
+    if (!localStorage.getItem('lead_captured')) {
+      setShowLeadModal(true);
+    } else {
+      proceedToWhatsApp();
+    }
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -223,3 +236,6 @@ export default function ProductDetail({ slug, navigate }: Props) {
     </div>
   );
 }
+
+
+

@@ -1,6 +1,12 @@
 import { useRouter } from '@/hooks/useRouter';
+
+// Public Layout Components
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import MobileBottomBar from '@/components/MobileBottomBar';
+import CookieBanner from '@/components/CookieBanner';
+
+// Public Pages
 import Home from '@/pages/Home';
 import Services from '@/pages/Services';
 import ServiceDetail from '@/pages/ServiceDetail';
@@ -16,12 +22,18 @@ import Collections from '@/pages/Collections';
 import Privacy from '@/pages/Privacy';
 import Terms from '@/pages/Terms';
 import Returns from '@/pages/Returns';
-import MobileBottomBar from '@/components/MobileBottomBar';
+
+// Admin Layout & Pages
+import AdminLayout from '@/layouts/AdminLayout';
+import AdminLogin from '@/pages/admin/Login';
+import AdminDashboard from '@/pages/admin/Dashboard';
 
 function App() {
   const { route, navigate } = useRouter();
 
-  const renderPage = () => {
+  const isAdminRoute = route.name.startsWith('admin');
+
+  const renderPublicPage = () => {
     switch (route.name) {
       case 'home':
         return <Home navigate={navigate} />;
@@ -58,16 +70,44 @@ function App() {
     }
   };
 
+  const renderAdminPage = () => {
+    switch (route.name) {
+      case 'admin-login':
+        return <AdminLogin navigate={navigate} />;
+      case 'admin-dashboard':
+        return <AdminDashboard navigate={navigate} />;
+
+      default:
+        return <AdminDashboard navigate={navigate} />;
+    }
+  };
+
+  // If it's an admin route, completely bypass the public layout
+  if (isAdminRoute) {
+    return (
+      <AdminLayout navigate={navigate} currentRoute={route.name}>
+        {renderAdminPage()}
+      </AdminLayout>
+    );
+  }
+
+  // Otherwise, render standard public layout
   return (
     <div className="min-h-screen bg-ink-50 pb-20 lg:pb-0 relative">
       <Navbar route={route} navigate={navigate} />
       <main key={route.name + ('slug' in route ? route.slug : '')} className="animate-fade-in">
-        {renderPage()}
+        {renderPublicPage()}
       </main>
       <Footer navigate={navigate} />
       <MobileBottomBar route={route} navigate={navigate} />
+      <CookieBanner />
     </div>
   );
 }
 
 export default App;
+
+
+
+
+

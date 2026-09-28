@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { services } from '@/lib/data';
@@ -18,7 +18,9 @@ export default function EnquiryForm({ defaultService = '', compact = false }: Pr
     message: '',
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [errorMsg, setErrorMsg] = useState('');
+    const [errorMsg, setErrorMsg] = useState('');
+
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -209,3 +211,7 @@ export default function EnquiryForm({ defaultService = '', compact = false }: Pr
     </form>
   );
 }
+
+
+
+

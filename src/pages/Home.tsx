@@ -18,6 +18,8 @@ import { useRef, useEffect, useState, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import AnimatedText from '@/components/AnimatedText';
+import LeadCaptureModal from '@/components/LeadCaptureModal';
+import TestimonialCard from '@/components/TestimonialCard';
 import FadeIn from '@/components/FadeIn';
 import TiltCard from '@/components/TiltCard';
 import Parallax from '@/components/Parallax';
@@ -63,6 +65,23 @@ export default function Home({ navigate }: Props) {
   }, []);
 
   const [currentServiceIdx, setCurrentServiceIdx] = useState(0);
+  const [showLeadModal, setShowLeadModal] = useState(false);
+  const [selectedProductTitle, setSelectedProductTitle] = useState("");
+
+  const proceedToWhatsApp = (title: string) => {
+    const text = 'Hi, I am interested in ' + title;
+    window.open('https://wa.me/919023791865?text=' + encodeURIComponent(text), '_blank');
+  };
+
+  const handleEnquire = (e: React.MouseEvent, title: string) => {
+    e.stopPropagation();
+    if (!localStorage.getItem('lead_captured')) {
+      setSelectedProductTitle(title);
+      setShowLeadModal(true);
+    } else {
+      proceedToWhatsApp(title);
+    }
+  };
   const [currentProjectIdx, setCurrentProjectIdx] = useState(0);
 
   useEffect(() => {
@@ -99,6 +118,7 @@ export default function Home({ navigate }: Props) {
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 30 }, [Autoplay({ delay: 5000, stopOnInteraction: false })]);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [testimonialRef, testimonialApi] = useEmblaCarousel({ loop: true, align: 'center' }, [Autoplay({ delay: 6000, stopOnInteraction: false })]);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
@@ -372,7 +392,7 @@ export default function Home({ navigate }: Props) {
           </FadeIn>
 
           <div className="mt-8 md:mt-12">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
               {productsList.filter(p => p.isNewArrival).map((product, i) => (
                 <div key={product.slug} className="h-full">
                   <FadeIn delay={i * 0.05} className="h-full">
@@ -402,15 +422,12 @@ export default function Home({ navigate }: Props) {
                               </div>
                             </div>
                             <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                window.open(`https://wa.me/${business.phoneRaw.replace('+', '')}?text=${encodeURIComponent(`Hi, I am interested in ${product.title}`)}`, '_blank');
-                              }}
-                              className="w-full flex items-center justify-center gap-2 py-2 md:py-2.5 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-md font-sans text-[10px] md:text-xs font-bold tracking-widest transition-all shadow-sm hover:shadow-md"
-                            >
-                              <MessageCircle className="w-3.5 h-3.5 md:w-4 md:h-4" />
-                              INQUIRE ON WHATSAPP
-                            </button>
+                              onClick={(e) => handleEnquire(e, product.title)}
+                                className="w-full flex items-center justify-center gap-1.5 py-1.5 md:py-2 bg-[#25D366] hover:bg-[#128C7E] text-white rounded font-sans text-[9px] md:text-[10px] font-bold tracking-widest transition-all shadow-sm hover:shadow-md"
+                              >
+                                <MessageCircle className="w-3.5 h-3.5" />
+                                INQUIRE
+                              </button>
                           </div>
                         </div>
                       </div>
@@ -557,60 +574,42 @@ export default function Home({ navigate }: Props) {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-2 sm:gap-6 lg:gap-8">
+                        <div className="w-full max-w-4xl mx-auto overflow-hidden" ref={testimonialRef}>
+              <div className="flex">
               {[
                 {
-                  text: "Excellent quality and professional service. The decorative glass film they installed transformed our office completely. Highly recommended for anyone looking for customized decor solutions in Ahmedabad.",
-                  author: "Anil Patel",
-                  initial: "A"
+                  quote: "Excellent quality and professional service. The decorative glass film they installed transformed our office completely. Highly recommended for anyone looking for customized decor solutions.",
+                  name: "Anil Patel",
+                  title: "Business Owner",
+                  image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop"
                 },
                 {
-                  text: "Very impressed with their wallpaper collection and installation. The team was punctual, polite, and left everything spotless. Our living room looks incredibly elegant now.",
-                  author: "Priya Sharma",
-                  initial: "P"
+                  quote: "Very impressed with their wallpaper collection and installation. The team was punctual, polite, and left everything spotless. Our living room looks incredibly elegant now.",
+                  name: "Priya Sharma",
+                  title: "Interior Designer",
+                  image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop"
                 },
                 {
-                  text: "Devlaji Digital provided customized blinds for our new restaurant. The print quality is fantastic and the material is top-notch. Great value for money and excellent support.",
-                  author: "Rahul Desai",
-                  initial: "R"
+                  quote: "Devlaji Digital provided customized blinds for our new restaurant. The print quality is fantastic and the material is top-notch. Great value for money and excellent support.",
+                  name: "Rahul Desai",
+                  title: "Restaurant Manager",
+                  image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop"
                 }
               ].map((review, idx) => (
-                <TiltCard key={idx} intensity={2}>
-                  <div className="bg-white rounded-xl overflow-hidden h-full flex flex-col shadow-sm hover:shadow-xl transition-all duration-500 border border-ink-100">
-                    {/* Top white space */}
-                    <div className="h-10 sm:h-24 bg-white w-full flex-shrink-0" />
-                    
-                    {/* Colored content area */}
-                    <div className="bg-burgundy-500 rounded-t-2xl sm:rounded-t-[2.5rem] flex-grow relative flex flex-col items-center text-center px-1.5 sm:px-6 pb-4 sm:pb-10 pt-8 sm:pt-16 mt-[-1px]">
-                      
-                      {/* Avatar overlapping the boundary */}
-                      <div className="absolute -top-6 sm:-top-12 left-1/2 -translate-x-1/2 w-12 h-12 sm:w-24 sm:h-24 rounded-full border-[3px] sm:border-[6px] border-white bg-[#f4f2ee] shadow-sm overflow-hidden flex items-center justify-center">
-                        <span className="font-serif text-base sm:text-3xl text-burgundy-900 font-bold">{review.initial}</span>
-                      </div>
-
-                      <Quote className="w-3 h-3 sm:w-8 sm:h-8 text-white/20 fill-white/20 absolute top-2 sm:top-8 left-1 sm:left-6 rotate-180" />
-                      
-                      <p className="font-sans text-[8px] sm:text-[15px] md:text-base text-white/95 leading-tight sm:leading-relaxed z-10 px-1 sm:px-4 mb-4 sm:mb-8 mt-1 sm:mt-2 line-clamp-6 sm:line-clamp-none">
-                        {review.text}
-                      </p>
-
-                      <Quote className="w-3 h-3 sm:w-8 sm:h-8 text-white/20 fill-white/20 absolute bottom-10 sm:bottom-20 right-1 sm:right-6" />
-
-                      <div className="mt-auto">
-                        <h4 className="font-sans text-[7px] sm:text-sm text-white font-bold tracking-widest uppercase mb-1 sm:mb-2">
-                          {review.author}
-                        </h4>
-                        <div className="flex items-center justify-center gap-0.5 sm:gap-1">
-                          {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="w-2 h-2 sm:w-3.5 sm:h-3.5 fill-[#e8b560] text-[#e8b560]" />
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </TiltCard>
+                <div 
+                  key={idx}
+                  className="w-full flex-[0_0_100%] min-w-0 flex justify-center px-4"
+                >
+                  <TestimonialCard 
+                    name={review.name}
+                    title={review.title}
+                    image={review.image}
+                    quote={review.quote}
+                  />
+                </div>
               ))}
             </div>
+                </div>
           </FadeIn>
         </div>
       </section>
@@ -653,3 +652,23 @@ export default function Home({ navigate }: Props) {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

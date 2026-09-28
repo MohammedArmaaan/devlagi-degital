@@ -34,10 +34,10 @@ export const categories: Category[] = [
     slug: 'wpc-wall-panel',
     title: 'WPC Wall Panel',
     description: 'Durable, water-resistant, and stylish wall panels for modern interiors.',
-    image: 'https://images.pexels.com/photos/1005058/pexels-photo-1005058.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     subcategories: [
-      { id: 'sc1-1', slug: 'fluted-panels', title: 'Fluted Panels', image: 'https://images.pexels.com/photos/1005058/pexels-photo-1005058.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
-      { id: 'sc1-2', slug: 'wood-finish', title: 'Wood Finish', image: 'https://images.pexels.com/photos/172289/pexels-photo-172289.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc1-1', slug: 'fluted-panels', title: 'Fluted Panels', image: 'https://picsum.photos/800/600' },
+      { id: 'sc1-2', slug: 'wood-finish', title: 'Wood Finish', image: 'https://picsum.photos/800/600' },
     ]
   },
   {
@@ -45,10 +45,10 @@ export const categories: Category[] = [
     slug: 'wpc-cutout-wallpaper',
     title: 'WPC Cutout Wallpaper',
     description: 'Innovative cutout designs combined with WPC durability for feature walls.',
-    image: 'https://images.pexels.com/photos/12995673/pexels-photo-12995673.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     subcategories: [
-      { id: 'sc2-1', slug: 'geometric-cutout', title: 'Geometric', image: 'https://images.pexels.com/photos/1109015/pexels-photo-1109015.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
-      { id: 'sc2-2', slug: 'floral-cutout', title: 'Floral Patterns', image: 'https://images.pexels.com/photos/2034335/pexels-photo-2034335.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc2-1', slug: 'geometric-cutout', title: 'Geometric', image: 'https://picsum.photos/800/600' },
+      { id: 'sc2-2', slug: 'floral-cutout', title: 'Floral Patterns', image: 'https://picsum.photos/800/600' },
     ]
   },
   {
@@ -56,10 +56,10 @@ export const categories: Category[] = [
     slug: 'metallic-wallpaper',
     title: 'Metallic Wallpaper',
     description: 'Add a touch of luxury and shine with our premium metallic finish wallpapers.',
-    image: 'https://images.pexels.com/photos/3705539/pexels-photo-3705539.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     subcategories: [
-      { id: 'sc3-1', slug: 'gold-foil', title: 'Gold Foil', image: 'https://images.pexels.com/photos/10123545/pexels-photo-10123545.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
-      { id: 'sc3-2', slug: 'silver-accents', title: 'Silver Accents', image: 'https://images.pexels.com/photos/3629471/pexels-photo-3629471.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc3-1', slug: 'gold-foil', title: 'Gold Foil', image: 'https://picsum.photos/800/600' },
+      { id: 'sc3-2', slug: 'silver-accents', title: 'Silver Accents', image: 'https://picsum.photos/800/600' },
     ]
   },
   {
@@ -67,10 +67,10 @@ export const categories: Category[] = [
     slug: 'metallic-blinds',
     title: 'Metallic Blinds',
     description: 'Sleek, modern blinds with metallic finishes for contemporary light control.',
-    image: 'https://images.pexels.com/photos/205629/pexels-photo-205629.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     subcategories: [
-      { id: 'sc4-1', slug: 'venetian', title: 'Venetian Blinds', image: 'https://images.pexels.com/photos/168438/pexels-photo-168438.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
-      { id: 'sc4-2', slug: 'roller', title: 'Roller Blinds', image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc4-1', slug: 'venetian', title: 'Venetian Blinds', image: 'https://picsum.photos/800/600' },
+      { id: 'sc4-2', slug: 'roller', title: 'Roller Blinds', image: 'https://picsum.photos/800/600' },
     ]
   },
   {
@@ -78,10 +78,10 @@ export const categories: Category[] = [
     slug: 'wall-murals',
     title: 'Wall Murals',
     description: 'Breathtaking, large-scale custom murals that transform your entire room.',
-    image: 'https://images.pexels.com/photos/135018/pexels-photo-135018.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     subcategories: [
-      { id: 'sc5-1', slug: 'nature', title: 'Nature & Landscapes', image: 'https://images.pexels.com/photos/1098982/pexels-photo-1098982.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
-      { id: 'sc5-2', slug: 'abstract', title: 'Abstract Art', image: 'https://images.pexels.com/photos/1585325/pexels-photo-1585325.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc5-1', slug: 'nature', title: 'Nature & Landscapes', image: 'https://picsum.photos/800/600' },
+      { id: 'sc5-2', slug: 'abstract', title: 'Abstract Art', image: 'https://picsum.photos/800/600' },
     ]
   },
   {
@@ -89,10 +89,10 @@ export const categories: Category[] = [
     slug: 'metallic-glass-films',
     title: 'Metallic Glass Films',
     description: 'Reflective and privacy-enhancing glass films with a premium metallic sheen.',
-    image: 'https://images.pexels.com/photos/5869295/pexels-photo-5869295.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     subcategories: [
-      { id: 'sc6-1', slug: 'mirror-finish', title: 'Mirror Finish', image: 'https://images.pexels.com/photos/5869295/pexels-photo-5869295.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
-      { id: 'sc6-2', slug: 'tinted-metallic', title: 'Tinted Metallic', image: 'https://images.pexels.com/photos/1098982/pexels-photo-1098982.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc6-1', slug: 'mirror-finish', title: 'Mirror Finish', image: 'https://picsum.photos/800/600' },
+      { id: 'sc6-2', slug: 'tinted-metallic', title: 'Tinted Metallic', image: 'https://picsum.photos/800/600' },
     ]
   },
   {
@@ -100,10 +100,10 @@ export const categories: Category[] = [
     slug: 'metallic-canvas-frames',
     title: 'Metallic Canvas Frames',
     description: 'Stunning wall art printed on canvas with metallic foil accents.',
-    image: 'https://images.pexels.com/photos/1838144/pexels-photo-1838144.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     subcategories: [
-      { id: 'sc7-1', slug: 'gold-leaf', title: 'Gold Leaf Art', image: 'https://images.pexels.com/photos/1838144/pexels-photo-1838144.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
-      { id: 'sc7-2', slug: 'silver-brush', title: 'Silver Brush', image: 'https://images.pexels.com/photos/3705539/pexels-photo-3705539.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc7-1', slug: 'gold-leaf', title: 'Gold Leaf Art', image: 'https://picsum.photos/800/600' },
+      { id: 'sc7-2', slug: 'silver-brush', title: 'Silver Brush', image: 'https://picsum.photos/800/600' },
     ]
   },
   {
@@ -111,10 +111,10 @@ export const categories: Category[] = [
     slug: 'terra-floors',
     title: 'Terra Floors',
     description: 'Elegant, durable flooring solutions with natural textures and earthy tones.',
-    image: 'https://images.pexels.com/photos/209315/pexels-photo-209315.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     subcategories: [
-      { id: 'sc8-1', slug: 'terrazzo', title: 'Terrazzo Finish', image: 'https://images.pexels.com/photos/209315/pexels-photo-209315.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
-      { id: 'sc8-2', slug: 'stone-texture', title: 'Stone Texture', image: 'https://images.pexels.com/photos/168438/pexels-photo-168438.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc8-1', slug: 'terrazzo', title: 'Terrazzo Finish', image: 'https://picsum.photos/800/600' },
+      { id: 'sc8-2', slug: 'stone-texture', title: 'Stone Texture', image: 'https://picsum.photos/800/600' },
     ]
   },
   {
@@ -122,10 +122,10 @@ export const categories: Category[] = [
     slug: 'digital-curtains',
     title: 'Digital Curtains',
     description: 'High-definition digitally printed curtains to match your custom decor.',
-    image: 'https://images.pexels.com/photos/205629/pexels-photo-205629.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     subcategories: [
-      { id: 'sc9-1', slug: 'sheer', title: 'Sheer Curtains', image: 'https://images.pexels.com/photos/205629/pexels-photo-205629.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
-      { id: 'sc9-2', slug: 'blackout', title: 'Blackout Curtains', image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc9-1', slug: 'sheer', title: 'Sheer Curtains', image: 'https://picsum.photos/800/600' },
+      { id: 'sc9-2', slug: 'blackout', title: 'Blackout Curtains', image: 'https://picsum.photos/800/600' },
     ]
   },
   {
@@ -133,10 +133,10 @@ export const categories: Category[] = [
     slug: 'blinds',
     title: 'Blinds',
     description: 'Classic and modern window blinds tailored to your exact measurements.',
-    image: 'https://images.pexels.com/photos/168438/pexels-photo-168438.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     subcategories: [
-      { id: 'sc10-1', slug: 'roman-blinds', title: 'Roman Blinds', image: 'https://images.pexels.com/photos/168438/pexels-photo-168438.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
-      { id: 'sc10-2', slug: 'vertical-blinds', title: 'Vertical Blinds', image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc10-1', slug: 'roman-blinds', title: 'Roman Blinds', image: 'https://picsum.photos/800/600' },
+      { id: 'sc10-2', slug: 'vertical-blinds', title: 'Vertical Blinds', image: 'https://picsum.photos/800/600' },
     ]
   },
   {
@@ -144,10 +144,10 @@ export const categories: Category[] = [
     slug: 'decorative-glass-films',
     title: 'Decorative Glass Films',
     description: 'Frosted, patterned, and stained glass films for privacy and aesthetics.',
-    image: 'https://images.pexels.com/photos/29508048/pexels-photo-29508048.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     subcategories: [
-      { id: 'sc11-1', slug: 'frosted', title: 'Frosted Films', image: 'https://images.pexels.com/photos/5869295/pexels-photo-5869295.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
-      { id: 'sc11-2', slug: 'stained-glass', title: 'Stained Glass', image: 'https://images.pexels.com/photos/1585325/pexels-photo-1585325.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc11-1', slug: 'frosted', title: 'Frosted Films', image: 'https://picsum.photos/800/600' },
+      { id: 'sc11-2', slug: 'stained-glass', title: 'Stained Glass', image: 'https://picsum.photos/800/600' },
     ]
   },
   {
@@ -155,10 +155,10 @@ export const categories: Category[] = [
     slug: 'canvas-frames',
     title: 'Canvas Frames',
     description: 'Custom printed canvas wall art stretched on premium wooden frames.',
-    image: 'https://images.pexels.com/photos/1838144/pexels-photo-1838144.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     subcategories: [
-      { id: 'sc12-1', slug: 'multi-panel', title: 'Multi-Panel Canvas', image: 'https://images.pexels.com/photos/1838144/pexels-photo-1838144.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
-      { id: 'sc12-2', slug: 'single-panel', title: 'Single Panel', image: 'https://images.pexels.com/photos/135018/pexels-photo-135018.jpeg?auto=compress&cs=tinysrgb&h=400&w=400' },
+      { id: 'sc12-1', slug: 'multi-panel', title: 'Multi-Panel Canvas', image: 'https://picsum.photos/800/600' },
+      { id: 'sc12-2', slug: 'single-panel', title: 'Single Panel', image: 'https://picsum.photos/800/600' },
     ]
   },
 ];
@@ -190,7 +190,7 @@ export const services: Service[] = [
       'Professional installation included',
     ],
     applications: ['Office partitions', 'Home doors & windows', 'Conference rooms', 'Retail displays', 'Bathroom privacy', 'Shopfronts'],
-    image: 'https://images.pexels.com/photos/29508048/pexels-photo-29508048.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     icon: 'Layers',
   },
   {
@@ -208,7 +208,7 @@ export const services: Service[] = [
       'Full installation service',
     ],
     applications: ['Living rooms', 'Bedrooms', 'Office reception areas', 'Hotel lobbies', 'Restaurant interiors', 'Feature walls'],
-    image: 'https://images.pexels.com/photos/8089172/pexels-photo-8089172.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     icon: 'Wallpaper',
   },
   {
@@ -226,7 +226,7 @@ export const services: Service[] = [
       'Professional seamless application',
     ],
     applications: ['Bathroom windows', 'Office meeting rooms', 'Street-facing shopfronts', 'Bedroom partitions', 'Hospital cubicles', 'Clinic doors'],
-    image: 'https://images.pexels.com/photos/5869295/pexels-photo-5869295.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     icon: 'EyeOff',
   },
   {
@@ -244,7 +244,7 @@ export const services: Service[] = [
       'Long-lasting performance',
     ],
     applications: ['Home windows', 'Office buildings', 'Retail storefronts', 'Showrooms', 'Glass facades', 'Skylights'],
-    image: 'https://images.pexels.com/photos/1098982/pexels-photo-1098982.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     icon: 'Sun',
   },
   {
@@ -262,7 +262,7 @@ export const services: Service[] = [
       'After-installation support',
     ],
     applications: ['Living rooms', 'Bedrooms', 'Kitchens', 'Bathrooms', 'Hallways & staircases', 'Home offices'],
-    image: 'https://images.pexels.com/photos/6585757/pexels-photo-6585757.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     icon: 'Home',
   },
   {
@@ -280,7 +280,7 @@ export const services: Service[] = [
       'Maintenance and replacement services',
     ],
     applications: ['Corporate offices', 'Retail showrooms', 'Hotels & restaurants', 'Clinics & hospitals', 'Educational institutes', 'Shopping malls'],
-    image: 'https://images.pexels.com/photos/7511755/pexels-photo-7511755.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     icon: 'Building2',
   },
 ];
@@ -306,11 +306,11 @@ export const projects: Project[] = [
     requirement: 'The client wanted a striking feature wall for their living room that would serve as a conversation piece while complementing their minimalist furniture.',
     solution: 'We designed and manufactured a custom geometric wallpaper in warm charcoal tones with subtle gold accents. The wallpaper was printed in-house on premium matte substrate and installed seamlessly across a 14-foot wall.',
     materials: 'Custom-printed matte wallpaper, gold-foil accent strips',
-    image: 'https://images.pexels.com/photos/279719/pexels-photo-279719.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     gallery: [
-      'https://images.pexels.com/photos/279719/pexels-photo-279719.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-      'https://images.pexels.com/photos/7545494/pexels-photo-7545494.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-      'https://images.pexels.com/photos/7535020/pexels-photo-7535020.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+      'https://picsum.photos/800/600',
+      'https://picsum.photos/800/600',
+      'https://picsum.photos/800/600',
     ],
   },
   {
@@ -321,11 +321,11 @@ export const projects: Project[] = [
     requirement: 'A growing company needed to divide their open office into meeting spaces while maintaining light flow and adding subtle branding.',
     solution: 'We installed custom-printed decorative glass film on existing glass partitions, featuring a geometric line-art pattern in the company brand colours. The film provided privacy for meetings while keeping the space bright and open.',
     materials: 'Custom-printed decorative glass film, application tools',
-    image: 'https://images.pexels.com/photos/7511755/pexels-photo-7511755.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     gallery: [
-      'https://images.pexels.com/photos/7511755/pexels-photo-7511755.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-      'https://images.pexels.com/photos/5869295/pexels-photo-5869295.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-      'https://images.pexels.com/photos/6794935/pexels-photo-6794935.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+      'https://picsum.photos/800/600',
+      'https://picsum.photos/800/600',
+      'https://picsum.photos/800/600',
     ],
   },
   {
@@ -336,11 +336,11 @@ export const projects: Project[] = [
     requirement: 'A homeowner wanted to transform their master bedroom into a serene, hotel-suite-like retreat with textured wallpaper and privacy film on the windows.',
     solution: 'We installed a soft, textured wallpaper in warm ivory tones across all four walls, then applied a gradient frosted film to the bedroom windows for privacy without losing natural light.',
     materials: 'Textured ivory wallpaper, gradient frosted privacy film',
-    image: 'https://images.pexels.com/photos/6585757/pexels-photo-6585757.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     gallery: [
-      'https://images.pexels.com/photos/6585757/pexels-photo-6585757.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-      'https://images.pexels.com/photos/6782568/pexels-photo-6782568.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-      'https://images.pexels.com/photos/17735412/pexels-photo-17735412.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+      'https://picsum.photos/800/600',
+      'https://picsum.photos/800/600',
+      'https://picsum.photos/800/600',
     ],
   },
   {
@@ -351,11 +351,11 @@ export const projects: Project[] = [
     requirement: 'A fashion boutique needed a distinctive interior that would showcase their products while creating an Instagram-worthy atmosphere.',
     solution: 'We combined custom-printed wallpaper with decorative glass film on the storefront windows. The wallpaper featured a subtle damask pattern in charcoal, while the storefront film provided UV protection for the merchandise and added a branded frosted border.',
     materials: 'Custom damask wallpaper, UV-protection storefront film, branded frosted border film',
-    image: 'https://images.pexels.com/photos/8386654/pexels-photo-8386654.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     gallery: [
-      'https://images.pexels.com/photos/8386654/pexels-photo-8386654.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-      'https://images.pexels.com/photos/32549949/pexels-photo-32549949.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-      'https://images.pexels.com/photos/8311880/pexels-photo-8311880.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+      'https://picsum.photos/800/600',
+      'https://picsum.photos/800/600',
+      'https://picsum.photos/800/600',
     ],
   },
   {
@@ -366,11 +366,11 @@ export const projects: Project[] = [
     requirement: 'A corporate office needed to add privacy to their glass-walled conference room without making the space feel closed off.',
     solution: 'We applied a custom gradient frosted film that transitions from fully transparent at eye level to opaque at the bottom, providing privacy for seated meetings while keeping the glass visible at standing height.',
     materials: 'Gradient frosted decorative film, precision-cut application',
-    image: 'https://images.pexels.com/photos/260689/pexels-photo-260689.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     gallery: [
-      'https://images.pexels.com/photos/260689/pexels-photo-260689.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-      'https://images.pexels.com/photos/5483051/pexels-photo-5483051.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-      'https://images.pexels.com/photos/7534210/pexels-photo-7534210.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+      'https://picsum.photos/800/600',
+      'https://picsum.photos/800/600',
+      'https://picsum.photos/800/600',
     ],
   },
   {
@@ -381,11 +381,11 @@ export const projects: Project[] = [
     requirement: 'A family wanted to bring old-world elegance to their dining room with a classic pattern that would suit their traditional furniture.',
     solution: 'We manufactured a custom damask wallpaper in deep burgundy and gold tones, printed at high resolution on a durable substrate. The installation was completed in a single day with seamless pattern matching across all walls.',
     materials: 'Custom burgundy-and-gold damask wallpaper, matte finish substrate',
-    image: 'https://images.pexels.com/photos/18285958/pexels-photo-18285958.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     gallery: [
-      'https://images.pexels.com/photos/18285958/pexels-photo-18285958.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-      'https://images.pexels.com/photos/9099741/pexels-photo-9099741.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-      'https://images.pexels.com/photos/38657011/pexels-photo-38657011.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+      'https://picsum.photos/800/600',
+      'https://picsum.photos/800/600',
+      'https://picsum.photos/800/600',
     ],
   },
 ];
@@ -406,7 +406,7 @@ export const brochures: Brochure[] = [
     category: 'Glass Film',
     description: 'Complete catalogue of our decorative glass film patterns, including line-art, geometric, frosted, and gradient designs. Features technical specifications and application guides.',
     pages: 24,
-    image: 'https://images.pexels.com/photos/29508048/pexels-photo-29508048.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
   },
   {
     slug: 'wallpaper-design-catalogue',
@@ -414,7 +414,7 @@ export const brochures: Brochure[] = [
     category: 'Wallpaper',
     description: 'Our full range of customizable wallpaper designs — from classic damask and floral patterns to modern geometrics and bespoke prints. Includes substrate options and printing specifications.',
     pages: 36,
-    image: 'https://images.pexels.com/photos/33419833/pexels-photo-33419833.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
   },
   {
     slug: 'privacy-solutions-guide',
@@ -422,7 +422,7 @@ export const brochures: Brochure[] = [
     category: 'Glass Film',
     description: 'Detailed guide to our privacy glass solutions, covering frosted films, textured finishes, and gradient applications for residential and commercial spaces.',
     pages: 18,
-    image: 'https://images.pexels.com/photos/5869295/pexels-photo-5869295.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
   },
   {
     slug: 'uv-protection-brochure',
@@ -430,7 +430,7 @@ export const brochures: Brochure[] = [
     category: 'Glass Film',
     description: 'Technical brochure covering our UV protection and sun control film range, with performance data, heat reduction specifications, and installation guidelines.',
     pages: 12,
-    image: 'https://images.pexels.com/photos/1098982/pexels-photo-1098982.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
   },
   {
     slug: 'residential-decor-portfolio',
@@ -438,7 +438,7 @@ export const brochures: Brochure[] = [
     category: 'Home Decor',
     description: 'A curated selection of our residential decor projects, showcasing feature walls, full-room transformations, and custom installations completed across Ahmedabad.',
     pages: 30,
-    image: 'https://images.pexels.com/photos/7546323/pexels-photo-7546323.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
   },
   {
     slug: 'commercial-solutions-brochure',
@@ -446,7 +446,7 @@ export const brochures: Brochure[] = [
     category: 'Commercial',
     description: 'Overview of our commercial decor capabilities, including office partitions, branded interiors, retail showroom solutions, and bulk order options.',
     pages: 20,
-    image: 'https://images.pexels.com/photos/7511746/pexels-photo-7511746.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
   },
 ];
 
@@ -473,10 +473,10 @@ export const productsList: Product[] = [
     price: 2400,
     description: 'Elegant damask pattern wallpaper that brings a touch of classic luxury to any room. Made with premium vinyl material for durability and easy cleaning.',
     features: ['Washable vinyl', 'Fade resistant', 'Easy to install', 'Textured finish'],
-    image: 'https://images.pexels.com/photos/33419833/pexels-photo-33419833.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     gallery: [
-      'https://images.pexels.com/photos/33419833/pexels-photo-33419833.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-      'https://images.pexels.com/photos/18285958/pexels-photo-18285958.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'
+      'https://picsum.photos/800/600',
+      'https://picsum.photos/800/600'
     ],
     isNewArrival: true,
   },
@@ -488,10 +488,10 @@ export const productsList: Product[] = [
     price: 1200,
     description: 'Modern geometric pattern frosted film for windows and partitions. Provides excellent privacy while allowing natural light to flow through.',
     features: ['UV protection', 'Self-adhesive', 'Removable', 'Scratch resistant'],
-    image: 'https://images.pexels.com/photos/29508048/pexels-photo-29508048.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     gallery: [
-      'https://images.pexels.com/photos/29508048/pexels-photo-29508048.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-      'https://images.pexels.com/photos/5869295/pexels-photo-5869295.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'
+      'https://picsum.photos/800/600',
+      'https://picsum.photos/800/600'
     ],
     isNewArrival: true,
   },
@@ -503,9 +503,9 @@ export const productsList: Product[] = [
     price: 2100,
     description: 'Bring nature indoors with this stunning botanical print wallpaper. Perfect for feature walls in living rooms or bedrooms.',
     features: ['Eco-friendly ink', 'Matte finish', 'Breathable material', 'Custom sizing available'],
-    image: 'https://images.pexels.com/photos/8089172/pexels-photo-8089172.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     gallery: [
-      'https://images.pexels.com/photos/8089172/pexels-photo-8089172.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'
+      'https://picsum.photos/800/600'
     ],
     isNewArrival: true,
   },
@@ -517,9 +517,9 @@ export const productsList: Product[] = [
     price: 1500,
     description: 'Seamless gradient transition from frosted opaque to clear transparent. Ideal for conference rooms and office partitions.',
     features: ['Professional look', 'Custom cut', 'Glare reduction', 'Long lasting'],
-    image: 'https://images.pexels.com/photos/7511755/pexels-photo-7511755.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     gallery: [
-      'https://images.pexels.com/photos/7511755/pexels-photo-7511755.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'
+      'https://picsum.photos/800/600'
     ],
     isNewArrival: true,
   },
@@ -531,9 +531,9 @@ export const productsList: Product[] = [
     price: 2800,
     description: 'Sophisticated wallpaper featuring subtle metallic geometric accents that catch the light beautifully.',
     features: ['Metallic sheen', 'Heavy duty', 'Washable', 'Premium texture'],
-    image: 'https://images.pexels.com/photos/12995673/pexels-photo-12995673.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     gallery: [
-      'https://images.pexels.com/photos/12995673/pexels-photo-12995673.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'
+      'https://picsum.photos/800/600'
     ]
   },
   {
@@ -544,9 +544,9 @@ export const productsList: Product[] = [
     price: 1800,
     description: 'High-performance solar control film that rejects up to 80% of solar energy, keeping interiors cool and reducing energy costs.',
     features: ['Heat reduction', '99% UV block', 'Daytime privacy', 'Energy saving'],
-    image: 'https://images.pexels.com/photos/1098982/pexels-photo-1098982.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     gallery: [
-      'https://images.pexels.com/photos/1098982/pexels-photo-1098982.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'
+      'https://picsum.photos/800/600'
     ]
   },
   {
@@ -557,9 +557,9 @@ export const productsList: Product[] = [
     price: 1900,
     description: 'Charming vintage floral design that adds a romantic, timeless feel to bedrooms and boutique spaces. Features rich, color-fast pigments.',
     features: ['Color-fast pigments', 'Tear resistant', 'Smooth finish', 'Wipeable surface'],
-    image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     gallery: [
-      'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'
+      'https://picsum.photos/800/600'
     ],
     isNewArrival: true,
   },
@@ -571,9 +571,9 @@ export const productsList: Product[] = [
     price: 1400,
     description: 'Beautiful faux stained glass film that transforms plain windows into vibrant works of art while obscuring the view for privacy.',
     features: ['Vibrant colors', 'Light filtering', 'Peel and stick', 'Water resistant'],
-    image: 'https://images.pexels.com/photos/1585325/pexels-photo-1585325.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     gallery: [
-      'https://images.pexels.com/photos/1585325/pexels-photo-1585325.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'
+      'https://picsum.photos/800/600'
     ],
     isNewArrival: true,
   },
@@ -585,9 +585,9 @@ export const productsList: Product[] = [
     price: 3200,
     description: 'High-end faux marble wallpaper with stunning realistic veining. Perfect for modern living rooms, hotel lobbies, and executive suites.',
     features: ['Ultra-realistic print', 'Thick vinyl', 'Seamless matching', 'Moisture resistant'],
-    image: 'https://images.pexels.com/photos/1409215/pexels-photo-1409215.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     gallery: [
-      'https://images.pexels.com/photos/1409215/pexels-photo-1409215.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'
+      'https://picsum.photos/800/600'
     ],
     isNewArrival: true,
   },
@@ -599,9 +599,9 @@ export const productsList: Product[] = [
     price: 1100,
     description: '100% light-blocking blackout film. Ideal for media rooms, photography darkrooms, or shift-worker bedrooms requiring complete darkness.',
     features: ['100% light block', 'Two-way privacy', 'Residue-free removal', 'Easy application'],
-    image: 'https://images.pexels.com/photos/2034335/pexels-photo-2034335.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     gallery: [
-      'https://images.pexels.com/photos/2034335/pexels-photo-2034335.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'
+      'https://picsum.photos/800/600'
     ],
     isNewArrival: true,
   },
@@ -613,9 +613,10 @@ export const productsList: Product[] = [
     price: 1600,
     description: 'Create an instant industrial loft vibe with this highly textured 3D faux brick wallpaper. Great for cafes, studios, and accent walls.',
     features: ['Embossed texture', 'Paintable', 'Sound dampening', 'Thick material'],
-    image: 'https://images.pexels.com/photos/172289/pexels-photo-172289.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://picsum.photos/800/600',
     gallery: [
-      'https://images.pexels.com/photos/172289/pexels-photo-172289.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'
+      'https://picsum.photos/800/600'
     ]
   }
 ];
+
