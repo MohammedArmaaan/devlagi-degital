@@ -14,7 +14,6 @@ import Projects from '@/pages/Projects';
 import ProjectDetail from '@/pages/ProjectDetail';
 import Products from '@/pages/Products';
 import ProductDetail from '@/pages/ProductDetail';
-import CategoryDetail from '@/pages/CategoryDetail';
 import Brochures from '@/pages/Brochures';
 import About from '@/pages/About';
 import Contact from '@/pages/Contact';
@@ -49,8 +48,6 @@ function App() {
         return <Products navigate={navigate} />;
       case 'product':
         return <ProductDetail slug={route.slug} navigate={navigate} />;
-      case 'category':
-        return <CategoryDetail slug={route.slug} navigate={navigate} />;
       case 'collections':
         return <Collections navigate={navigate} />;
       case 'brochures':
@@ -106,6 +103,7 @@ function App() {
 }
 
 export default App;
+
 
 
 

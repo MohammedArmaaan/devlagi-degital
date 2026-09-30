@@ -206,7 +206,7 @@ export default function Home({ navigate }: Props) {
       </section>
 
       {/* Categories strip */}
-      <section id="collections" className="py-24 md:py-32 bg-grain relative overflow-hidden">
+      <section id="collections" className="py-12 md:py-16 bg-grain relative overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-20 bg-gradient-to-b from-burgundy-600/40 to-transparent" />
         <div className="container-luxe">
           <FadeIn>
@@ -220,42 +220,58 @@ export default function Home({ navigate }: Props) {
             </div>
           </FadeIn>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 max-w-7xl mx-auto">
-            {categories.map((cat, i) => (
-              <FadeIn key={cat.slug} delay={i * 0.1}>
-                <button
-                  onClick={() => navigate(`/category/${cat.slug}`)}
-                  className="group w-full text-left relative overflow-hidden rounded-sm shadow-sm hover:shadow-xl transition-all duration-700 bg-white flex flex-col h-full"
-                >
-                  <div className="aspect-[4/3] relative overflow-hidden w-full">
-                    <img 
-                      src={cat.image} 
-                      alt={cat.title} 
-                      className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-ink-950/20 group-hover:bg-transparent transition-colors duration-700" />
-                  </div>
-                  <div className="p-5 md:p-6 flex flex-col flex-1 text-center relative z-10 bg-white group-hover:-translate-y-1.5 transition-transform duration-500 border-t-2 border-burgundy-600">
-                    <h3 className="heading-3 text-ink-950 mb-2">{cat.title}</h3>
-                    <p className="body-text text-xs text-ink-600 mb-4 line-clamp-2 flex-1">{cat.description}</p>
-                    <span className="inline-flex items-center justify-center gap-1.5 font-sans text-[10px] uppercase tracking-widest font-semibold text-burgundy-600 group-hover:text-burgundy-800 transition-colors mt-auto">
-                      View Collection <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1.5" />
-                    </span>
-                  </div>
-                </button>
-              </FadeIn>
-            ))}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 max-w-7xl mx-auto auto-rows-[220px] md:auto-rows-[340px]">
+              {categories.map((cat, i) => {
+                const luxuryColors = [
+                  'bg-white border border-ink-100', 
+                  'bg-[#F5F2F0]', 
+                  'bg-ink-50', 
+                  'bg-[#FAF8F5]', 
+                  'bg-[#F0EEEB]', 
+                  'bg-[#F8F7F5]'
+                ];
+                const isWide = i % 6 === 0 || i % 6 === 5;
+                return (
+                  <FadeIn key={cat.slug} delay={i * 0.1} className={isWide ? 'col-span-2' : 'col-span-1'}>
+                    <button
+                      onClick={() => navigate('/products?category=' + cat.slug)}
+                      className={`group relative overflow-hidden rounded-sm flex flex-col text-left transition-all duration-700 hover:shadow-xl w-full h-full ${luxuryColors[i % 6]}`}
+                    >
+                      <div className={`relative z-10 flex flex-col p-4 md:p-8 ${isWide ? 'h-full w-[55%] justify-center' : 'h-[50%] w-full justify-center'}`}>
+                        <span className="font-sans text-[9px] md:text-[10px] tracking-[0.2em] uppercase text-black mb-2 hidden md:block font-bold">
+                          Interior & Decor
+                        </span>
+                        <h3 className={`font-serif text-black leading-snug mb-2 md:mb-4 ${isWide ? 'text-xl md:text-4xl' : 'text-base md:text-2xl'}`}>
+                          {cat.title}
+                        </h3>
+                        <div className="mt-auto">
+                          <span className="inline-flex items-center gap-2 font-sans text-[9px] md:text-[10px] uppercase font-bold tracking-widest text-black group-hover:text-burgundy-600 transition-colors border-b border-black group-hover:border-burgundy-600 pb-1 w-max">
+                            EXPLORE <ArrowRight className="w-3.5 h-3.5 transition-transform duration-500 group-hover:translate-x-1" />
+                          </span>
+                        </div>
+                      </div>
+                      <div className={`absolute bottom-0 right-0 ${isWide ? 'top-0 w-[45%] h-full' : 'w-full h-[50%]'} overflow-hidden`}>
+                        <img 
+                          src={cat.image} 
+                          alt={cat.title} 
+                          className="w-full h-full object-cover transition-transform duration-[2s] ease-lux group-hover:scale-110"
+                        />
+                      </div>
+                    </button>
+                  </FadeIn>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
       {/* Services preview - Auto Scrolling Split Layout */}
-      <section className="py-24 md:py-32 relative bg-white">
+      <section className="py-12 md:py-16 relative bg-white">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-burgundy-600/20 to-transparent" />
         <div className="container-luxe max-w-7xl mx-auto">
           {/* Main Title Area */}
           <FadeIn>
-            <div className="text-center max-w-2xl mx-auto mb-16 md:mb-24">
+            <div className="text-center max-w-2xl mx-auto mb-10 md:mb-12">
               <span className="font-sans text-xs tracking-widest uppercase text-burgundy-600 font-semibold mb-4 block">
                 Expertise
               </span>
@@ -370,7 +386,7 @@ export default function Home({ navigate }: Props) {
             </div>
           </div>
 
-          <div className="mt-16 md:mt-24 text-center">
+          <div className="mt-10 md:mt-12 text-center">
             <button onClick={() => navigate('/services')} className="btn-ghost group inline-flex items-center">
               View All Services
               <ArrowRight className="w-4 h-4 ml-2 transition-transform duration-500 group-hover:translate-x-1" />
@@ -380,7 +396,7 @@ export default function Home({ navigate }: Props) {
       </section>
 
       {/* Products preview */}
-      <section className="py-24 md:py-32 bg-grain relative overflow-hidden">
+      <section className="py-12 md:py-16 bg-grain relative overflow-hidden">
         <div className="container-luxe">
           <FadeIn>
             <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-8 md:mb-12">
@@ -448,10 +464,10 @@ export default function Home({ navigate }: Props) {
       </section>
 
       {/* Projects preview */}
-      <section className="py-24 md:py-32 relative overflow-hidden bg-[#f7f7f7]">
+      <section className="py-12 md:py-16 relative overflow-hidden bg-[#f7f7f7]">
         <div className="container-luxe max-w-7xl mx-auto">
           {/* Top Split Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20 items-center mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-10 lg:gap-12 items-center mb-10">
             {/* Left Text */}
             <FadeIn>
               <div className="flex flex-col justify-center">
@@ -465,12 +481,11 @@ export default function Home({ navigate }: Props) {
                     onClick={() => navigate('/projects')} 
                     className="inline-flex items-center justify-center rounded-full border border-ink-300 px-6 py-2.5 text-ink-800 font-sans text-sm tracking-wide font-medium hover:border-burgundy-600 hover:text-burgundy-600 transition-colors w-fit group"
                   >
-                    View All Services <ArrowRight className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+                    View All Projects <ArrowRight className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
                   </button>
                 </div>
               </div>
             </FadeIn>
-
             {/* Right Main Slider */}
             <FadeIn delay={0.2}>
               <div className="relative">
@@ -542,7 +557,7 @@ export default function Home({ navigate }: Props) {
       </section>
 
       {/* Review strip */}
-      <section className="py-24 md:py-32 relative overflow-hidden bg-rose-50/30">
+      <section className="py-12 md:py-16 relative overflow-hidden bg-rose-50/30">
         <div className="absolute inset-0 bg-grain opacity-50" />
         <div className="container-luxe relative z-10">
           <FadeIn>
@@ -615,7 +630,7 @@ export default function Home({ navigate }: Props) {
       </section>
 
       {/* CTA */}
-      <section className="py-24 md:py-32 relative overflow-hidden">
+      <section className="py-12 md:py-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-grain" />
         <motion.div
           animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
@@ -652,6 +667,13 @@ export default function Home({ navigate }: Props) {
     </div>
   );
 }
+
+
+
+
+
+
+
 
 
 
