@@ -6,8 +6,8 @@ import FadeIn from '@/components/FadeIn';
 import AnimatedText from '@/components/AnimatedText';
 import TiltCard from '@/components/TiltCard';
 import { productsList, categories as dataCategories } from '@/lib/data';
+import { MessageCircle, Eye } from 'lucide-react';
 import LeadCaptureModal from '@/components/LeadCaptureModal';
-import { MessageCircle } from 'lucide-react';
 
 type Props = { navigate: (path: string) => void };
 const categories = ['All', ...dataCategories.map(c => c.title)];
@@ -17,6 +17,7 @@ export default function Products({ navigate }: Props) {
     const [filter, setFilter] = useState(() => { const params = new URLSearchParams(window.location.search); const catSlug = params.get('category'); const found = dataCategories.find(c => c.slug === catSlug); return found ? found.title : 'All'; });
   const [showLeadModal, setShowLeadModal] = useState(false);
   const [selectedProductTitle, setSelectedProductTitle] = useState("");
+  const [modalAction, setModalAction] = useState<() => void>(() => {});
 
   const proceedToWhatsApp = (title: string) => {
     const text = "Hi, I am interested in ";
@@ -25,18 +26,38 @@ export default function Products({ navigate }: Props) {
 
   const handleEnquire = (e: React.MouseEvent, title: string) => {
     e.stopPropagation();
-    if (!localStorage.getItem('lead_captured')) {
-      setSelectedProductTitle(title);
-      setShowLeadModal(true);
+    proceedToWhatsApp(title);
+  };
+
+  const executeAction = (actionFn: () => void) => {
+    const capturedTime = localStorage.getItem('lead_captured_time');
+    if (capturedTime && (Date.now() - parseInt(capturedTime, 10)) < 604800000) {
+      actionFn();
     } else {
-      proceedToWhatsApp(title);
+      setModalAction(() => actionFn);
+      setShowLeadModal(true);
     }
+  };
+
+  const handleVirtualize = (e: React.MouseEvent, productSlug: string) => {
+    e.stopPropagation();
+    executeAction(() => {
+      window.open(`/virtualizer?product=${productSlug}`, '_blank');
+    });
   };
   const filtered = filter === 'All' ? productsList : productsList.filter((p) => p.category === filter);
 
   return (
     <div className="bg-white min-h-screen">
-      <LeadCaptureModal isOpen={showLeadModal} onClose={() => setShowLeadModal(false)} onSuccess={() => proceedToWhatsApp(selectedProductTitle)} productInterest={selectedProductTitle} />
+      <LeadCaptureModal 
+        isOpen={showLeadModal} 
+        onClose={() => setShowLeadModal(false)} 
+        onSuccess={modalAction} 
+        title="Virtualize Product" 
+        description="Please provide your details to access our virtualization tool." 
+        source="virtualize_button" 
+      />
+      
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden flex items-center justify-center min-h-[50vh]">
         <div className="absolute inset-0 w-full h-full">
           <img 
@@ -184,13 +205,22 @@ export default function Products({ navigate }: Props) {
                               View <ArrowRight className="w-3 h-3 transition-transform duration-500 group-hover:translate-x-1" />
                             </div>
                           </div>
-                          <button
-                            onClick={(e) => handleEnquire(e, product.title)}
-                            className="w-full flex items-center justify-center gap-1.5 py-2 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-sm font-sans text-[9px] font-bold tracking-widest transition-all"
-                          >
-                            <MessageCircle className="w-3 h-3" />
-                            INQUIRE
-                          </button>
+                          <div className="flex gap-2">
+                              <button
+                                onClick={(e) => handleVirtualize(e, product.slug)}
+                                className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-ink-900 hover:bg-ink-800 text-white rounded-sm font-sans text-[9px] font-bold tracking-widest transition-all"
+                              >
+                                <Eye className="w-3 h-3" />
+                                VIRTUALIZE
+                              </button>
+                              <button
+                                onClick={(e) => handleEnquire(e, product.title)}
+                                className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-sm font-sans text-[9px] font-bold tracking-widest transition-all"
+                              >
+                                <MessageCircle className="w-3 h-3" />
+                                INQUIRE
+                              </button>
+                            </div>
                         </div>
                       </div>
                     </motion.button>
@@ -209,6 +239,13 @@ export default function Products({ navigate }: Props) {
     </div>
   );
 }
+
+
+
+
+
+
+
 
 
 

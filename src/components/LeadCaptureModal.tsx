@@ -24,6 +24,7 @@ export default function LeadCaptureModal({
 }: LeadCaptureModalProps) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -44,11 +45,13 @@ export default function LeadCaptureModal({
         name,
         phone,
         source,
-        product_interest: productInterest
+        product_interest: productInterest,
+        description: ''
       });
 
       if (response.data.success) {
         localStorage.setItem('lead_captured', 'true');
+        localStorage.setItem('lead_captured_time', Date.now().toString());
         onSuccess();
         onClose();
       }
@@ -113,8 +116,21 @@ export default function LeadCaptureModal({
                   placeholder="Enter your number"
                 />
               </div>
-            </div>
 
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">Email Address (Optional)</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-burgundy-500 focus:border-burgundy-500 transition-all outline-none"
+                  placeholder="Enter your email"
+                />
+              </div>
+
+              
+            </div>
+            
             <button
               type="submit"
               disabled={loading}
@@ -135,4 +151,14 @@ export default function LeadCaptureModal({
     </AnimatePresence>
   );
 }
+
+
+
+
+
+
+
+
+
+
 

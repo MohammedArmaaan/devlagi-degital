@@ -1,3 +1,29 @@
+import React, { Component, ErrorInfo, ReactNode } from "react";
+
+class ErrorBoundary extends Component<{children: ReactNode}, {hasError: boolean, error: Error | null}> {
+  constructor(props: {children: ReactNode}) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error("Uncaught error:", error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ padding: "20px", background: "white", color: "red", zIndex: 9999, position: "fixed", top: 0, left: 0, right: 0, bottom: 0 }}>
+          <h1>Something went wrong.</h1>
+          <pre>{this.state.error?.toString()}</pre>
+          <pre>{this.state.error?.stack}</pre>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 import { useRouter } from '@/hooks/useRouter';
 
 // Public Layout Components
@@ -21,6 +47,7 @@ import Collections from '@/pages/Collections';
 import Privacy from '@/pages/Privacy';
 import Terms from '@/pages/Terms';
 import Returns from '@/pages/Returns';
+import Virtualizer from '@/pages/Virtualizer';
 
 // Admin Layout & Pages
 import AdminLayout from '@/layouts/AdminLayout';
@@ -62,6 +89,7 @@ function App() {
         return <Terms />;
       case 'returns':
         return <Returns />;
+      
       default:
         return <Home navigate={navigate} />;
     }
@@ -78,6 +106,11 @@ function App() {
         return <AdminDashboard navigate={navigate} />;
     }
   };
+
+  // If it's an admin route, completely bypass the public layout
+  if (route.name === 'virtualizer') {
+    return <Virtualizer />;
+  }
 
   // If it's an admin route, completely bypass the public layout
   if (isAdminRoute) {
@@ -103,6 +136,9 @@ function App() {
 }
 
 export default App;
+
+
+
 
 
 

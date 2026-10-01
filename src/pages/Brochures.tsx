@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import FadeIn from '@/components/FadeIn';
 import AnimatedText from '@/components/AnimatedText';
 import TiltCard from '@/components/TiltCard';
-import EnquiryForm from '@/components/EnquiryForm';
+import LeadCaptureModal from '@/components/LeadCaptureModal';
 import { brochures } from '@/lib/data';
 
 type Props = { navigate: (path: string) => void };
@@ -12,8 +12,31 @@ const categories = ['All', 'Glass Film', 'Wallpaper', 'Home Decor', 'Commercial'
 
 export default function Brochures({ navigate }: Props) {
   const [filter, setFilter] = useState('All');
-  const [requestBrochure, setRequestBrochure] = useState<string | null>(null);
+  const [showLeadModal, setShowLeadModal] = useState(false);
+  const [modalAction, setModalAction] = useState<() => void>(() => {});
+  const [modalContext, setModalContext] = useState({ title: "", description: "", source: "" });
   const filtered = filter === 'All' ? brochures : brochures.filter((b) => b.category === filter);
+
+  const executeAction = (context: any, actionFn: () => void) => {
+    const capturedTime = localStorage.getItem('lead_captured_time');
+    if (capturedTime && (Date.now() - parseInt(capturedTime, 10)) < 604800000) {
+      actionFn();
+    } else {
+      setModalContext(context);
+      setModalAction(() => actionFn);
+      setShowLeadModal(true);
+    }
+  };
+
+  const handleRequestBrochure = (brochure: any) => {
+    executeAction({
+      title: `Download ${brochure.title}`,
+      description: "",
+      source: "download_brochure"
+    }, () => {
+      alert(`Downloading ${brochure.title} brochure...`);
+    });
+  };
 
   return (
     <div className="bg-white min-h-screen">
@@ -80,7 +103,7 @@ export default function Brochures({ navigate }: Props) {
                         <h3 className="heading-3 text-sm md:!text-xl mb-2 md:mb-3 group-hover:text-burgundy-700 transition-colors duration-500">{brochure.title}</h3>
                         <p className="body-text text-xs md:text-sm flex-1 mb-3 md:mb-4">{brochure.description}</p>
                         <div className="flex flex-col xl:flex-row gap-2 mt-auto">
-                          <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} onClick={() => setRequestBrochure(brochure.title)} className="btn-primary flex-1 !py-2 !px-2 md:!py-3 md:!px-4 !text-[10px] md:!text-xs group">
+                          <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} onClick={() => handleRequestBrochure(brochure)} className="btn-primary flex-1 !py-2 !px-2 md:!py-3 md:!px-4 !text-[10px] md:!text-xs group">
                             <Download className="w-3 h-3 md:w-3.5 md:h-3.5" /><span className="truncate">Request</span>
                           </motion.button>
                           <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} onClick={() => navigate('/contact')} className="btn-outline !py-2 !px-2 md:!py-3 md:!px-4 !text-[10px] md:!text-xs group"><span className="truncate">Enquire</span></motion.button>
@@ -117,40 +140,17 @@ export default function Brochures({ navigate }: Props) {
         </div>
       </section>
 
-      <AnimatePresence>
-        {requestBrochure && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            style={{ background: 'rgba(5,4,3,0.9)', backdropFilter: 'blur(8px)' }}
-            onClick={() => setRequestBrochure(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="glass-strong rounded-sm w-full max-w-2xl max-h-[90vh] overflow-y-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center justify-between p-6 border-b border-ink-200/40">
-                <div>
-                  <span className="font-sans text-xs tracking-wide-2 uppercase text-burgundy-600">Request Brochure</span>
-                  <h3 className="heading-3 !text-xl mt-1">{requestBrochure}</h3>
-                </div>
-                <button onClick={() => setRequestBrochure(null)} className="text-ink-600 hover:text-ink-900 transition-colors duration-300 p-2"><X className="w-5 h-5" /></button>
-              </div>
-              <div className="p-6">
-                <p className="body-text text-sm mb-6">Fill in your details and we will send the brochure to you. Mention the brochure name in the message field.</p>
-                <EnquiryForm defaultService={requestBrochure} compact />
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <LeadCaptureModal 
+        isOpen={showLeadModal} 
+        onClose={() => setShowLeadModal(false)} 
+        onSuccess={modalAction} 
+        title={modalContext.title} 
+        description={modalContext.description} 
+        source={modalContext.source}
+      />
     </div>
   );
 }
+
+
+

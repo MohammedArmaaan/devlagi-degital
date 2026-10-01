@@ -18,7 +18,6 @@ import { useRef, useEffect, useState, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import AnimatedText from '@/components/AnimatedText';
-import LeadCaptureModal from '@/components/LeadCaptureModal';
 import TestimonialCard from '@/components/TestimonialCard';
 import FadeIn from '@/components/FadeIn';
 import TiltCard from '@/components/TiltCard';
@@ -690,6 +689,7 @@ export default function Home({ navigate }: Props) {
     </div>
   );
 }
+
 
 
 
