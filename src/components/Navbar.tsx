@@ -108,30 +108,53 @@ export default function Navbar({ route, navigate }: Props) {
               onClick={() => navigate('/')}
               className="flex items-center group relative h-14 md:h-16 w-[120px] md:w-[160px] shrink-0"
             >
-              <div ref={logoRef} className="absolute left-0 top-1/2 -translate-y-1/2">
-                <motion.div
-                  style={{ 
-                    x, y, scale, 
-                    filter: 'drop-shadow(0 0 8px rgba(255,255,255,1)) drop-shadow(0 0 25px rgba(255,255,255,0.9))' 
-                  }}
-                  className="flex items-center justify-start origin-center bg-transparent"
-                >
-                  <div className="relative flex items-center justify-start">
-                    <img src="/Logo4.png" alt="Devlaji Digital Home Decor" className="h-12 md:h-16 w-auto object-contain pointer-events-none" />
-                    <div 
-                      className="absolute inset-0 pointer-events-none"
-                      style={{
-                        WebkitMaskImage: 'url(/Logo4.png)',
-                        WebkitMaskSize: 'contain',
-                        WebkitMaskRepeat: 'no-repeat',
-                        WebkitMaskPosition: 'left center',
-                      }}
-                    >
-                      <div className="absolute inset-0 w-[150%] bg-gradient-to-r from-transparent via-white/70 to-transparent animate-shimmer-sweep" />
+              <AnimatePresence mode="wait">
+                {menuOpen ? (
+                  <motion.span
+                    key="menu-text"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -10 }}
+                    className="font-serif text-white text-3xl italic tracking-wide"
+                  >
+                    Menu
+                  </motion.span>
+                ) : (
+                  <motion.div
+                    key="logo-img"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute left-0 top-1/2 -translate-y-1/2"
+                  >
+                    <div ref={logoRef}>
+                      <motion.div
+                        style={{ 
+                          x, y, scale, 
+                          filter: 'drop-shadow(0 0 8px rgba(255,255,255,1)) drop-shadow(0 0 25px rgba(255,255,255,0.9))' 
+                        }}
+                        className="flex items-center justify-start origin-center bg-transparent"
+                      >
+                        <div className="relative flex items-center justify-start">
+                          <img src="/Logo4.png" alt="Devlaji Digital Home Decor" className="h-12 md:h-16 w-auto object-contain pointer-events-none" />
+                          <div 
+                            className="absolute inset-0 pointer-events-none"
+                            style={{
+                              WebkitMaskImage: 'url(/Logo4.png)',
+                              WebkitMaskSize: 'contain',
+                              WebkitMaskRepeat: 'no-repeat',
+                              WebkitMaskPosition: 'left center',
+                            }}
+                          >
+                            <div className="absolute inset-0 w-[150%] bg-gradient-to-r from-transparent via-white/70 to-transparent animate-shimmer-sweep" />
+                          </div>
+                        </div>
+                      </motion.div>
                     </div>
-                  </div>
-                </motion.div>
-              </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </button>
 
             <nav className="hidden xl:flex items-center gap-5 xl:gap-8">
@@ -186,9 +209,7 @@ export default function Navbar({ route, navigate }: Props) {
 
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className={`xl:hidden p-2 relative z-50 transition-colors duration-500 ${
-                !scrolled && !menuOpen && hasBanner ? 'text-white' : 'text-ink-900'
-              }`}
+              className={`xl:hidden p-2 relative z-50 transition-colors duration-500 ${menuOpen ? 'text-white' : (!scrolled && hasBanner ? 'text-white' : 'text-ink-900')}`}
               aria-label="Menu"
             >
               <div className="relative w-6 h-6">
@@ -203,40 +224,51 @@ export default function Navbar({ route, navigate }: Props) {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4 }}
-            className="fixed inset-0 z-40 lg:hidden glass-strong"
+            className="fixed inset-0 z-40 lg:hidden bg-ink-950"
           >
-            <div className="flex flex-col items-center justify-start h-[100svh] overflow-y-auto gap-4 pt-32 pb-32">
-              {links.map((link, i) => (
-                <motion.button
-                  key={link.path}
-                  onClick={() => navigate(link.path)}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  transition={{ delay: 0.1 + i * 0.07, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  className={`font-serif text-3xl tracking-wide transition-colors duration-500 ${
-                    isActive(route, link.path) ? 'text-burgundy-600' : 'text-ink-800 hover:text-burgundy-700'
-                  }`}
-                >
-                  {link.label}
-                </motion.button>
-              ))}
+            <div className="flex flex-col justify-start h-[100svh] overflow-y-auto pt-24 pb-32 px-6">
+              <div className="w-full max-w-md mx-auto flex flex-col mt-4">
+                {links.map((link, i) => (
+                  <motion.button
+                    key={link.path}
+                    onClick={() => {
+                      setMenuOpen(false);
+                      setTimeout(() => navigate(link.path), 300);
+                    }}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ delay: 0.1 + i * 0.05, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    className="flex items-baseline w-full py-5 border-b border-white/10 group text-left"
+                  >
+                    <span className="font-sans text-[10px] md:text-xs text-gold-500 mr-6 tracking-widest font-semibold opacity-80 group-hover:opacity-100 transition-opacity">
+                      {String(i).padStart(2, '0')}
+                    </span>
+                    <span className={`font-serif text-3xl sm:text-4xl italic tracking-wide transition-colors duration-500 ${
+                      isActive(route, link.path) ? 'text-white' : 'text-white/60 group-hover:text-white'
+                    }`}>
+                      {link.label}
+                    </span>
+                  </motion.button>
+                ))}
+              </div>
+              
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ delay: 0.6, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-8 flex flex-col items-center gap-4"
+                className="mt-12 flex flex-col items-center gap-6 w-full max-w-md mx-auto"
               >
-                <a href={`tel:${business.phoneRaw}`} className="flex items-center gap-2 text-ink-700 font-sans text-sm">
+                <a href={`tel:${business.phoneRaw}`} className="flex items-center justify-center gap-3 text-white/80 font-sans text-sm tracking-widest uppercase hover:text-white transition-colors w-full py-4 border border-white/10 rounded-sm">
                   <Phone className="w-4 h-4" />
                   {business.phone}
                 </a>
-                <button onClick={() => navigate('/contact')} className="btn-primary">
+                <button onClick={() => { setMenuOpen(false); setTimeout(() => navigate('/contact'), 300); }} className="btn-primary w-full !bg-white !text-ink-950 hover:!bg-white/90">
                   <span>Get a Quote</span>
                 </button>
               </motion.div>
@@ -247,4 +279,7 @@ export default function Navbar({ route, navigate }: Props) {
     </>
   );
 }
+
+
+
 
