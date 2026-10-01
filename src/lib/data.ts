@@ -26,12 +26,14 @@ export type Category = {
   description: string;
   image: string;
   subcategories?: SubCategory[];
+  theme?: 'light' | 'dark';
 };
 
 export const categories: Category[] = [
   {
     id: 'c1',
     slug: 'wpc-wall-panel',
+      theme: 'dark',
     title: 'WPC Wall Panel',
     description: 'Durable, water-resistant, and stylish wall panels for modern interiors.',
     image: 'https://picsum.photos/800/600',
@@ -54,6 +56,7 @@ export const categories: Category[] = [
   {
     id: 'c3',
     slug: 'metallic-wallpaper',
+      theme: 'dark',
     title: 'Metallic Wallpaper',
     description: 'Add a touch of luxury and shine with our premium metallic finish wallpapers.',
     image: 'https://picsum.photos/800/600',
@@ -76,6 +79,7 @@ export const categories: Category[] = [
   {
     id: 'c5',
     slug: 'wall-murals',
+      theme: 'dark',
     title: 'Wall Murals',
     description: 'Breathtaking, large-scale custom murals that transform your entire room.',
     image: 'https://picsum.photos/800/600',
@@ -98,6 +102,7 @@ export const categories: Category[] = [
   {
     id: 'c7',
     slug: 'metallic-canvas-frames',
+      theme: 'dark',
     title: 'Metallic Canvas Frames',
     description: 'Stunning wall art printed on canvas with metallic foil accents.',
     image: 'https://picsum.photos/800/600',
@@ -619,4 +624,6 @@ export const productsList: Product[] = [
     ]
   }
 ];
+
+
 

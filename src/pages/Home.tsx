@@ -221,41 +221,41 @@ export default function Home({ navigate }: Props) {
           </FadeIn>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 max-w-7xl mx-auto auto-rows-[220px] md:auto-rows-[340px]">
-              {categories.map((cat, i) => {
-                const luxuryColors = [
-                  'bg-white border border-ink-100', 
-                  'bg-[#F5F2F0]', 
-                  'bg-ink-50', 
-                  'bg-[#FAF8F5]', 
-                  'bg-[#F0EEEB]', 
-                  'bg-[#F8F7F5]'
-                ];
+                            {categories.map((cat, i) => {
                 const isWide = i % 6 === 0 || i % 6 === 5;
+                const isDark = cat.theme === 'dark';
+                const textColor = isDark ? 'text-white' : 'text-black';
+                const borderColor = isDark ? 'border-white' : 'border-black';
+                const hoverColor = isDark ? 'group-hover:text-white/80' : 'group-hover:text-burgundy-600';
+                const hoverBorder = isDark ? 'group-hover:border-white/80' : 'group-hover:border-burgundy-600';
+                
                 return (
                   <FadeIn key={cat.slug} delay={i * 0.1} className={isWide ? 'col-span-2' : 'col-span-1'}>
                     <button
                       onClick={() => navigate('/products?category=' + cat.slug)}
-                      className={`group relative overflow-hidden rounded-sm flex flex-col text-left transition-all duration-700 hover:shadow-xl w-full h-full ${luxuryColors[i % 6]}`}
+                      className="group relative overflow-hidden rounded-sm flex flex-col text-left transition-all duration-700 hover:shadow-xl w-full h-full bg-ink-50"
                     >
-                      <div className={`relative z-10 flex flex-col p-4 md:p-8 ${isWide ? 'h-full w-[55%] justify-center' : 'h-[50%] w-full justify-center'}`}>
-                        <span className="font-sans text-[9px] md:text-[10px] tracking-[0.2em] uppercase text-black mb-2 hidden md:block font-bold">
-                          Interior & Decor
-                        </span>
-                        <h3 className={`font-serif text-black leading-snug mb-2 md:mb-4 ${isWide ? 'text-xl md:text-4xl' : 'text-base md:text-2xl'}`}>
-                          {cat.title}
-                        </h3>
-                        <div className="mt-auto">
-                          <span className="inline-flex items-center gap-2 font-sans text-[9px] md:text-[10px] uppercase font-bold tracking-widest text-black group-hover:text-burgundy-600 transition-colors border-b border-black group-hover:border-burgundy-600 pb-1 w-max">
-                            EXPLORE <ArrowRight className="w-3.5 h-3.5 transition-transform duration-500 group-hover:translate-x-1" />
-                          </span>
-                        </div>
-                      </div>
-                      <div className={`absolute bottom-0 right-0 ${isWide ? 'top-0 w-[45%] h-full' : 'w-full h-[50%]'} overflow-hidden`}>
+                      {/* Full Cover Image */}
+                      <div className="absolute inset-0 w-full h-full overflow-hidden">
                         <img 
                           src={cat.image} 
                           alt={cat.title} 
                           className="w-full h-full object-cover transition-transform duration-[2s] ease-lux group-hover:scale-110"
                         />
+                        {/* Optional subtle gradient overlay just to ensure text legibility if needed, but keeping it minimal as requested */}
+                        <div className={`absolute inset-0 bg-gradient-to-t ${isDark ? 'from-black/60 via-black/10' : 'from-white/60 via-white/10'} to-transparent opacity-60`} />
+                      </div>
+                      
+                      {/* Text Overlay */}
+                      <div className="relative z-10 flex flex-col p-5 md:p-8 h-full w-full justify-end">
+                        <h3 className={`font-serif leading-snug mb-3 ${isWide ? 'text-2xl md:text-4xl' : 'text-xl md:text-2xl'} ${textColor}`}>
+                          {cat.title}
+                        </h3>
+                        <div className="mt-auto pt-4">
+                          <span className={`inline-flex items-center gap-2 font-sans text-[9px] md:text-[10px] uppercase font-bold tracking-widest transition-colors border-b pb-1 w-max ${textColor} ${borderColor} ${hoverColor} ${hoverBorder}`}>
+                            EXPLORE <ArrowRight className="w-3.5 h-3.5 transition-transform duration-500 group-hover:translate-x-1" />
+                          </span>
+                        </div>
                       </div>
                     </button>
                   </FadeIn>
@@ -265,128 +265,132 @@ export default function Home({ navigate }: Props) {
           </div>
         </section>
 
-      {/* Services preview - Auto Scrolling Split Layout */}
-      <section className="py-12 md:py-16 relative bg-white">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-burgundy-600/20 to-transparent" />
+      {/* Services preview - Professional Edition */}
+      <section className="py-12 md:py-16 relative bg-white overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-ink-200 to-transparent" />
         <div className="container-luxe max-w-7xl mx-auto">
           {/* Main Title Area */}
           <FadeIn>
-            <div className="text-center max-w-2xl mx-auto mb-10 md:mb-12">
-              <span className="font-sans text-xs tracking-widest uppercase text-burgundy-600 font-semibold mb-4 block">
+            <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+              <span className="font-sans text-[10px] tracking-[0.2em] uppercase text-burgundy-600 font-bold mb-4 block">
                 Expertise
               </span>
-              <h2 className="heading-2 text-ink-950 mb-6">Our Services</h2>
-              <div className="gold-divider-center mb-6" />
-              <p className="body-text text-ink-600">
-                From decorative glass film to custom-printed wallpaper, we manufacture and install
-                decor solutions for residential and commercial spaces.
-              </p>
+              <h2 className="text-3xl md:text-5xl font-serif text-ink-950 mb-6">Our Services</h2>
+              <div className="w-12 h-0.5 bg-burgundy-600 mx-auto" />
             </div>
           </FadeIn>
 
-          <div className="relative min-h-[400px] md:min-h-[450px] flex items-center">
-            <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-              {/* Left Side - Text */}
-              <div className="order-2 lg:order-1 flex flex-col justify-center h-full">
-                <AnimatePresence mode="wait">
+          <div className="relative flex items-center">
+            <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 items-stretch">
+              
+              {/* Left Side - Image */}
+              <div className="lg:col-span-7 relative h-[400px] sm:h-[500px] lg:h-[600px] w-full group overflow-hidden bg-ink-50">
+                <AnimatePresence>
                   <motion.div
                     key={currentServiceIdx}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <motion.h3 
-                      initial={{ opacity: 0, y: 15 }} 
-                      animate={{ opacity: 1, y: 0 }} 
-                      transition={{ duration: 0.4, delay: 0.1 }}
-                      className="text-3xl md:text-4xl lg:text-5xl font-serif text-ink-950 mb-6 leading-[1.15]"
-                    >
-                      {services[currentServiceIdx].title}
-                    </motion.h3>
-                    
-                    <motion.p 
-                      initial={{ opacity: 0, y: 15 }} 
-                      animate={{ opacity: 1, y: 0 }} 
-                      transition={{ duration: 0.4, delay: 0.2 }}
-                      className="body-text text-ink-600 mb-8 md:mb-10 text-base md:text-lg leading-relaxed"
-                    >
-                      {services[currentServiceIdx].description}
-                    </motion.p>
-                    
-                    <motion.div
-                      initial={{ opacity: 0, y: 15 }} 
-                      animate={{ opacity: 1, y: 0 }} 
-                      transition={{ duration: 0.4, delay: 0.3 }}
-                    >
-                      <button
-                        onClick={() => navigate(`/services/${services[currentServiceIdx].slug}`)}
-                        className="inline-flex items-center justify-center rounded-sm bg-burgundy-600 text-white px-8 py-3.5 font-sans text-xs tracking-widest font-bold hover:bg-burgundy-700 transition-colors duration-300 shadow-sm"
-                      >
-                        READ MORE
-                      </button>
-                    </motion.div>
-                  </motion.div>
-                </AnimatePresence>
-                
-                {/* Indicators & Arrows - OUTSIDE ANIMATION */}
-                <div className="flex items-center gap-6 mt-12 pt-8 border-t border-ink-100 w-max">
-                  <button 
-                    onClick={() => setCurrentServiceIdx(prev => prev === 0 ? services.length - 1 : prev - 1)}
-                    className="w-12 h-12 flex items-center justify-center rounded-full border border-ink-200 text-ink-600 hover:bg-burgundy-600 hover:border-burgundy-600 hover:text-white transition-all"
-                    aria-label="Previous slide"
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </button>
-                  
-                  <div className="flex gap-3 flex-wrap max-w-[150px] md:max-w-none">
-                    {services.map((_, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setCurrentServiceIdx(idx)}
-                        className={`transition-all duration-300 rounded-full ${
-                          currentServiceIdx === idx 
-                            ? 'w-10 h-2 bg-burgundy-600' 
-                            : 'w-2 h-2 bg-ink-200 hover:bg-ink-300'
-                        }`}
-                        aria-label={`Go to slide ${idx + 1}`}
-                      />
-                    ))}
-                  </div>
-
-                  <button 
-                    onClick={() => setCurrentServiceIdx(prev => (prev + 1) % services.length)}
-                    className="w-12 h-12 flex items-center justify-center rounded-full border border-ink-200 text-ink-600 hover:bg-burgundy-600 hover:border-burgundy-600 hover:text-white transition-all"
-                    aria-label="Next slide"
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Right Side - Image */}
-              <div className="order-1 lg:order-2 w-full">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentServiceIdx}
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -50 }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
-                    className="aspect-[4/3] lg:aspect-[5/4] overflow-hidden rounded-xl shadow-lg relative border border-ink-100"
+                    initial={{ x: "100%", opacity: 1 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: "-100%", opacity: 1 }}
+                    transition={{ duration: 0.7, ease: [0.7, 0, 0.3, 1] }}
+                    className="absolute inset-0 w-full h-full"
                   >
                     <img
                       src={services[currentServiceIdx].image}
                       alt={services[currentServiceIdx].title}
-                      className="w-full h-full object-cover transition-transform duration-[2s] hover:scale-105"
+                      className="w-full h-full object-cover"
                     />
+                    <div className="absolute inset-0 bg-ink-950/10 transition-opacity duration-500 group-hover:bg-transparent" />
                   </motion.div>
                 </AnimatePresence>
+
+                {/* Minimal Indicators overlaid on image (Desktop) */}
+                <div className="hidden lg:flex absolute bottom-8 left-8 gap-3 z-10">
+                  {services.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentServiceIdx(idx)}
+                      className="group/dot p-2"
+                      aria-label={`Go to slide ${idx + 1}`}
+                    >
+                      <div className={`transition-all duration-500 h-[2px] ${currentServiceIdx === idx ? 'w-8 bg-white' : 'w-4 bg-white/50 group-hover/dot:bg-white/80'}`} />
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Side - Text Box */}
+              <div className="lg:col-span-5 flex flex-col justify-center relative z-10 lg:-ml-16 xl:-ml-24 lg:my-12">
+                <div className="bg-white p-6 sm:p-10 lg:p-16 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-ink-100/50">
+                  <div className="mb-4">
+                    <span className="font-sans text-[10px] tracking-[0.2em] text-ink-400 uppercase font-bold">
+                      {String(currentServiceIdx + 1).padStart(2, '0')} / {String(services.length).padStart(2, '0')}
+                    </span>
+                  </div>
+                  
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentServiceIdx}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                      <h3 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-ink-950 mb-6 leading-tight flex flex-wrap">
+                        {services[currentServiceIdx].title.split('').map((char, index) => (
+                          <motion.span
+                            key={index}
+                            initial={{ opacity: 0, display: 'inline-block' }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.1, delay: index * 0.03 }}
+                          >
+                            {char === ' ' ? '\u00A0' : char}
+                          </motion.span>
+                        ))}
+                      </h3>
+                      <p className="body-text text-ink-600 mb-8 sm:mb-10 text-sm sm:text-base leading-relaxed line-clamp-4">
+                        {services[currentServiceIdx].description}
+                      </p>
+                      
+                      <button
+                        onClick={() => navigate(`/services/${services[currentServiceIdx].slug}`)}
+                        className="inline-flex items-center gap-3 font-sans text-[10px] sm:text-xs tracking-[0.2em] uppercase font-bold text-ink-950 group/btn transition-colors hover:text-burgundy-600"
+                      >
+                        <span className="border-b border-ink-950 pb-1 group-hover/btn:border-burgundy-600 transition-colors">Discover More</span>
+                        <ArrowRight className="w-4 h-4 transition-transform duration-500 group-hover/btn:translate-x-2" />
+                      </button>
+                    </motion.div>
+                  </AnimatePresence>
+
+                  {/* Navigation Arrows */}
+                  <div className="flex items-center gap-4 mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-ink-100">
+                    <button 
+                      onClick={() => setCurrentServiceIdx(prev => prev === 0 ? services.length - 1 : prev - 1)}
+                      className="w-10 h-10 flex items-center justify-center rounded-full border border-ink-200 text-ink-500 hover:border-ink-900 hover:text-ink-900 hover:bg-ink-50 transition-all"
+                      aria-label="Previous slide"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <button 
+                      onClick={() => setCurrentServiceIdx(prev => (prev + 1) % services.length)}
+                      className="w-10 h-10 flex items-center justify-center rounded-full border border-ink-200 text-ink-500 hover:border-ink-900 hover:text-ink-900 hover:bg-ink-50 transition-all"
+                      aria-label="Next slide"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                    
+                    {/* Mobile Indicators */}
+                    <div className="flex lg:hidden ml-auto items-center gap-2">
+                      {services.map((_, idx) => (
+                        <div key={idx} className={`h-1 transition-all duration-500 rounded-full ${currentServiceIdx === idx ? 'w-4 bg-ink-900' : 'w-1.5 bg-ink-200'}`} />
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="mt-10 md:mt-12 text-center">
+          <div className="mt-16 text-center">
             <button onClick={() => navigate('/services')} className="btn-ghost group inline-flex items-center">
               View All Services
               <ArrowRight className="w-4 h-4 ml-2 transition-transform duration-500 group-hover:translate-x-1" />
@@ -557,7 +561,7 @@ export default function Home({ navigate }: Props) {
       </section>
 
       {/* Review strip */}
-      <section className="py-12 md:py-16 relative overflow-hidden bg-rose-50/30">
+      <section className="py-12 md:py-16 relative overflow-hidden bg-white">
         <div className="absolute inset-0 bg-grain opacity-50" />
         <div className="container-luxe relative z-10">
           <FadeIn>
@@ -667,6 +671,11 @@ export default function Home({ navigate }: Props) {
     </div>
   );
 }
+
+
+
+
+
 
 
 
