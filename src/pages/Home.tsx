@@ -156,21 +156,40 @@ export default function Home({ navigate }: Props) {
         {/* Centered Text Overlay */}
         <div className="absolute inset-0 flex flex-col items-center justify-start text-center p-6 pt-[45vh] md:pt-[45vh] z-10 pointer-events-none">
           <AnimatePresence mode="wait">
-            <motion.div
-              key={selectedIndex}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-5xl mx-auto flex flex-col items-center"
-            >
-              <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-[6rem] text-white leading-[1.1] mb-6 md:mb-8 font-medium drop-shadow-lg">
-                {heroSlides[selectedIndex].title.replace('.', '')}
-                <br />
-                {heroSlides[selectedIndex].subtitle.replace('.', '')}
-              </h1>
-            </motion.div>
-          </AnimatePresence>
+              <motion.div
+                key={selectedIndex}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+                className="max-w-5xl mx-auto flex flex-col items-center"
+              >
+                <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-[6rem] text-white leading-[1.1] mb-6 md:mb-8 font-medium drop-shadow-2xl flex flex-wrap justify-center items-center text-center">
+                  {heroSlides[selectedIndex].title.replace('.', '').split('').map((char, index) => (
+                    <motion.span
+                      key={`title-${index}`}
+                      initial={{ opacity: 0, display: 'inline-block' }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.1, delay: index * 0.05 }}
+                    >
+                      {char === ' ' ? '\u00A0' : char}
+                    </motion.span>
+                  ))}
+                  <div className="w-full h-0" />
+                  {heroSlides[selectedIndex].subtitle.replace('.', '').split('').map((char, index) => (
+                    <motion.span
+                      key={`subtitle-${index}`}
+                      initial={{ opacity: 0, display: 'inline-block' }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.1, delay: (heroSlides[selectedIndex].title.length * 0.05) + (index * 0.05) }}
+                    >
+                      {char === ' ' ? '\u00A0' : char}
+                    </motion.span>
+                  ))}
+                  
+                </h1>
+              </motion.div>
+            </AnimatePresence>
 
           <motion.div 
             initial={{ opacity: 0 }}
@@ -671,6 +690,8 @@ export default function Home({ navigate }: Props) {
     </div>
   );
 }
+
+
 
 
 

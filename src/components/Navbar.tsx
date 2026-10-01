@@ -209,7 +209,7 @@ export default function Navbar({ route, navigate }: Props) {
             transition={{ duration: 0.4 }}
             className="fixed inset-0 z-40 lg:hidden glass-strong"
           >
-            <div className="flex flex-col items-center justify-center min-h-screen gap-2 pt-20">
+            <div className="flex flex-col items-center justify-start h-[100svh] overflow-y-auto gap-4 pt-32 pb-32">
               {links.map((link, i) => (
                 <motion.button
                   key={link.path}
@@ -247,3 +247,4 @@ export default function Navbar({ route, navigate }: Props) {
     </>
   );
 }
+
