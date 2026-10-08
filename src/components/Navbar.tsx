@@ -148,7 +148,7 @@ export default function Navbar({ route, navigate }: Props) {
                         }}
                         className="flex items-center justify-start origin-center bg-transparent"
                       >
-                        <div className={`relative flex items-center justify-start transition-all duration-500 ${isBannerTop ? 'bg-white/95 px-4 py-1.5 rounded-md shadow-lg' : ''}`}>
+                        <div className={`relative flex items-center justify-start transition-all duration-500 ${isBannerTop && !isHome ? 'bg-white/95 px-4 py-1.5 rounded-md shadow-lg' : ''}`}>
                           <img src="/Logo4.png" alt="Devlaji Digital Home Decor" className="h-12 md:h-16 w-auto object-contain pointer-events-none" />
                           <div 
                             className="absolute inset-0 pointer-events-none"
