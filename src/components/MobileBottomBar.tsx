@@ -9,9 +9,9 @@ type Props = {
 
 const navItems = [
   { label: 'Home', path: '/', icon: Home, matchNames: ['home'] },
-  { label: 'Collections', path: '/collections', icon: Layers, matchNames: ['collections', 'category'] },
-  { label: 'Services', path: '/services', icon: Grid, matchNames: ['services', 'service'] },
   { label: 'Products', path: '/products', icon: ShoppingBag, matchNames: ['products', 'product'] },
+  { label: 'Services', path: '/services', icon: Grid, matchNames: ['services', 'service'] },
+  { label: 'Collections', path: '/collections', icon: Layers, matchNames: ['collections', 'category'] },
   { label: 'Projects', path: '/projects', icon: Image, matchNames: ['projects', 'project'] },
   { label: 'Contact', path: '/contact', icon: Phone, matchNames: ['contact'] },
 ];
