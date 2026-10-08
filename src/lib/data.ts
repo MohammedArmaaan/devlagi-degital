@@ -679,7 +679,7 @@ export const genericProducts = [
     image: 'https://images.pexels.com/photos/395079/pexels-photo-395079.jpeg?auto=compress&cs=tinysrgb&w=800',
     gallery: [
       'https://images.pexels.com/photos/395079/pexels-photo-395079.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/2364070/pexels-photo-2364070.jpeg?auto=compress&cs=tinysrgb&w=800'
+      'https://images.pexels.com/photos/1090638/pexels-photo-1090638.jpeg?auto=compress&cs=tinysrgb&w=800'
     ]
   },
   {
@@ -689,9 +689,9 @@ export const genericProducts = [
     price: 4500,
     description: 'Transform your room with our stunning, high-quality large scale wall murals. Choose from our vast collection or provide your own custom design for a truly unique space.',
     features: ['High-Resolution Print', 'Custom Sizing', 'Seamless Look', 'Vibrant Colors'],
-    image: 'https://images.pexels.com/photos/1031302/pexels-photo-1031302.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg?auto=compress&cs=tinysrgb&w=800',
     gallery: [
-      'https://images.pexels.com/photos/1031302/pexels-photo-1031302.jpeg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg?auto=compress&cs=tinysrgb&w=800',
       'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800'
     ]
   },
@@ -702,9 +702,9 @@ export const genericProducts = [
     price: 2500,
     description: 'Classic and durable canvas frames for your personal or commercial art pieces. Made from premium materials ensuring your canvas stays taut and beautifully presented.',
     features: ['Solid Wood Option', 'Taut Stretching', 'Classic Look', 'Durable'],
-    image: 'https://images.pexels.com/photos/2364070/pexels-photo-2364070.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://images.pexels.com/photos/1090638/pexels-photo-1090638.jpeg?auto=compress&cs=tinysrgb&w=800',
     gallery: [
-      'https://images.pexels.com/photos/2364070/pexels-photo-2364070.jpeg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/1090638/pexels-photo-1090638.jpeg?auto=compress&cs=tinysrgb&w=800',
       'https://images.pexels.com/photos/395079/pexels-photo-395079.jpeg?auto=compress&cs=tinysrgb&w=800'
     ]
   },
