@@ -30,7 +30,7 @@ export default function Footer({ navigate }: Props) {
             >
               <img src="/Logo3.png" alt="Devlaji Digital Home Decor" className="h-full w-auto object-contain" />
             </motion.div>
-            <p className="body-text text-sm mb-6">Manufacturers of customized wallpaper and customized home decor products. Bringing stylish privacy and natural light to homes and businesses across Ahmedabad.</p>
+            <p className="body-text text-sm mb-6">Manufacturers of customized wallpaper and customized home decor products. Bringing stylish privacy and natural light to homes and businesses across PAN India.</p>
             <div className="flex items-center gap-2">
               <div className="flex items-center gap-1">{[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-burgundy-600 text-burgundy-600" />)}</div>
               <span className="text-ink-700 font-sans text-sm">{business.rating}</span>
