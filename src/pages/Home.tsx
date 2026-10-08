@@ -272,12 +272,12 @@ export default function Home({ navigate }: Props) {
         <div className="container-luxe max-w-7xl mx-auto px-4 md:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 md:gap-6">
             {[
-              { title: "Animal Wallpaper", span: "md:col-span-2", textColor: "text-white", image: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800" },
-              { title: "Galaxy Wallpaper", span: "md:col-span-1", textColor: "text-white", image: "https://images.pexels.com/photos/1090638/pexels-photo-1090638.jpeg?auto=compress&cs=tinysrgb&w=800" },
-              { title: "Heritage Wallpaper", span: "md:col-span-1", textColor: "text-white", image: "https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg?auto=compress&cs=tinysrgb&w=800" },
-              { title: "Flower Theme\nWallpaper", span: "md:col-span-1", textColor: "text-white", image: "https://images.pexels.com/photos/2082087/pexels-photo-2082087.jpeg?auto=compress&cs=tinysrgb&w=800" },
-              { title: "Cartoon Wallpaper", span: "md:col-span-1", textColor: "text-white", image: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=800" },
-              { title: "Tiles Wallpaper", span: "md:col-span-2", textColor: "text-white", image: "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=800" },
+              { title: "Animal Wallpaper", span: "col-span-2", textColor: "text-white", image: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800" },
+              { title: "Galaxy Wallpaper", span: "col-span-1", textColor: "text-white", image: "https://images.pexels.com/photos/1090638/pexels-photo-1090638.jpeg?auto=compress&cs=tinysrgb&w=800" },
+              { title: "Heritage Wallpaper", span: "col-span-1", textColor: "text-white", image: "https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg?auto=compress&cs=tinysrgb&w=800" },
+              { title: "Flower Theme\nWallpaper", span: "col-span-1", textColor: "text-white", image: "https://images.pexels.com/photos/2082087/pexels-photo-2082087.jpeg?auto=compress&cs=tinysrgb&w=800" },
+              { title: "Cartoon Wallpaper", span: "col-span-1", textColor: "text-white", image: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=800" },
+              { title: "Tiles Wallpaper", span: "col-span-2", textColor: "text-white", image: "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=800" },
             ].map((item, idx) => (
               <FadeIn key={idx} delay={idx * 0.1} className={`w-full ${item.span}`}>
                 <div 

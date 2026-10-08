@@ -98,7 +98,7 @@ export default function Collections({ navigate }: Props) {
                 // 1st and 6th items are wide (col-span-2)
                 const isWide = i % 5 === 0;
                 return (
-                  <FadeIn key={cat.id} delay={i * 0.1} className={isWide ? "md:col-span-2" : "md:col-span-1"}>
+                  <FadeIn key={cat.id} delay={i * 0.1} className={isWide ? "col-span-2" : "col-span-1"}>
                     <div 
                       className="group relative overflow-hidden bg-ink-950 w-full h-full cursor-pointer"
                     >
