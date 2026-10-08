@@ -44,14 +44,24 @@ export default function LeadCaptureModal({
       const response = await apiClient.post('/visitors', {
         name,
         phone,
+        email,
         source,
-        product_interest: productInterest,
+        product_interest: (() => {
+          let history = [];
+          try { history = JSON.parse(localStorage.getItem('browsing_history') || '[]'); } catch(e) {}
+          const historyStr = history.length > 0 ? history.join(' | ') + ' | ' : '';
+          return historyStr + productInterest;
+        })(),
         description: ''
       });
 
       if (response.data.success) {
         localStorage.setItem('lead_captured', 'true');
         localStorage.setItem('lead_captured_time', Date.now().toString());
+        localStorage.setItem('lead_name', name);
+        localStorage.setItem('lead_phone', phone);
+          if (email) localStorage.setItem('lead_email', email);
+          localStorage.removeItem('browsing_history');
         onSuccess();
         onClose();
       }
@@ -151,6 +161,11 @@ export default function LeadCaptureModal({
     </AnimatePresence>
   );
 }
+
+
+
+
+
 
 
 

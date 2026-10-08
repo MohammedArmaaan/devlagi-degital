@@ -1,4 +1,6 @@
-import { Phone, MapPin, Clock, Instagram, Star, ArrowUpRight } from 'lucide-react';
+import { useWhatsapp } from '@/hooks/useWhatsapp';
+import { Phone, MapPin, Clock, Instagram, Star, ArrowUpRight , Loader2} from 'lucide-react';
+import { useBanner } from '@/hooks/useBanner';
 import { motion } from 'framer-motion';
 import FadeIn from '@/components/FadeIn';
 import AnimatedText from '@/components/AnimatedText';
@@ -6,28 +8,48 @@ import EnquiryForm from '@/components/EnquiryForm';
 import { business } from '@/lib/data';
 
 export default function Contact() {
+  const { banner, isLoading: isBannerLoading } = useBanner('contact');
+  const whatsappNo = useWhatsapp();
   return (
     <div className="bg-white min-h-screen">
+      {(isBannerLoading || banner?.image) && (
+      <>
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden flex items-center justify-center min-h-[50vh]">
-        <div className="absolute inset-0 w-full h-full">
-          <img 
-            src="https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1920" 
-            alt="Contact Banner" 
-            className="w-full h-full object-cover" 
-          />
+                <div 
+          className={`absolute inset-0 z-0 w-full h-full ${banner?.link?.[0] ? 'cursor-pointer' : ''}`}
+          onClick={() => {
+            const link = banner?.link?.[0];
+            if (link) {
+              if (link.startsWith('http')) window.location.href = link;
+              else window.location.replace(link);
+            }
+          }}
+        >
+          {isBannerLoading ? (
+            <div className="absolute inset-0 z-20"></div>
+          ) : banner?.image ? (
+            <img src={banner.image} alt="Banner" className="w-full h-full object-cover object-center" />
+          ) : (
+            <div className="absolute inset-0 bg-ink-950 flex items-center justify-center"></div>
+          )}
           <div className="absolute inset-0 bg-black/60" />
         </div>
         <div className="container-luxe relative z-10">
           <FadeIn>
             <div className="text-center max-w-2xl mx-auto">
-              <div className="section-label !text-white/80 border-white/20 justify-center mb-6" style={{ display: 'inline-flex' }}>Get in Touch</div>
-              <h1 className="heading-1 mb-6 text-balance text-white">Contact Us</h1>
+              <div className="section-label !text-white/80 border-white/20 justify-center mb-6" style={{ display: 'inline-flex' }}>{banner?.subtitle}</div>
+              <h1 className="heading-1 mb-6 text-balance text-white">{banner?.title}</h1>
               <div className="w-12 h-0.5 bg-white/30 mx-auto mb-6" />
-              <p className="text-white/90 text-lg">Ready to start your project? Call us, visit our workshop, or send an enquiry below. We respond within 24 hours.</p>
+              <p className="text-white/90 text-lg">
+                  {banner?.description}
+                </p>
             </div>
           </FadeIn>
         </div>
       </section>
+      </>
+      )}
+      {!isBannerLoading && !banner?.image && <div className="pt-24 lg:pt-32" />}
 
       <section className="py-16 md:py-24">
         <div className="container-luxe">
@@ -37,7 +59,7 @@ export default function Contact() {
                 <h2 className="heading-3 mb-8">Reach Us Directly</h2>
                 <div className="space-y-6">
                   {[
-                    { icon: Phone, label: 'Phone', value: business.phone, href: `tel:${business.phoneRaw}` },
+                    { icon: Phone, label: 'Phone', value: whatsappNo, href: `tel:${whatsappNo.replace('+', '')}` },
                     { icon: MapPin, label: 'Address', value: business.address, href: business.mapsUrl, external: true, sub: 'Get Directions' },
                     { icon: Clock, label: 'Business Hours', value: business.hours, sub: 'Sunday: Closed' },
                     { icon: Instagram, label: 'Instagram', value: '@devlaji_digital', href: business.instagram, external: true },
@@ -101,7 +123,7 @@ export default function Contact() {
         <div className="container-luxe">
           <FadeIn y={60}>
             <div className="rounded-sm overflow-hidden border border-ink-200/40">
-              <iframe title="Devlaji Digital Home Decor location" src="https://www.google.com/maps?q=Calico+Mills+Behrampura+Ahmedabad+Gujarat+380022&output=embed" className="w-full h-[400px] grayscale invert opacity-80" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+              <iframe title="Devlaji Digital Home Decor location" src="https://maps.google.com/maps?q=Devlaji%20Digital%20Home%20Decor,%20Ahmedabad&t=&z=15&ie=UTF8&iwloc=&output=embed" className="w-full h-[400px]" loading="lazy" referrerPolicy="no-referrer-when-downgrade" style={{ border: 0 }} allowFullScreen />
             </div>
           </FadeIn>
         </div>
@@ -109,3 +131,5 @@ export default function Contact() {
     </div>
   );
 }
+
+

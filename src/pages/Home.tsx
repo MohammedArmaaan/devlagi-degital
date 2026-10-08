@@ -20,15 +20,42 @@ import Autoplay from 'embla-carousel-autoplay';
 import AnimatedText from '@/components/AnimatedText';
 import TestimonialCard from '@/components/TestimonialCard';
 import FadeIn from '@/components/FadeIn';
-import TiltCard from '@/components/TiltCard';
 import Parallax from '@/components/Parallax';
 import {
   business,
   services,
-  projects,
-  productsList,
-  categories,
+  projects, genericProducts,
 } from '@/lib/data';
+
+
+const TestimonialBubble = ({ quote, name, title, image, date }: { quote: string, name: string, title: string, image: string, date: string }) => (
+  <FadeIn>
+    <div className="flex flex-col mb-10 group">
+      {/* Speech Bubble */}
+      <div className="relative bg-white text-ink-800 p-6 md:p-8 rounded-[2rem] rounded-bl-none text-sm md:text-[15px] leading-relaxed font-sans mb-4 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-300 group-hover:shadow-[0_8px_30px_rgb(0,0,0,0.1)] group-hover:-translate-y-1">
+        <Quote className="absolute top-6 left-6 w-8 h-8 text-burgundy-600/10 -scale-y-100" />
+        <p className="relative z-10 font-medium">"{quote}"</p>
+        {/* The tail of the speech bubble */}
+        <div className="absolute -bottom-4 left-0 w-8 h-8 bg-white" style={{ clipPath: 'polygon(0 0, 100% 0, 0 100%)' }} />
+      </div>
+      
+      {/* User Info */}
+      <div className="flex items-center justify-between gap-4 pl-2 mt-2">
+        <div className="flex items-center gap-4">
+          <img src={image} alt={name} className="w-12 h-12 rounded-full object-cover shadow-sm ring-2 ring-white" />
+          <div>
+            <h4 className="font-bold text-ink-950 font-sans text-xs uppercase tracking-widest">{name}</h4>
+            <p className="text-burgundy-600 text-xs font-serif italic mt-0.5">{title}</p>
+          </div>
+        </div>
+        <div className="text-ink-400 text-[10px] uppercase tracking-[0.2em] font-bold text-right mr-2">
+          {date}
+        </div>
+      </div>
+    </div>
+  </FadeIn>
+);
+
 
 type Props = { navigate: (path: string) => void };
 
@@ -92,13 +119,7 @@ export default function Home({ navigate }: Props) {
 
   const [scrolled, setScrolled] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
-  const productsRef = useRef<HTMLDivElement>(null);
-  const scrollProducts = (direction: 'left' | 'right') => {
-    if (productsRef.current) {
-      const scrollAmount = window.innerWidth >= 1024 ? 400 : 300;
-      productsRef.current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
-    }
-  };
+
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end start'],
@@ -153,7 +174,7 @@ export default function Home({ navigate }: Props) {
         </div>
 
         {/* Centered Text Overlay */}
-        <div className="absolute inset-0 flex flex-col items-center justify-start text-center p-6 pt-[45vh] md:pt-[45vh] z-10 pointer-events-none">
+        <div className="absolute inset-0 flex flex-col items-center justify-start text-center p-6 pt-[50vh] md:pt-[55vh] z-10 pointer-events-none">
           <AnimatePresence mode="wait">
               <motion.div
                 key={selectedIndex}
@@ -163,7 +184,7 @@ export default function Home({ navigate }: Props) {
                 transition={{ duration: 0.5 }}
                 className="max-w-5xl mx-auto flex flex-col items-center"
               >
-                <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-[6rem] text-white leading-[1.1] mb-6 md:mb-8 font-medium drop-shadow-2xl flex flex-wrap justify-center items-center text-center">
+                <h1 className="font-serif text-2xl sm:text-3xl md:text-5xl lg:text-[4rem] text-white leading-[1.1] mb-6 md:mb-8 font-medium drop-shadow-2xl flex flex-wrap justify-center items-center text-center">
                   {heroSlides[selectedIndex].title.replace('.', '').split('').map((char, index) => (
                     <motion.span
                       key={`title-${index}`}
@@ -194,13 +215,13 @@ export default function Home({ navigate }: Props) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 1 }}
-            className="pointer-events-auto mt-4 md:mt-8 flex flex-col sm:flex-row gap-4"
+            className="pointer-events-auto mt-2 md:mt-6 flex flex-col sm:flex-row gap-3 md:gap-4"
           >
-            <button onClick={() => navigate('/services')} className="btn-primary !bg-white !text-ink-950 hover:!bg-white/90 group">
+            <button onClick={() => navigate('/services')} className="btn-primary !bg-white !text-ink-950 hover:!bg-white/90 group !px-5 !py-2.5 !text-xs">
               <span>Explore Services</span>
-              <ArrowRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1" />
+              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-500 group-hover:translate-x-1" />
             </button>
-            <button onClick={() => navigate('/projects')} className="btn-outline !text-white !border-white/30 hover:!border-white hover:!bg-white/10 group">
+            <button onClick={() => navigate('/projects')} className="btn-outline !text-white !border-white/30 hover:!border-white hover:!bg-white/10 group !px-5 !py-2.5 !text-xs">
               <span>View Our Work</span>
             </button>
           </motion.div>
@@ -223,65 +244,137 @@ export default function Home({ navigate }: Props) {
         </div>
       </section>
 
-      {/* Categories strip */}
-      <section id="collections" className="py-12 md:py-16 bg-grain relative overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-20 bg-gradient-to-b from-burgundy-600/40 to-transparent" />
-        <div className="container-luxe">
+
+
+      
+      {/* Premium Collections Section */}
+      <section className="py-16 md:py-24 bg-white relative">
+        <div className="container-luxe max-w-7xl mx-auto px-4 md:px-8 mb-12">
           <FadeIn>
-            <div className="text-center max-w-2xl mx-auto mb-16">
-              <div className="section-label justify-center mb-6" style={{ display: 'inline-flex' }}>Explore by Category</div>
-              <h2 className="heading-2 mb-4 text-balance"><AnimatedText text="Shop Our Collections" /></h2>
-              <div className="gold-divider-center mb-6" />
-              <p className="body-text">
-                Browse our wide range of premium wallpapers and decorative glass films designed to elevate any interior.
-              </p>
+            <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
+              <div className="max-w-2xl">
+                <span className="font-sans text-[10px] tracking-[0.2em] uppercase text-burgundy-600 font-bold mb-4 block">
+                  Collections
+                </span>
+                <h2 className="text-3xl md:text-5xl font-serif text-ink-950 mb-6">Premium Collections</h2>
+                <div className="w-12 h-0.5 bg-burgundy-600" />
+              </div>
+              <button 
+                onClick={() => navigate('/collections')}
+                className="bg-ink-950 text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-ink-900 transition-colors flex items-center gap-2"
+              >
+                View all <ArrowRight className="w-4 h-4" />
+              </button>
             </div>
           </FadeIn>
+        </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 max-w-7xl mx-auto auto-rows-[220px] md:auto-rows-[340px]">
-                            {categories.map((cat, i) => {
-                const isWide = i % 6 === 0 || i % 6 === 5;
-                const isDark = cat.theme === 'dark';
-                const textColor = isDark ? 'text-white' : 'text-black';
-                const borderColor = isDark ? 'border-white' : 'border-black';
-                const hoverColor = isDark ? 'group-hover:text-white/80' : 'group-hover:text-burgundy-600';
-                const hoverBorder = isDark ? 'group-hover:border-white/80' : 'group-hover:border-burgundy-600';
-                
-                return (
-                  <FadeIn key={cat.slug} delay={i * 0.1} className={isWide ? 'col-span-2' : 'col-span-1'}>
-                    <button
-                      onClick={() => navigate('/products?category=' + cat.slug)}
-                      className="group relative overflow-hidden rounded-sm flex flex-col text-left transition-all duration-700 hover:shadow-xl w-full h-full bg-ink-50"
+        <div className="container-luxe max-w-7xl mx-auto px-4 md:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 md:gap-6">
+            {[
+              { title: "Animal Wallpaper", span: "md:col-span-2", textColor: "text-white", image: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800" },
+              { title: "Galaxy Wallpaper", span: "md:col-span-1", textColor: "text-white", image: "https://images.pexels.com/photos/1090638/pexels-photo-1090638.jpeg?auto=compress&cs=tinysrgb&w=800" },
+              { title: "Heritage Wallpaper", span: "md:col-span-1", textColor: "text-white", image: "https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg?auto=compress&cs=tinysrgb&w=800" },
+              { title: "Flower Theme\nWallpaper", span: "md:col-span-1", textColor: "text-white", image: "https://images.pexels.com/photos/2082087/pexels-photo-2082087.jpeg?auto=compress&cs=tinysrgb&w=800" },
+              { title: "Cartoon Wallpaper", span: "md:col-span-1", textColor: "text-white", image: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=800" },
+              { title: "Tiles Wallpaper", span: "md:col-span-2", textColor: "text-white", image: "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=800" },
+            ].map((item, idx) => (
+              <FadeIn key={idx} delay={idx * 0.1} className={`w-full ${item.span}`}>
+                <div 
+                  className="relative w-full h-[200px] sm:h-[300px] md:h-[400px] overflow-hidden bg-ink-50 group"
+                >
+                  <img 
+                    src={item.image} 
+                    alt={item.title} 
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  />
+                  
+                  {/* Subtle dark gradient overlay so white text is always readable */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/10 group-hover:from-black/80 transition-colors duration-500" />
+                  
+                  <div className={`absolute bottom-6 right-6 md:bottom-8 md:right-8 text-right ${item.textColor}`}>
+                    <h3 className="font-serif text-sm sm:text-2xl md:text-[28px] whitespace-pre-line leading-tight">
+                      {item.title}
+                    </h3>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Products Section */}
+      <section className="py-12 md:py-20 relative bg-ink-50">
+        <div className="container-luxe max-w-7xl mx-auto px-4 md:px-8">
+          <div className="w-full">
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
+              <div>
+                <h2 className="text-xl md:text-2xl font-bold text-ink-950 mb-1">Featured Products</h2>
+                <p className="text-ink-500 text-sm">Browse our latest decor offerings</p>
+              </div>
+              <button 
+                onClick={() => navigate('/products')}
+                className="bg-ink-950 text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-ink-900 transition-colors flex items-center gap-2"
+              >
+                Explore all <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4 md:gap-6">
+              {genericProducts.map((product, i) => (
+                <div 
+                  key={i}
+                  className="group relative h-[220px] sm:h-[280px] md:h-[320px] cursor-pointer"
+                  style={{ perspective: '1000px' }}
+                >
+                  {/* Flip Container */}
+                  <div 
+                    className="w-full h-full relative transition-transform duration-700 group-hover:[transform:rotateY(180deg)]"
+                    style={{ transformStyle: 'preserve-3d' }}
+                  >
+                    {/* Front Side */}
+                    <div className="absolute inset-0 w-full h-full  overflow-hidden bg-ink-50 border border-ink-100" style={{ backfaceVisibility: 'hidden' }}>
+                      <img 
+                        src={product.image} 
+                        alt={product.title}
+                        className="w-full h-full object-cover"
+                      />
+                      {/* Info Box */}
+                      <div className="absolute bottom-3 left-3 right-3 bg-white p-2 sm:p-3 md:p-4 shadow-sm">
+                        <h3 className="font-bold text-ink-950 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 truncate">{product.title}</h3>
+                        <p className="text-ink-500 text-[9px] sm:text-xs">Available for custom order</p>
+                      </div>
+                    </div>
+
+                    {/* Back Side */}
+                    <div 
+                      className="absolute inset-0 w-full h-full  bg-ink-950 p-3 sm:p-6 flex flex-col justify-center items-center text-center shadow-lg"
+                      style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
                     >
-                      {/* Full Cover Image */}
-                      <div className="absolute inset-0 w-full h-full overflow-hidden">
-                        <img 
-                          src={cat.image} 
-                          alt={cat.title} 
-                          className="w-full h-full object-cover transition-transform duration-[2s] ease-lux group-hover:scale-110"
-                        />
-                        {/* Optional subtle gradient overlay just to ensure text legibility if needed, but keeping it minimal as requested */}
-                        <div className={`absolute inset-0 bg-gradient-to-t ${isDark ? 'from-black/60 via-black/10' : 'from-white/60 via-white/10'} to-transparent opacity-60`} />
-                      </div>
+                      <h3 className="font-serif text-base sm:text-xl md:text-2xl text-white mb-2 sm:mb-3">{product.title}</h3>
+                      <p className="text-ink-300 text-[10px] sm:text-sm mb-3 sm:mb-6 line-clamp-3 sm:line-clamp-4 leading-relaxed">{product.description}</p>
                       
-                      {/* Text Overlay */}
-                      <div className="relative z-10 flex flex-col p-5 md:p-8 h-full w-full justify-end">
-                        <h3 className={`font-serif leading-snug mb-3 ${isWide ? 'text-2xl md:text-4xl' : 'text-xl md:text-2xl'} ${textColor}`}>
-                          {cat.title}
-                        </h3>
-                        <div className="mt-auto pt-4">
-                          <span className={`inline-flex items-center gap-2 font-sans text-[9px] md:text-[10px] uppercase font-bold tracking-widest transition-colors border-b pb-1 w-max ${textColor} ${borderColor} ${hoverColor} ${hoverBorder}`}>
-                            EXPLORE <ArrowRight className="w-3.5 h-3.5 transition-transform duration-500 group-hover:translate-x-1" />
-                          </span>
-                        </div>
-                      </div>
-                    </button>
-                  </FadeIn>
-                );
-              })}
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/products/${product.slug}`);
+                        }}
+                        className="bg-transparent border border-white text-white px-3 py-1.5 sm:px-6 sm:py-2.5 text-[9px] sm:text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-ink-950 transition-colors flex items-center gap-1 sm:gap-2"
+                      >
+                        View Details <ArrowRight className="w-3 h-3" />
+                      </button>
+                    </div>
+
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
       {/* Services preview - Professional Edition */}
       <section className="py-12 md:py-16 relative bg-white overflow-hidden">
@@ -417,76 +510,10 @@ export default function Home({ navigate }: Props) {
         </div>
       </section>
 
-      {/* Products preview */}
-      <section className="py-12 md:py-16 bg-grain relative overflow-hidden">
-        <div className="container-luxe">
-          <FadeIn>
-            <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-8 md:mb-12">
-              <div>
-                <div className="section-label mb-6">Shop Premium</div>
-                <h2 className="heading-2 text-balance"><AnimatedText text="New Arrivals" /></h2>
-              </div>
-            </div>
-          </FadeIn>
 
-          <div className="mt-8 md:mt-12">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
-              {productsList.filter(p => p.isNewArrival).map((product, i) => (
-                <div key={product.slug} className="h-full">
-                  <FadeIn delay={i * 0.05} className="h-full">
-                    <TiltCard intensity={5} className="h-full">
-                      <div
-                        role="button"
-                        tabIndex={0}
-                        onClick={() => navigate(`/products/${product.slug}`)}
-                        className="card-luxe group flex flex-col h-full glass-shine w-full text-left cursor-pointer"
-                      >
-                        <div className="aspect-square md:aspect-[4/3] overflow-hidden relative w-full">
-                          <img src={product.image} alt={product.title} className="w-full h-full object-cover transition-transform duration-[1.5s] ease-lux group-hover:scale-110" />
-                          <div className="absolute top-3 right-3 bg-burgundy-600 text-white px-2.5 py-1 rounded-sm z-10 shadow-md">
-                            <span className="font-sans text-[9px] md:text-[11px] tracking-widest uppercase font-bold">New</span>
-                          </div>
-                          <div className="absolute inset-0 bg-gradient-to-t from-ink-950/60 via-transparent to-transparent opacity-60" />
-                        </div>
-                        <div className="p-4 md:p-5 flex flex-col flex-1">
-                          <span className="font-sans text-[10px] md:text-xs tracking-widest uppercase text-burgundy-600 mb-1.5 md:mb-2 block line-clamp-1 font-semibold">{product.category}</span>
-                          <h3 className="text-base md:text-lg font-serif text-ink-950 mb-3 group-hover:text-burgundy-700 transition-colors duration-500 leading-snug line-clamp-2 min-h-[3rem]">{product.title}</h3>
-                          
-                          <div className="flex flex-col gap-3 mt-auto pt-3 md:pt-4 border-t border-ink-100">
-                            <div className="flex items-center justify-between">
-                              <span className="font-serif text-base md:text-lg text-ink-950 font-semibold">₹{product.price.toLocaleString('en-IN')}</span>
-                              <div className="flex items-center gap-1.5 text-burgundy-600 font-sans text-[10px] md:text-xs tracking-widest uppercase font-medium">
-                                View <ArrowRight className="w-3 h-3 transition-transform duration-500 group-hover:translate-x-1" />
-                              </div>
-                            </div>
-                            <button
-                              onClick={(e) => handleEnquire(e, product.title)}
-                                className="w-full flex items-center justify-center gap-1.5 py-1.5 md:py-2 bg-[#25D366] hover:bg-[#128C7E] text-white rounded font-sans text-[9px] md:text-[10px] font-bold tracking-widest transition-all shadow-sm hover:shadow-md"
-                              >
-                                <MessageCircle className="w-3.5 h-3.5" />
-                                INQUIRE
-                              </button>
-                          </div>
-                        </div>
-                      </div>
-                    </TiltCard>
-                  </FadeIn>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-4 text-center">
-            <button onClick={() => navigate('/products')} className="btn-primary group inline-flex items-center px-8 py-4">
-              <span className="text-sm tracking-widest font-bold">VIEW ALL PRODUCTS</span>
-              <ArrowRight className="w-4 h-4 ml-2 transition-transform duration-500 group-hover:translate-x-1" />
-            </button>
-          </div>
-        </div>
-      </section>
 
       {/* Projects preview */}
-      <section className="py-12 md:py-16 relative overflow-hidden bg-[#f7f7f7]">
+      <section className="py-12 md:py-16 relative overflow-hidden bg-ink-100">
         <div className="container-luxe max-w-7xl mx-auto">
           {/* Top Split Section */}
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-10 lg:gap-12 items-center mb-10">
@@ -578,9 +605,57 @@ export default function Home({ navigate }: Props) {
         </div>
       </section>
 
+      {/* Gallery Section */}
+      <section className="py-12 md:py-24 relative bg-white overflow-hidden border-t border-ink-100">
+        <div className="container-luxe max-w-7xl mx-auto px-4 md:px-8">
+          <FadeIn>
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <span className="font-sans text-[10px] tracking-[0.2em] uppercase text-burgundy-600 font-bold mb-4 block">
+                Inspiration
+              </span>
+              <h2 className="text-3xl md:text-5xl font-serif text-ink-950 mb-6">Our Gallery</h2>
+              <div className="w-12 h-0.5 bg-burgundy-600 mx-auto" />
+            </div>
+          </FadeIn>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
+            {[
+              "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800",
+              "https://images.pexels.com/photos/1090638/pexels-photo-1090638.jpeg?auto=compress&cs=tinysrgb&w=800",
+              "https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg?auto=compress&cs=tinysrgb&w=800",
+              "https://images.pexels.com/photos/2082087/pexels-photo-2082087.jpeg?auto=compress&cs=tinysrgb&w=800",
+              "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=800",
+              "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=800",
+              "https://images.pexels.com/photos/3573351/pexels-photo-3573351.jpeg?auto=compress&cs=tinysrgb&w=800",
+              "https://images.pexels.com/photos/1083822/pexels-photo-1083822.jpeg?auto=compress&cs=tinysrgb&w=800"
+            ].map((img, i) => (
+              <FadeIn 
+                key={i} 
+                delay={i * 0.1} 
+                className={
+                  i === 0 ? "col-span-2 row-span-2" : 
+                  i === 3 ? "col-span-2 row-span-2" : 
+                  "col-span-1 row-span-1"
+                }
+              >
+                <div className="relative w-full h-full overflow-hidden group rounded-sm bg-ink-50">
+                  <img src={img} alt="Gallery item" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-ink-950/0 group-hover:bg-ink-950/20 transition-colors duration-500 cursor-zoom-in" />
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+          
+          <div className="mt-12 text-center">
+            <button className="btn-outline group !px-8 !py-3 border-ink-900 text-ink-900 hover:bg-ink-900 hover:text-white transition-colors">
+              <span>View More Inspiration</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
       {/* Review strip */}
-      <section className="py-12 md:py-16 relative overflow-hidden bg-white">
-        <div className="absolute inset-0 bg-grain opacity-50" />
+      <section className="py-12 md:py-24 relative overflow-hidden bg-ink-50">
         <div className="container-luxe relative z-10">
           <FadeIn>
             <div className="flex flex-col md:flex-row items-center justify-between mb-16 gap-8 text-center md:text-left">
@@ -610,44 +685,66 @@ export default function Home({ navigate }: Props) {
                 </motion.a>
               </div>
             </div>
-
-                        <div className="w-full max-w-4xl mx-auto overflow-hidden" ref={testimonialRef}>
-              <div className="flex">
-              {[
-                {
-                  quote: "Excellent quality and professional service. The decorative glass film they installed transformed our office completely. Highly recommended for anyone looking for customized decor solutions.",
-                  name: "Anil Patel",
-                  title: "Business Owner",
-                  image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop"
-                },
-                {
-                  quote: "Very impressed with their wallpaper collection and installation. The team was punctual, polite, and left everything spotless. Our living room looks incredibly elegant now.",
-                  name: "Priya Sharma",
-                  title: "Interior Designer",
-                  image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop"
-                },
-                {
-                  quote: "Devlaji Digital provided customized blinds for our new restaurant. The print quality is fantastic and the material is top-notch. Great value for money and excellent support.",
-                  name: "Rahul Desai",
-                  title: "Restaurant Manager",
-                  image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop"
-                }
-              ].map((review, idx) => (
-                <div 
-                  key={idx}
-                  className="w-full flex-[0_0_100%] min-w-0 flex justify-center px-4"
-                >
-                  <TestimonialCard 
-                    name={review.name}
-                    title={review.title}
-                    image={review.image}
-                    quote={review.quote}
-                  />
-                </div>
-              ))}
-            </div>
-                </div>
           </FadeIn>
+
+          {/* Masonry-like Testimonials Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 items-start">
+            
+            {/* Column 1 */}
+            <div className="flex flex-col">
+              <TestimonialBubble 
+                quote="Excellent quality and professional service. The decorative glass film they installed transformed our office completely. Highly recommended for anyone looking for customized decor solutions."
+                name="Anil Patel"
+                title="Business Owner"
+                image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop"
+                date="Oct 12, 2026"
+              />
+              <TestimonialBubble 
+                quote="I am so grateful for your styling system. Our living room looks incredibly elegant now. I love it!"
+                name="Sarah Jenkins"
+                title="Homeowner"
+                image="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop"
+                date="Sep 28, 2026"
+              />
+            </div>
+
+            {/* Column 2 */}
+            <div className="flex flex-col lg:mt-12">
+              <TestimonialBubble 
+                quote="Very impressed with their wallpaper collection and installation. The team was punctual, polite, and left everything spotless. You're awesome :)"
+                name="Priya Sharma"
+                title="Interior Designer"
+                image="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop"
+                date="Aug 15, 2026"
+              />
+              <TestimonialBubble 
+                quote="Everything I need to run and market my business is right here. The custom blinds were top-notch!"
+                name="Rahul Desai"
+                title="Restaurant Manager"
+                image="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop"
+                date="Jul 04, 2026"
+              />
+            </div>
+
+            {/* Column 3 */}
+            <div className="flex flex-col lg:mt-24">
+              <TestimonialBubble 
+                quote="I am so grateful for your excellent service. Last but not least, I have time for myself to be a mother. Again thank you so much for your great work. I LOVE IT!"
+                name="Aikisha Boyd"
+                title="Freelance Stylist"
+                image="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop"
+                date="Jun 22, 2026"
+              />
+              <TestimonialBubble 
+                quote="You have been the most helpful company I have ever worked with. The custom prints are perfect."
+                name="Megan Duchi"
+                title="The Last Tangle"
+                image="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=400&fit=crop"
+                date="May 10, 2026"
+              />
+            </div>
+
+          </div>
         </div>
       </section>
 

@@ -47,7 +47,7 @@ import Collections from '@/pages/Collections';
 import Privacy from '@/pages/Privacy';
 import Terms from '@/pages/Terms';
 import Returns from '@/pages/Returns';
-import Virtualizer from '@/pages/Virtualizer';
+
 
 // Admin Layout & Pages
 import AdminLayout from '@/layouts/AdminLayout';
@@ -62,25 +62,25 @@ function App() {
   const renderPublicPage = () => {
     switch (route.name) {
       case 'home':
-        return <Home navigate={navigate} />;
+        return <Home   navigate={navigate} />;
       case 'services':
-        return <Services navigate={navigate} />;
+        return <Services   navigate={navigate} />;
       case 'service':
-        return <ServiceDetail slug={route.slug} navigate={navigate} />;
+        return <ServiceDetail slug={route.slug}   navigate={navigate} />;
       case 'projects':
-        return <Projects navigate={navigate} />;
+        return <Projects   navigate={navigate} />;
       case 'project':
-        return <ProjectDetail slug={route.slug} navigate={navigate} />;
+        return <ProjectDetail slug={route.slug}   navigate={navigate} />;
       case 'products':
-        return <Products navigate={navigate} />;
+        return <Products   navigate={navigate} />;
       case 'product':
-        return <ProductDetail slug={route.slug} navigate={navigate} />;
+        return <ProductDetail slug={route.slug}   navigate={navigate} />;
       case 'collections':
         return <Collections navigate={navigate} />;
       case 'brochures':
-        return <Brochures navigate={navigate} />;
+        return <Brochures   navigate={navigate} />;
       case 'about':
-        return <About navigate={navigate} />;
+        return <About   navigate={navigate} />;
       case 'contact':
         return <Contact />;
       case 'privacy':
@@ -91,7 +91,7 @@ function App() {
         return <Returns />;
       
       default:
-        return <Home navigate={navigate} />;
+        return <Home   navigate={navigate} />;
     }
   };
 
@@ -100,22 +100,20 @@ function App() {
       case 'admin-login':
         return <AdminLogin navigate={navigate} />;
       case 'admin-dashboard':
-        return <AdminDashboard navigate={navigate} />;
+        return <AdminDashboard />;
 
       default:
-        return <AdminDashboard navigate={navigate} />;
+        return <AdminDashboard />;
     }
   };
 
   // If it's an admin route, completely bypass the public layout
-  if (route.name === 'virtualizer') {
-    return <Virtualizer />;
-  }
+
 
   // If it's an admin route, completely bypass the public layout
   if (isAdminRoute) {
     return (
-      <AdminLayout navigate={navigate} currentRoute={route.name}>
+      <AdminLayout currentRoute={route.name} navigate={navigate}>
         {renderAdminPage()}
       </AdminLayout>
     );

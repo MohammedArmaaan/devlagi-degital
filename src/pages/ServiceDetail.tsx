@@ -1,15 +1,39 @@
-import { ArrowRight, ArrowLeft, Check, MapPin } from 'lucide-react';
+import LeadCaptureModal from '@/components/LeadCaptureModal';
+import { useEffect , useState } from "react";
+import { Loader2 } from 'lucide-react';
+import { useWhatsapp } from '@/hooks/useWhatsapp';
+import { ArrowRight, ArrowLeft, Check, MapPin , MessageCircle} from 'lucide-react';
 import { motion } from 'framer-motion';
 import FadeIn from '@/components/FadeIn';
+import { trackInterest } from '@/lib/trackInterest';
 import AnimatedText from '@/components/AnimatedText';
 import TiltCard from '@/components/TiltCard';
+import { services } from '@/lib/data';
 import EnquiryForm from '@/components/EnquiryForm';
-import { services, business } from '@/lib/data';
 
 type Props = { slug: string; navigate: (path: string) => void };
 
 export default function ServiceDetail({ slug, navigate }: Props) {
-  const service = services.find((s) => s.slug === slug);
+  const whatsappNo = useWhatsapp();
+  const service = services.find(s => s.slug === slug);
+
+  const [showLeadModal, setShowLeadModal] = useState(false);
+
+  const proceedToWhatsApp = () => {
+    if (!service) return;
+    const currentUrl = window.location.href;
+    const text = `Hi, I am interested in ${service.title || ''}.
+
+Service Link: ${currentUrl}
+
+Please provide more details.`;
+    window.open('https://wa.me/' + whatsappNo.replace('+', '') + '?text=' + encodeURIComponent(text), '_blank');
+  };
+  useEffect(() => {
+    if (service) {
+      trackInterest(service.title || '', '/service/' + service.slug);
+    }
+  }, [service]);
   if (!service) {
     return (
       <div className="bg-white min-h-screen pt-32 flex items-center justify-center">
@@ -20,21 +44,21 @@ export default function ServiceDetail({ slug, navigate }: Props) {
       </div>
     );
   }
-  const currentIndex = services.indexOf(service);
-  const nextService = services[(currentIndex + 1) % services.length];
+  const nextService: any = null;
 
   return (
     <div className="bg-white min-h-screen">
       <section className="relative h-[60vh] md:h-[70vh] pt-32 overflow-hidden">
-        <motion.img initial={{ scale: 1.15 }} animate={{ scale: 1 }} transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }} src={service.image} alt={service.title} className="absolute inset-0 w-full h-full object-cover" />
-        <div className="relative container-luxe h-full flex flex-col justify-end pb-12">
+        <motion.img initial={{ scale: 1.15 }} animate={{ scale: 1 }} transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }} src={service.image || service.image || ''} alt={service.title || service.title || ''} className="absolute inset-0 w-full h-full object-cover z-0" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 z-10" />
+        <div className="relative container-luxe h-full flex flex-col justify-end pb-12 z-20">
           <FadeIn>
-            <button onClick={() => navigate('/services')} className="flex items-center gap-2 text-ink-700 hover:text-burgundy-700 transition-colors duration-500 mb-4 font-sans text-sm">
+            <button onClick={() => navigate('/services')} className="flex items-center gap-2 text-white/80 hover:text-white transition-colors duration-500 mb-4 font-sans text-sm">
               <ArrowLeft className="w-4 h-4" /> All Services
             </button>
-            <div className="section-label mb-4">{service.title}</div>
-            <h1 className="heading-1 mb-4 text-balance"><AnimatedText text={service.title} /></h1>
-            <p className="body-text text-lg max-w-2xl">{service.short}</p>
+            <div className="section-label !text-white/80 border-white/20 mb-4">{service.title || service.title || ''}</div>
+            <h1 className="heading-1 mb-4 text-balance text-white"><AnimatedText text={service.title || service.title || ''} /></h1>
+            <p className="body-text text-lg max-w-2xl text-white/90">{service.short || service.short || ''}</p>
           </FadeIn>
         </div>
       </section>
@@ -46,12 +70,12 @@ export default function ServiceDetail({ slug, navigate }: Props) {
               <FadeIn>
                 <div className="section-label mb-6">Overview</div>
                 <h2 className="heading-3 mb-6">About This Service</h2>
-                <p className="body-text text-lg mb-6">{service.description}</p>
+                <div className="prose max-w-none body-text text-lg mb-6" dangerouslySetInnerHTML={{ __html: service.description || '' }} />
               </FadeIn>
               <FadeIn delay={0.15}>
                 <h3 className="font-sans text-xs tracking-wide-2 uppercase text-ink-800 mb-4 mt-10">Key Benefits</h3>
                 <div className="space-y-3">
-                  {service.benefits.map((benefit, bi) => (
+                  {(service.benefits || service.benefits || []).map((benefit: string, bi: number) => (
                     <motion.div
                       key={benefit}
                       initial={{ opacity: 0, x: -15 }}
@@ -73,18 +97,21 @@ export default function ServiceDetail({ slug, navigate }: Props) {
               <FadeIn delay={0.2} y={50}>
                 <TiltCard intensity={4}>
                   <div className="glass rounded-sm p-6 md:p-8 glass-shine">
-                    <h3 className="font-sans text-xs tracking-wide-2 uppercase text-burgundy-600 mb-4">Ideal Applications</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {service.applications.map((app) => (
-                        <span key={app} className="px-4 py-2 bg-ink-100/40 border border-ink-600/40 text-ink-800 font-sans text-sm rounded-sm hover:border-burgundy-600/30 transition-all duration-500">{app}</span>
-                      ))}
-                    </div>
-                    <div className="mt-8 pt-8 border-t border-ink-200/40">
+                    <div className="pt-2">
                       <h3 className="font-sans text-xs tracking-wide-2 uppercase text-burgundy-600 mb-4">Ready to Start?</h3>
                       <p className="body-text text-sm mb-4">Contact us for a free consultation and quotation for your space.</p>
                       <div className="flex flex-col gap-3">
                         <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => navigate('/contact')} className="btn-primary w-full group"><span>Request a Quote</span></motion.button>
-                        <motion.a whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} href={`tel:${business.phoneRaw}`} className="btn-outline w-full group"><span>Call {business.phone}</span></motion.a>
+                          <motion.button 
+                            whileHover={{ scale: 1.02 }} 
+                            whileTap={{ scale: 0.98 }} 
+                            onClick={proceedToWhatsApp}
+                            className="btn-outline w-full flex items-center justify-center gap-2 group border-green-600 text-green-700 hover:bg-green-50"
+                          >
+                            <MessageCircle className="w-4 h-4 text-green-600" />
+                            <span>Enquire on WhatsApp</span>
+                          </motion.button>
+                        <motion.a whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} href={`tel:${whatsappNo.replace('+', '')}`} className="btn-outline w-full group"><span>Call {whatsappNo}</span></motion.a>
                       </div>
                     </div>
                   </div>
@@ -95,39 +122,17 @@ export default function ServiceDetail({ slug, navigate }: Props) {
         </div>
       </section>
 
-      <section className="py-20 md:py-28 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-burgundy-600/20 to-transparent" />
-        <div className="container-luxe">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            <div className="lg:col-span-5">
-              <FadeIn>
-                <div className="section-label mb-6">Enquire</div>
-                <h2 className="heading-2 mb-6 text-balance">Interested in {service.title}?</h2>
-                <p className="body-text mb-6">Fill out the form and our team will get back to you within 24 hours with a personalized quotation and consultation.</p>
-                <div className="flex items-center gap-3 text-ink-700"><MapPin className="w-4 h-4 text-burgundy-600" /><span className="font-sans text-sm">{business.shortAddress}</span></div>
-              </FadeIn>
-            </div>
-            <div className="lg:col-span-7">
-              <FadeIn delay={0.15} y={50}>
-                <div className="glass rounded-sm p-6 md:p-8">
-                  <EnquiryForm defaultService={service.title} compact />
-                </div>
-              </FadeIn>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      {nextService && (
       <section className="py-16 md:py-20">
         <div className="container-luxe">
           <motion.button
             whileHover={{ x: 4 }}
-            onClick={() => navigate(`/services/${nextService.slug}`)}
+            onClick={() => navigate(`/services/${nextService?.slug || ''}`)}
             className="group flex flex-col md:flex-row items-start md:items-center justify-between gap-6 w-full"
           >
             <div>
               <span className="font-sans text-xs tracking-wide-3 uppercase text-burgundy-600 mb-2 block">Next Service</span>
-              <h3 className="heading-3 group-hover:text-burgundy-700 transition-colors duration-500">{nextService.title}</h3>
+              <h3 className="heading-3 group-hover:text-burgundy-700 transition-colors duration-500">{nextService?.title || nextService?.title || ''}</h3>
             </div>
             <div className="flex items-center gap-3 text-burgundy-600">
               <span className="font-sans text-sm tracking-wide-2 uppercase">View</span>
@@ -136,6 +141,9 @@ export default function ServiceDetail({ slug, navigate }: Props) {
           </motion.button>
         </div>
       </section>
+      )}
+
+      
     </div>
   );
 }

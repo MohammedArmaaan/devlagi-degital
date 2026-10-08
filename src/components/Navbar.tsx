@@ -1,3 +1,4 @@
+import { useWhatsapp } from '@/hooks/useWhatsapp';
 import { useEffect, useState, useRef } from 'react';
 import { Menu, X, Phone } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
@@ -22,7 +23,7 @@ const links = [
 
 function isActive(route: Route, path: string): boolean {
   if (path === '/') return route.name === 'home';
-  if (path === '/collections') return route.name === 'collections' || route.name === 'category';
+  if (path === '/collections') return route.name === 'collections';
   if (path === '/services') return route.name === 'services' || route.name === 'service';
   if (path === '/products') return route.name === 'products' || route.name === 'product';
   if (path === '/projects') return route.name === 'projects' || route.name === 'project';
@@ -33,6 +34,7 @@ function isActive(route: Route, path: string): boolean {
 }
 
 export default function Navbar({ route, navigate }: Props) {
+  const whatsappNo = useWhatsapp();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   
@@ -40,8 +42,16 @@ export default function Navbar({ route, navigate }: Props) {
   const [offsets, setOffsets] = useState({ x: 0, y: 0 });
   const isHome = route.name === 'home';
   
-  const noBannerRoutes = ['service', 'project', 'product', 'privacy', 'terms', 'returns'];
-  const hasBanner = !noBannerRoutes.includes(route.name);
+  const noBannerRoutes = ['privacy', 'terms', 'returns', 'product'];
+  const initialHasBanner = !noBannerRoutes.includes(route.name);
+  const [hasBanner, setHasBanner] = useState(initialHasBanner);
+
+  useEffect(() => {
+    setHasBanner(initialHasBanner);
+    const handleMissing = () => setHasBanner(false);
+    window.addEventListener('banner-missing', handleMissing);
+    return () => window.removeEventListener('banner-missing', handleMissing);
+  }, [initialHasBanner, route.name]);
 
   const { scrollY } = useScroll();
   // Map 0 to 300px of scroll to a progress of 0 to 1
@@ -189,15 +199,7 @@ export default function Navbar({ route, navigate }: Props) {
             </nav>
 
             <div className="hidden xl:flex items-center gap-6 shrink-0">
-              <a
-                href={`tel:${business.phoneRaw}`}
-                className={`flex items-center gap-2 transition-colors duration-500 font-sans text-sm whitespace-nowrap ${
-                  !scrolled && hasBanner ? 'text-white/90 hover:text-white' : 'text-ink-800 hover:text-burgundy-700'
-                }`}
-              >
-                <Phone className="w-4 h-4" />
-                <span>{business.phone}</span>
-              </a>
+              
               <button onClick={() => navigate('/contact')} className={`px-6 py-2.5 rounded-sm font-sans text-xs font-semibold tracking-wider uppercase transition-all duration-500 whitespace-nowrap ${
                 !scrolled && hasBanner
                   ? 'bg-white text-ink-900 hover:bg-white/90'
@@ -264,9 +266,9 @@ export default function Navbar({ route, navigate }: Props) {
                 transition={{ delay: 0.6, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 className="mt-12 flex flex-col items-center gap-6 w-full max-w-md mx-auto"
               >
-                <a href={`tel:${business.phoneRaw}`} className="flex items-center justify-center gap-3 text-white/80 font-sans text-sm tracking-widest uppercase hover:text-white transition-colors w-full py-4 border border-white/10 rounded-sm">
+                <a href={`tel:${whatsappNo.replace('+', '')}`} className="flex items-center justify-center gap-3 text-white/80 font-sans text-sm tracking-widest uppercase hover:text-white transition-colors w-full py-4 border border-white/10 rounded-sm">
                   <Phone className="w-4 h-4" />
-                  {business.phone}
+                  {whatsappNo}
                 </a>
                 <button onClick={() => { setMenuOpen(false); setTimeout(() => navigate('/contact'), 300); }} className="btn-primary w-full !bg-white !text-ink-950 hover:!bg-white/90">
                   <span>Get a Quote</span>
@@ -279,6 +281,8 @@ export default function Navbar({ route, navigate }: Props) {
     </>
   );
 }
+
+
 
 
 

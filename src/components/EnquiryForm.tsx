@@ -1,54 +1,55 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { services } from '@/lib/data';
+import { apiClient } from '@/lib/axios';
 
 type Props = {
-  defaultService?: string;
   compact?: boolean;
 };
 
-export default function EnquiryForm({ defaultService = '', compact = false }: Props) {
+export default function EnquiryForm({ compact = false }: Props) {
   const [form, setForm] = useState({
     name: '',
     phone: '',
     email: '',
-    service: defaultService,
-    project_type: '',
+    subject: '', // Added Subject field
     message: '',
   });
+  
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-    const [errorMsg, setErrorMsg] = useState('');
-
-
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name.trim() || !form.phone.trim() || !form.service) {
+    
+    if (!form.name.trim() || !form.phone.trim()) {
       setStatus('error');
-      setErrorMsg('Please fill in your name, phone number, and select a service.');
+      setErrorMsg('Please fill in your name and phone number.');
       return;
     }
+    
     setStatus('loading');
-    
-    // Simulate short loading to feel responsive
-    await new Promise(resolve => setTimeout(resolve, 600));
-    
-    // Format the message for WhatsApp
-    const messageLines = [
-      `*New Enquiry from ${form.name.trim()}*`,
-      `*Phone:* ${form.phone.trim()}`,
-      form.email ? `*Email:* ${form.email.trim()}` : null,
-      `*Service:* ${form.service}`,
-      form.project_type ? `*Project Type:* ${form.project_type}` : null,
-      form.message ? `\n*Details:*\n${form.message}` : null
-    ].filter(Boolean);
-    
-    const whatsappText = encodeURIComponent(messageLines.join('\n'));
-    window.open(`https://wa.me/919023791865?text=${whatsappText}`, '_blank');
-    
-    setStatus('success');
-    setForm({ name: '', phone: '', email: '', service: '', project_type: '', message: '' });
+    setErrorMsg('');
+
+    try {
+      const apiPayload = {
+        name: form.name.trim(),
+        number: form.phone.trim(),
+        email: form.email.trim(),
+        subject: form.subject.trim(), // API Subject mapping
+        description: form.message.trim()
+      };
+
+      const res = await apiClient.post('/inquery', apiPayload);
+
+      if (res.data.success) {
+        setStatus('success');
+        setForm({ name: '', phone: '', email: '', subject: '', message: '' });
+      }
+    } catch (error: any) {
+      setStatus('error');
+      setErrorMsg(error.response?.data?.message || error.response?.data?.errors || 'Something went wrong. Please try again.');
+    }
   };
 
   if (status === 'success') {
@@ -79,6 +80,7 @@ export default function EnquiryForm({ defaultService = '', compact = false }: Pr
 
   return (
     <form onSubmit={handleSubmit} className={compact ? 'space-y-5' : 'space-y-6'}>
+      {/* Row 1: Name and Phone */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div>
           <label className="label-luxe" htmlFor="name">
@@ -110,6 +112,7 @@ export default function EnquiryForm({ defaultService = '', compact = false }: Pr
         </div>
       </div>
 
+      {/* Row 2: Email and Subject */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div>
           <label className="label-luxe" htmlFor="email">
@@ -120,63 +123,35 @@ export default function EnquiryForm({ defaultService = '', compact = false }: Pr
             type="email"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className="input-luxe"
+            className="input-luxe w-full"
             placeholder="Your email"
           />
         </div>
         <div>
-          <label className="label-luxe" htmlFor="service">
-            Service *
+          <label className="label-luxe" htmlFor="subject">
+            Subject (Optional)
           </label>
-          <select
-            id="service"
-            value={form.service}
-            onChange={(e) => setForm({ ...form, service: e.target.value })}
-            className="input-luxe"
-            required
-          >
-            <option value="">Select a service</option>
-            {services.map((s) => (
-              <option key={s.slug} value={s.title}>
-                {s.title}
-              </option>
-            ))}
-            <option value="General Enquiry">General Enquiry</option>
-          </select>
+          <input
+            id="subject"
+            type="text"
+            value={form.subject}
+            onChange={(e) => setForm({ ...form, subject: e.target.value })}
+            className="input-luxe w-full"
+            placeholder="e.g. Need wallpaper installation"
+          />
         </div>
       </div>
 
-      <div>
-        <label className="label-luxe" htmlFor="project_type">
-          Project Type
-        </label>
-        <div className="flex gap-3">
-          {['Residential', 'Commercial', 'Both'].map((type) => (
-            <button
-              key={type}
-              type="button"
-              onClick={() => setForm({ ...form, project_type: type })}
-              className={`px-5 py-2.5 font-sans text-sm rounded-sm border transition-all duration-500 ease-lux ${
-                form.project_type === type
-                  ? 'border-burgundy-600 text-burgundy-700 bg-burgundy-600/5'
-                  : 'border-ink-600 text-ink-700 hover:border-ink-400 hover:text-ink-900'
-              }`}
-            >
-              {type}
-            </button>
-          ))}
-        </div>
-      </div>
-
+      {/* Row 3: Description */}
       <div>
         <label className="label-luxe" htmlFor="message">
-          Project Details
+          Project Details (Optional)
         </label>
         <textarea
           id="message"
           value={form.message}
           onChange={(e) => setForm({ ...form, message: e.target.value })}
-          className="input-luxe min-h-[120px] resize-y"
+          className="input-luxe min-h-[120px] resize-y w-full"
           placeholder="Tell us about your space, dimensions, design preferences, or any questions you have..."
         />
       </div>
@@ -203,7 +178,7 @@ export default function EnquiryForm({ defaultService = '', compact = false }: Pr
         className="btn-primary w-full disabled:opacity-60 disabled:cursor-not-allowed group"
       >
         {status === 'loading' ? (
-          <><Loader2 className="w-4 h-4 animate-spin" /><span>Sending...</span></>
+          <><Loader2 className="w-4 h-4 animate-spin mr-2" /><span>Sending...</span></>
         ) : (
           <span>Submit Enquiry</span>
         )}
@@ -211,7 +186,3 @@ export default function EnquiryForm({ defaultService = '', compact = false }: Pr
     </form>
   );
 }
-
-
-
-

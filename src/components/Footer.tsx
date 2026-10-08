@@ -1,3 +1,4 @@
+import { useWhatsapp } from '@/hooks/useWhatsapp';
 import { MapPin, Phone, Clock, Instagram, Star, ArrowUpRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { business } from '@/lib/data';
@@ -5,6 +6,7 @@ import { business } from '@/lib/data';
 type Props = { navigate: (path: string) => void };
 
 export default function Footer({ navigate }: Props) {
+  const whatsappNo = useWhatsapp();
   const navLinks = [
     { label: 'Home', path: '/' },
     { label: 'Services', path: '/services' },
@@ -53,6 +55,7 @@ export default function Footer({ navigate }: Props) {
               <li><button onClick={() => navigate('/privacy')} className="text-ink-700 hover:text-burgundy-700 transition-colors duration-500 font-sans text-sm link-underline">Privacy Policy</button></li>
               <li><button onClick={() => navigate('/terms')} className="text-ink-700 hover:text-burgundy-700 transition-colors duration-500 font-sans text-sm link-underline">Terms & Conditions</button></li>
               <li><button onClick={() => navigate('/returns')} className="text-ink-700 hover:text-burgundy-700 transition-colors duration-500 font-sans text-sm link-underline">Returns & Refunds</button></li>
+              <li><button onClick={() => navigate('/cookies')} className="text-ink-700 hover:text-burgundy-700 transition-colors duration-500 font-sans text-sm link-underline">Cookie Policy</button></li>
             </ul>
           </div>
 
@@ -61,7 +64,7 @@ export default function Footer({ navigate }: Props) {
             <ul className="space-y-4">
               <li className="flex items-start gap-3"><MapPin className="w-4 h-4 text-burgundy-600 mt-0.5 flex-shrink-0" /><span className="text-ink-700 font-sans text-sm leading-relaxed">{business.address}</span></li>
               <li className="flex items-center gap-3"><Clock className="w-4 h-4 text-burgundy-600 flex-shrink-0" /><span className="text-ink-700 font-sans text-sm">{business.hours}</span></li>
-              <li><a href={`tel:${business.phoneRaw}`} className="flex items-center gap-3 text-ink-700 hover:text-burgundy-700 transition-colors duration-500 font-sans text-sm"><Phone className="w-4 h-4 text-burgundy-600 flex-shrink-0" />{business.phone}</a></li>
+              <li><a href={`tel:${whatsappNo.replace('+', '')}`} className="flex items-center gap-3 text-ink-700 hover:text-burgundy-700 transition-colors duration-500 font-sans text-sm"><Phone className="w-4 h-4 text-burgundy-600 flex-shrink-0" />{whatsappNo}</a></li>
               <li><a href={business.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-ink-700 hover:text-burgundy-700 transition-colors duration-500 font-sans text-sm"><Instagram className="w-4 h-4 text-burgundy-600 flex-shrink-0" />@devlaji_digital<ArrowUpRight className="w-3 h-3 text-ink-500" /></a></li>
             </ul>
           </div>
@@ -93,3 +96,5 @@ export default function Footer({ navigate }: Props) {
     </footer>
   );
 }
+
+

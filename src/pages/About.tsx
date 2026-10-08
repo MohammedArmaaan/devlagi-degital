@@ -1,7 +1,9 @@
-import { ArrowRight, Factory, Palette, Shield, Users, MapPin, Phone, Clock, Instagram, Star } from 'lucide-react';
+import { ArrowRight, Factory, Palette, Shield, Users, MapPin, Phone, Clock, Instagram, Star , Loader2} from 'lucide-react';
+import { useBanner } from '@/hooks/useBanner';
 import { motion } from 'framer-motion';
 import FadeIn from '@/components/FadeIn';
 import AnimatedText from '@/components/AnimatedText';
+import CountUp from '@/components/CountUp';
 import TiltCard from '@/components/TiltCard';
 import { business } from '@/lib/data';
 
@@ -15,48 +17,87 @@ const values = [
 ];
 
 const stats = [
-  { value: '100+', label: 'Projects Completed' },
-  { value: '5.0', label: 'Google Rating' },
-  { value: '6+', label: 'Service Categories' },
-  { value: '100%', label: 'Custom Manufactured' },
+  { value: '1689', suffix: '+', label: 'Projects Completed' },
+  { value: '5.0', suffix: '', decimals: 1, label: 'Google Rating' },
+  { value: '4', suffix: '+', label: 'Spaces Served' },
+  { value: '100', suffix: '%', label: 'Custom Products' },
 ];
 
 export default function About({ navigate }: Props) {
+  const { banner, isLoading: isBannerLoading } = useBanner('About');
   return (
     <div className="bg-white min-h-screen">
+      {(isBannerLoading || banner?.image) && (
+      <>
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden flex items-center justify-center min-h-[50vh]">
-        <div className="absolute inset-0 w-full h-full">
-          <img 
-            src="https://images.pexels.com/photos/6583344/pexels-photo-6583344.jpeg?auto=compress&cs=tinysrgb&w=1920" 
-            alt="About Banner" 
-            className="w-full h-full object-cover" 
-          />
+                <div 
+          className={`absolute inset-0 z-0 w-full h-full ${banner?.link?.[0] ? 'cursor-pointer' : ''}`}
+          onClick={() => {
+            const link = banner?.link?.[0];
+            if (link) {
+              if (link.startsWith('http')) window.location.href = link;
+              else navigate(link);
+            }
+          }}
+        >
+          {isBannerLoading ? (
+            <div className="absolute inset-0 z-20"></div>
+          ) : banner?.image ? (
+            <img src={banner.image} alt="Banner" className="w-full h-full object-cover object-center" />
+          ) : (
+            <div className="absolute inset-0 bg-ink-950 flex items-center justify-center"></div>
+          )}
           <div className="absolute inset-0 bg-black/60" />
         </div>
         <div className="container-luxe relative z-10">
           <FadeIn>
             <div className="text-center max-w-2xl mx-auto">
-              <div className="section-label !text-white/80 border-white/20 justify-center mb-6" style={{ display: 'inline-flex' }}>About Us</div>
-              <h1 className="heading-1 mb-6 text-balance text-white">Crafting Decor Since Day One</h1>
+              <div className="section-label !text-white/80 border-white/20 justify-center mb-6" style={{ display: 'inline-flex' }}>{banner?.subtitle}</div>
+              <h1 className="heading-1 mb-6 text-balance text-white">{banner?.title}</h1>
               <div className="w-12 h-0.5 bg-white/30 mx-auto mb-6" />
               <p className="text-white/90 text-lg">
-                {business.tagline}. Based in Ahmedabad, serving homes and businesses across Gujarat.
-              </p>
+                  {banner?.description}
+                </p>
             </div>
           </FadeIn>
         </div>
       </section>
+      </>
+      )}
+      {/* Stats Section moved right below the banner */}
+      <section className="py-16 md:py-20 relative overflow-hidden bg-white">
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-burgundy-600/20 to-transparent" />
+        <div className="container-luxe">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="text-center"
+              >
+                <div className="font-serif text-4xl md:text-5xl text-burgundy-600 font-light mb-2">
+                  <CountUp end={parseFloat(stat.value)} suffix={stat.suffix} decimals={stat.decimals || 0} />
+                </div>
+                <div className="font-sans text-xs tracking-wide-2 uppercase text-ink-700">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {!isBannerLoading && !banner?.image && <div className="pt-24 lg:pt-32" />}
 
       <section className="py-20 md:py-28 bg-grain relative overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-20 bg-gradient-to-b from-burgundy-600/40 to-transparent" />
-        <div className="container-luxe">
+                <div className="container-luxe">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-6">
               <FadeIn>
                 <div className="section-label mb-6">Our Story</div>
                 <h2 className="heading-2 mb-6 text-balance"><AnimatedText text="A Manufacturer, Not Just a Supplier" /></h2>
-                <p className="body-text mb-6">{business.name} was founded with a simple belief: decor should be personal. Off-the-shelf products rarely fit the unique character of a space, so we chose to manufacture our own — customized wallpaper, decorative glass film, and home decor products designed and produced under one roof.</p>
-                <p className="body-text mb-6">From our workshop in Behrampura, Ahmedabad, we serve homeowners, offices, showrooms, and retail spaces across the region. Our approach combines traditional craftsmanship with modern digital printing technology, giving you the quality of bespoke design with the reliability of professional manufacturing.</p>
+                <p className="body-text mb-6">{business.name} was founded with a simple belief: decor should be personal. That's why we create <strong>our own customized wallpaper and home interior products</strong> designed and produced under one roof.</p>
+                <p className="body-text mb-6">From our workshop in Behrampura, Ahmedabad, <strong>we serve Residential,commercial, hospitality industry and retail spaces</strong> across the region. Our approach combines traditional craftsmanship with modern digital printing technology, giving you the quality of bespoke design with the reliability of professional manufacturing.</p>
                 <p className="body-text">Every project — whether a single window film or a full commercial interior — receives the same attention to detail, from initial consultation to final installation.</p>
               </FadeIn>
             </div>
@@ -73,23 +114,121 @@ export default function About({ navigate }: Props) {
         </div>
       </section>
 
-      <section className="py-16 md:py-20 relative overflow-hidden">
+      {/* Leadership & Team Section */}
+      <section className="py-20 md:py-28 bg-[#fcfcfc] relative overflow-hidden">
+                <div className="container-luxe">
+          <FadeIn>
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <div className="section-label justify-center mb-6" style={{ display: 'inline-flex' }}>Leadership</div>
+              <h2 className="heading-2 text-balance"><AnimatedText text="Meet Our Team" /></h2>
+              <div className="gold-divider-center mt-6" />
+            </div>
+          </FadeIn>
+          
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 max-w-7xl mx-auto">
+            {/* CEO / Founder (Large Featured) */}
+            <FadeIn delay={0.1} y={40} className="md:col-span-12 lg:col-span-6">
+              <div className="group relative w-full h-[400px] md:h-[500px] rounded-none overflow-hidden cursor-default shadow-sm hover:shadow-2xl transition-all duration-500">
+                <img 
+                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=1000&q=80" 
+                  alt="Founder & CEO" 
+                  className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
+                  style={{ objectPosition: 'center top' }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-ink-950/20 to-transparent opacity-90" />
+                <div className="absolute bottom-8 left-8 right-8">
+                  <span className="text-[10px] md:text-[11px] uppercase text-burgundy-300 font-bold tracking-[0.3em] mb-3 block">Founder & CEO</span>
+                  <h3 className="text-3xl md:text-4xl font-serif text-white mb-3">Rajeev Sharma</h3>
+                  <p className="text-white/80 font-sans text-sm line-clamp-2 md:line-clamp-3 mb-6 max-w-md leading-relaxed">
+                    With over a decade of experience in interior aesthetics, Rajeev founded Devlaji Digital to bring world-class premium wallpapers and decorative films to Indian homes.
+                  </p>
+                  <div className="w-12 h-px bg-burgundy-500 group-hover:w-full transition-all duration-1000 ease-lux" />
+                </div>
+              </div>
+            </FadeIn>
+
+            {/* Team Member 1 */}
+            <FadeIn delay={0.2} y={40} className="md:col-span-6 lg:col-span-3">
+              <div className="group relative w-full h-[400px] md:h-[500px] rounded-none overflow-hidden cursor-default shadow-sm hover:shadow-2xl transition-all duration-500">
+                <img 
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80" 
+                  alt="Head of Design" 
+                  className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
+                  style={{ objectPosition: 'center top' }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-ink-950/20 to-transparent opacity-90" />
+                <div className="absolute bottom-8 left-6 right-6">
+                  <span className="text-[9px] md:text-[10px] uppercase text-burgundy-300 font-bold tracking-[0.2em] mb-2 block">Head of Design</span>
+                  <h3 className="text-2xl font-serif text-white mb-6">Priya Desai</h3>
+                  <div className="w-8 h-px bg-burgundy-500 group-hover:w-full transition-all duration-700 ease-lux" />
+                </div>
+              </div>
+            </FadeIn>
+
+            {/* Team Member 2 */}
+            <FadeIn delay={0.3} y={40} className="md:col-span-6 lg:col-span-3">
+              <div className="group relative w-full h-[400px] md:h-[500px] rounded-none overflow-hidden cursor-default shadow-sm hover:shadow-2xl transition-all duration-500">
+                <img 
+                  src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&q=80" 
+                  alt="Operations Director" 
+                  className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
+                  style={{ objectPosition: 'center top' }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-ink-950/20 to-transparent opacity-90" />
+                <div className="absolute bottom-8 left-6 right-6">
+                  <span className="text-[9px] md:text-[10px] uppercase text-burgundy-300 font-bold tracking-[0.2em] mb-2 block">Operations Director</span>
+                  <h3 className="text-2xl font-serif text-white mb-6">Amit Patel</h3>
+                  <div className="w-8 h-px bg-burgundy-500 group-hover:w-full transition-all duration-700 ease-lux" />
+                </div>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      
+
+      {/* Our Process Section */}
+      <section className="py-20 md:py-28 bg-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-burgundy-600/20 to-transparent" />
         <div className="container-luxe">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="text-center"
-              >
-                <div className="font-serif text-4xl md:text-5xl text-burgundy-600 font-light mb-2">{stat.value}</div>
-                <div className="font-sans text-xs tracking-wide-2 uppercase text-ink-700">{stat.label}</div>
-              </motion.div>
-            ))}
+          <FadeIn>
+            <div className="text-center max-w-2xl mx-auto mb-16 md:mb-24">
+              <div className="section-label justify-center mb-6" style={{ display: 'inline-flex' }}>How We Work</div>
+              <h2 className="heading-2 text-balance"><AnimatedText text="Our Seamless Process" /></h2>
+              <div className="gold-divider-center mt-6" />
+            </div>
+          </FadeIn>
+          
+          <div className="relative max-w-5xl mx-auto">
+            {/* Horizontal Line for Desktop */}
+            <div className="hidden md:block absolute top-[40px] left-0 w-full h-[1px] bg-ink-200" />
+            
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-4 relative">
+              {[
+                { step: '01', title: 'Consultation', desc: 'We begin by understanding your space and aesthetic preferences to lay the foundation for a flawless design.' },
+                { step: '02', title: 'Selection', desc: 'Browse our extensive library of premium wallpapers and decorative films to find the perfect texture and finish.' },
+                { step: '03', title: 'Preparation', desc: 'Our state-of-the-art facility ensures precise custom cutting and preparation of your materials for a perfect fit.' },
+                { step: '04', title: 'Installation', desc: 'Our expert technicians deliver a seamless, bubble-free installation with minimal disruption to your routine.' }
+              ].map((item, i) => (
+                <FadeIn key={item.step} delay={i * 0.15} y={40} className="relative">
+                  {/* Vertical Line for Mobile */}
+                  {i !== 3 && <div className="md:hidden absolute top-[80px] left-[40px] w-[1px] h-[calc(100%-80px)] bg-ink-200" />}
+                  
+                  <div className="flex flex-row md:flex-col items-start gap-6 md:gap-8 group">
+                    <div className="relative z-10 w20 md:w-full flex justify-start md:justify-center">
+                      <div className="w-[80px] h-[80px] rounded-full bg-white border border-ink-200 flex items-center justify-center font-serif text-3xl text-ink-300 group-hover:border-burgundy-600 group-hover:text-burgundy-600 transition-colors duration-500 shadow-[0_0_20px_rgba(0,0,0,0.02)] shrink-0">
+                        {item.step}
+                      </div>
+                    </div>
+                    <div className="pt-2 md:pt-0 md:text-center flex-1">
+                      <h3 className="font-serif text-xl text-ink-950 mb-3">{item.title}</h3>
+                      <p className="font-sans text-sm text-ink-600 leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
           </div>
         </div>
       </section>

@@ -1,28 +1,59 @@
 import { useEffect } from 'react';
 import FadeIn from '@/components/FadeIn';
-import { categories } from '@/lib/data';
-import { ArrowRight, ArrowLeft } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Image as ImageIcon } from 'lucide-react';
 import AnimatedText from '@/components/AnimatedText';
+import { useBanner } from '@/hooks/useBanner';
+import { categories as staticCategories } from '@/lib/data';
+
+// The interface we need
+export interface FrontendCategory {
+  id: string;
+  category_name: string;
+  category_image: string | null;
+}
 
 type Props = {
   navigate: (path: string) => void;
 };
 
 export default function Collections({ navigate }: Props) {
+  const { banner, isLoading: isBannerLoading } = useBanner('collection');
+  
+  const categories: FrontendCategory[] = staticCategories.map(c => ({
+    id: c.id,
+    category_name: c.title,
+    category_image: c.image
+  }));
+
+  const loading = false;
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="bg-[#f4f2ee] min-h-screen">
-      {/* Hero Banner Section */}
+    <div className="bg-ink-50 min-h-screen">
+      {(isBannerLoading || banner?.image) && (
+      <>
+        {/* Hero Banner Section */}
       <section className="relative pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.pexels.com/photos/1098982/pexels-photo-1098982.jpeg?auto=compress&cs=tinysrgb&h=1080&w=1920" 
-            alt="Collections"
-            className="w-full h-full object-cover object-center"
-          />
+                <div 
+          className={`absolute inset-0 z-0 w-full h-full ${banner?.link?.[0] ? 'cursor-pointer' : ''}`}
+          onClick={() => {
+            const link = banner?.link?.[0];
+            if (link) {
+              if (link.startsWith('http')) window.location.href = link;
+              else navigate(link);
+            }
+          }}
+        >
+          {isBannerLoading ? (
+            <div className="absolute inset-0 z-20"></div>
+          ) : banner?.image ? (
+            <img src={banner.image} alt="Banner" className="w-full h-full object-cover object-center" />
+          ) : (
+            <div className="absolute inset-0 bg-ink-950 flex items-center justify-center"></div>
+          )}
           <div className="absolute inset-0 bg-ink-950/60" />
         </div>
 
@@ -41,48 +72,65 @@ export default function Collections({ navigate }: Props) {
                 Our Range
               </div>
               <h1 className="heading-1 text-white mb-6">
-                <AnimatedText text="Collections" />
+                <AnimatedText text={banner?.title || ''} />
               </h1>
               <p className="body-text text-white/80 text-lg md:text-xl max-w-2xl">
-                Explore our complete range of premium wallpapers, wall panels, and decorative materials designed to elevate any interior space.
-              </p>
+                  {banner?.description}
+                </p>
             </div>
           </FadeIn>
         </div>
       </section>
+      </>
+      )}
+      {!isBannerLoading && !banner?.image && <div className="pt-24 lg:pt-32" />}
 
       {/* Grid Section */}
       <section className="py-16 md:py-24">
         <div className="container-luxe max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {categories.map((cat, i) => (
-              <FadeIn key={cat.slug} delay={i * 0.1}>
-                <button
-                  onClick={() => navigate(`/category/${cat.slug}`)}
-                  className="group w-full text-left relative overflow-hidden rounded-sm shadow-sm hover:shadow-xl transition-all duration-700 bg-white flex flex-col h-full"
-                >
-                  <div className="aspect-[4/3] relative overflow-hidden w-full">
-                    <img 
-                      src={cat.image} 
-                      alt={cat.title} 
-                      className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-ink-950/20 group-hover:bg-transparent transition-colors duration-700" />
-                  </div>
-                  <div className="p-5 md:p-6 flex flex-col flex-1 text-center relative z-10 bg-white group-hover:-translate-y-1.5 transition-transform duration-500 border-t-2 border-burgundy-600">
-                    <h3 className="heading-3 text-ink-950 mb-2">{cat.title}</h3>
-                    <p className="body-text text-xs text-ink-600 mb-4 line-clamp-2 flex-1">{cat.description}</p>
-                    <span className="inline-flex items-center justify-center gap-1.5 font-sans text-[10px] uppercase tracking-widest font-semibold text-burgundy-600 group-hover:text-burgundy-800 transition-colors mt-auto">
-                      View Collection <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1.5" />
-                    </span>
-                  </div>
-                </button>
-              </FadeIn>
-            ))}
-          </div>
+          {loading ? (
+            <div className="flex items-center justify-center py-20">
+              
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 md:gap-6 auto-rows-[200px] sm:auto-rows-[300px] md:auto-rows-[400px]">
+              {categories.map((cat, i) => {
+                // 1st and 6th items are wide (col-span-2)
+                const isWide = i % 5 === 0;
+                return (
+                  <FadeIn key={cat.id} delay={i * 0.1} className={isWide ? "md:col-span-2" : "md:col-span-1"}>
+                    <div 
+                      className="group relative overflow-hidden bg-ink-950 w-full h-full cursor-pointer"
+                    >
+                      {cat.category_image ? (
+                        <img 
+                          src={cat.category_image} 
+                          alt={cat.category_name} 
+                          className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-[2s] group-hover:scale-110" 
+                        />
+                      ) : (
+                        <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-slate-100">
+                          <ImageIcon className="text-slate-300 w-12 h-12" />
+                        </div>
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:opacity-70 transition-opacity duration-500" />
+                      
+                      <div className="absolute bottom-0 right-0 p-3 sm:p-6 md:p-8 text-right w-full flex flex-col justify-end items-end h-full">
+                        <h3 className="text-sm sm:text-2xl font-serif text-white mb-1 sm:mb-2 transform group-hover:-translate-y-2 transition-transform duration-500">
+                          {cat.category_name}
+                        </h3>
+                        <span className="flex items-center justify-end gap-2 text-white/90 font-sans text-xs uppercase tracking-widest font-semibold opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:-translate-y-2 transition-all duration-500">
+                          Explore Collection <ArrowRight className="w-4 h-4" />
+                        </span>
+                      </div>
+                    </div>
+                  </FadeIn>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
     </div>
   );
 }
-

@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default function AnimatedText({ text, className = '', delay = 0, stagger = 0.04 }: Props) {
-  const words = text.split(' ');
+  const words = (text || '').split(' ');
 
   return (
     <span className={className} style={{ display: 'inline-block' }}>

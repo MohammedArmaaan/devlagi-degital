@@ -15,7 +15,7 @@ export type Route =
   | { name: 'privacy' }
   | { name: 'terms' }
   | { name: 'returns' }
-  | { name: 'virtualizer' }
+
   | { name: 'admin-login' }
   | { name: 'admin-dashboard' }
   | { name: 'admin-visitors' };
@@ -44,7 +44,6 @@ function parsePath(): Route {
   if (parts[0] === 'privacy') return { name: 'privacy' };
   if (parts[0] === 'terms') return { name: 'terms' };
   if (parts[0] === 'returns') return { name: 'returns' };
-  if (parts[0] === 'virtualizer') return { name: 'virtualizer' };
   return { name: 'home' };
 }
 

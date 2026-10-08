@@ -7,8 +7,8 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = ({ navigate }) => {
-  const [email, setEmail] = useState('admin@devlagi.com');
-  const [password, setPassword] = useState('admin123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -92,7 +92,7 @@ const Login: React.FC<LoginProps> = ({ navigate }) => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="block w-full pl-12 pr-4 py-3 border border-ink-200 rounded-xl focus:ring-2 focus:ring-burgundy-500 focus:border-transparent sm:text-sm transition-all shadow-sm"
-                  placeholder="admin@devlagi.com"
+                  placeholder="Enter your email"
                 />
               </div>
             </div>
@@ -132,8 +132,3 @@ const Login: React.FC<LoginProps> = ({ navigate }) => {
 };
 
 export default Login;
-
-
-
-
-

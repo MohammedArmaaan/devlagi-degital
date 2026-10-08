@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# Specify the path to the Sitemap so crawlers can easily discover all pages
+Sitemap: https://devlajidigital.com/sitemap.xml
