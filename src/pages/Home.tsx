@@ -211,20 +211,7 @@ export default function Home({ navigate }: Props) {
               </motion.div>
             </AnimatePresence>
 
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 1 }}
-            className="pointer-events-auto mt-2 md:mt-6 flex flex-col sm:flex-row gap-3 md:gap-4"
-          >
-            <button onClick={() => navigate('/services')} className="btn-primary !bg-white !text-ink-950 hover:!bg-white/90 group !px-5 !py-2.5 !text-xs">
-              <span>Explore Services</span>
-              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-500 group-hover:translate-x-1" />
-            </button>
-            <button onClick={() => navigate('/projects')} className="btn-outline !text-white !border-white/30 hover:!border-white hover:!bg-white/10 group !px-5 !py-2.5 !text-xs">
-              <span>View Our Work</span>
-            </button>
-          </motion.div>
+          
         </div>
       </section>
 

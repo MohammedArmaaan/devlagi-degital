@@ -174,22 +174,22 @@ export default function Navbar({ route, navigate }: Props) {
                 
                 let textColor = '';
                 if (isBannerTop) {
-                  textColor = active ? 'text-white' : 'text-white/80 hover:text-white';
+                  textColor = active ? 'text-white font-bold' : 'text-white/90 font-bold hover:text-white';
                 } else {
-                  textColor = active ? 'text-burgundy-600' : 'text-ink-800 hover:text-burgundy-700';
+                  textColor = active ? 'text-ink-950 font-bold' : 'text-ink-900 font-bold hover:text-ink-950';
                 }
 
                 return (
                   <button
                     key={link.path}
                     onClick={() => navigate(link.path)}
-                    className={`relative font-sans text-xs tracking-wider uppercase transition-colors duration-500 whitespace-nowrap ${textColor}`}
+                    className={`relative font-sans text-[13px] md:text-sm tracking-wider uppercase transition-colors duration-500 whitespace-nowrap ${textColor}`}
                   >
                     {link.label}
                     {active && (
                       <motion.span
                         layoutId="nav-underline"
-                        className={`absolute -bottom-2 left-0 right-0 h-px ${isBannerTop ? 'bg-white' : 'bg-burgundy-600'}`}
+                        className={`absolute -bottom-2 left-0 right-0 h-px ${isBannerTop ? 'bg-white' : 'bg-ink-950'}`}
                         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                       />
                     )}
@@ -200,10 +200,10 @@ export default function Navbar({ route, navigate }: Props) {
 
             <div className="hidden xl:flex items-center gap-6 shrink-0">
               
-              <button onClick={() => navigate('/contact')} className={`px-6 py-2.5 rounded-sm font-sans text-xs font-semibold tracking-wider uppercase transition-all duration-500 whitespace-nowrap ${
+              <button onClick={() => navigate('/contact')} className={`px-6 py-2.5 rounded-sm font-sans text-xs font-bold tracking-wider uppercase transition-all duration-500 whitespace-nowrap ${
                 !scrolled && hasBanner
                   ? 'bg-white text-ink-900 hover:bg-white/90'
-                  : 'bg-burgundy-600 text-white hover:bg-burgundy-700'
+                  : 'bg-ink-950 text-white hover:bg-ink-900'
               }`}>
                 Get a Quote
               </button>
@@ -211,7 +211,7 @@ export default function Navbar({ route, navigate }: Props) {
 
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className={`xl:hidden p-2 relative z-50 transition-colors duration-500 ${menuOpen ? 'text-white' : (!scrolled && hasBanner ? 'text-white' : 'text-ink-900')}`}
+              className={`xl:hidden p-2 relative z-50 transition-colors duration-500 ${menuOpen || (!scrolled && hasBanner) ? 'text-white' : 'text-ink-950'}`}
               aria-label="Menu"
             >
               <div className="relative w-6 h-6">
