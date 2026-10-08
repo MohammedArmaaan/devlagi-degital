@@ -96,8 +96,8 @@ export default function About({ navigate }: Props) {
               <FadeIn>
                 <div className="section-label mb-6">Our Story</div>
                 <h2 className="heading-2 mb-6 text-balance"><AnimatedText text="A Manufacturer, Not Just a Supplier" /></h2>
-                <p className="body-text mb-6">{business.name} was founded with a simple belief: decor should be personal. That's why we create <strong>our own customized wallpaper and home interior products</strong> designed and produced under one roof.</p>
-                <p className="body-text mb-6">From our workshop in Behrampura, Ahmedabad, <strong>we serve Residential,commercial, hospitality industry and retail spaces</strong> across the region. Our approach combines traditional craftsmanship with modern digital printing technology, giving you the quality of bespoke design with the reliability of professional manufacturing.</p>
+                <p className="body-text mb-6"><strong>Devlaji Digital Home Decor</strong> was founded with a simple belief: decor should be personal. That's why we create <strong>our own customized design for wallpapers, roller blinds, glass films, and canvas frames</strong>, all designed and produced under one roof.</p>
+                <p className="body-text mb-6">We proudly provide <strong>Pan India services</strong>, serving residential, commercial, hospitality, and retail spaces across the country. Our approach combines traditional craftsmanship with modern digital printing technology, giving you the quality of bespoke design with the reliability of professional manufacturing.</p>
                 <p className="body-text">Every project — whether a single window film or a full commercial interior — receives the same attention to detail, from initial consultation to final installation.</p>
               </FadeIn>
             </div>
@@ -105,7 +105,7 @@ export default function About({ navigate }: Props) {
               <FadeIn delay={0.2} y={60}>
                 <TiltCard intensity={6}>
                   <div className="aspect-[4/3] overflow-hidden rounded-sm group glass-shine" style={{ border: '1px solid rgba(212,168,82,0.1)' }}>
-                    <img src="https://images.pexels.com/photos/4977353/pexels-photo-4977353.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Material selection" className="w-full h-full object-cover transition-transform duration-[1.5s] ease-lux group-hover:scale-110" />
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=80" alt="Office space" className="w-full h-full object-cover transition-transform duration-[1.5s] ease-lux group-hover:scale-110" />
                   </div>
                 </TiltCard>
               </FadeIn>
@@ -126,62 +126,48 @@ export default function About({ navigate }: Props) {
           </FadeIn>
           
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 max-w-7xl mx-auto">
-            {/* CEO / Founder (Large Featured) */}
-            <FadeIn delay={0.1} y={40} className="md:col-span-12 lg:col-span-6">
+            {/* Founder 1 */}
+            <FadeIn delay={0.1} y={40} className="md:col-span-6 lg:col-span-6">
               <div className="group relative w-full h-[400px] md:h-[500px] rounded-none overflow-hidden cursor-default shadow-sm hover:shadow-2xl transition-all duration-500">
                 <img 
-                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=1000&q=80" 
-                  alt="Founder & CEO" 
+                  src="https://images.unsplash.com/photo-1556157382-97eda2d62296?w=1000&q=80" 
+                  alt="Founder" 
                   className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
                   style={{ objectPosition: 'center top' }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-ink-950/20 to-transparent opacity-90" />
                 <div className="absolute bottom-8 left-8 right-8">
-                  <span className="text-[10px] md:text-[11px] uppercase text-burgundy-300 font-bold tracking-[0.3em] mb-3 block">Founder & CEO</span>
-                  <h3 className="text-3xl md:text-4xl font-serif text-white mb-3">Rajeev Sharma</h3>
-                  <p className="text-white/80 font-sans text-sm line-clamp-2 md:line-clamp-3 mb-6 max-w-md leading-relaxed">
-                    With over a decade of experience in interior aesthetics, Rajeev founded Devlaji Digital to bring world-class premium wallpapers and decorative films to Indian homes.
+                  <span className="text-[10px] md:text-[11px] uppercase text-burgundy-300 font-bold tracking-[0.3em] mb-3 block">Founder & Production Manager</span>
+                  <h3 className="text-3xl md:text-4xl font-serif text-white mb-3">Ayan Kachhawa</h3>
+                  <p className="text-white/80 font-sans text-sm line-clamp-3 mb-6 max-w-md leading-relaxed">
+                    With 8 years of experience in customized wallpapers, Ayan expertly manages production, ensuring top-tier manufacturing quality and design innovation for every product.
                   </p>
                   <div className="w-12 h-px bg-burgundy-500 group-hover:w-full transition-all duration-1000 ease-lux" />
                 </div>
               </div>
             </FadeIn>
 
-            {/* Team Member 1 */}
-            <FadeIn delay={0.2} y={40} className="md:col-span-6 lg:col-span-3">
+            {/* Founder 2 */}
+            <FadeIn delay={0.2} y={40} className="md:col-span-6 lg:col-span-6">
               <div className="group relative w-full h-[400px] md:h-[500px] rounded-none overflow-hidden cursor-default shadow-sm hover:shadow-2xl transition-all duration-500">
                 <img 
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80" 
-                  alt="Head of Design" 
+                  src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=1000&q=80" 
+                  alt="Pioneer and Founder" 
                   className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
                   style={{ objectPosition: 'center top' }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-ink-950/20 to-transparent opacity-90" />
-                <div className="absolute bottom-8 left-6 right-6">
-                  <span className="text-[9px] md:text-[10px] uppercase text-burgundy-300 font-bold tracking-[0.2em] mb-2 block">Head of Design</span>
-                  <h3 className="text-2xl font-serif text-white mb-6">Priya Desai</h3>
-                  <div className="w-8 h-px bg-burgundy-500 group-hover:w-full transition-all duration-700 ease-lux" />
+                <div className="absolute bottom-8 left-8 right-8">
+                  <span className="text-[10px] md:text-[11px] uppercase text-burgundy-300 font-bold tracking-[0.3em] mb-3 block">Pioneer & Founder</span>
+                  <h3 className="text-3xl md:text-4xl font-serif text-white mb-3">Sohan Devlaji</h3>
+                  <p className="text-white/80 font-sans text-sm line-clamp-3 mb-6 max-w-md leading-relaxed">
+                    As the pioneer and founder of Devlaji, Sohan brings more than 5 years of experience in directly dealing with clients, CRM, and personally handling site visits to deliver exceptional service.
+                  </p>
+                  <div className="w-12 h-px bg-burgundy-500 group-hover:w-full transition-all duration-1000 ease-lux" />
                 </div>
               </div>
             </FadeIn>
 
-            {/* Team Member 2 */}
-            <FadeIn delay={0.3} y={40} className="md:col-span-6 lg:col-span-3">
-              <div className="group relative w-full h-[400px] md:h-[500px] rounded-none overflow-hidden cursor-default shadow-sm hover:shadow-2xl transition-all duration-500">
-                <img 
-                  src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&q=80" 
-                  alt="Operations Director" 
-                  className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
-                  style={{ objectPosition: 'center top' }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-ink-950/20 to-transparent opacity-90" />
-                <div className="absolute bottom-8 left-6 right-6">
-                  <span className="text-[9px] md:text-[10px] uppercase text-burgundy-300 font-bold tracking-[0.2em] mb-2 block">Operations Director</span>
-                  <h3 className="text-2xl font-serif text-white mb-6">Amit Patel</h3>
-                  <div className="w-8 h-px bg-burgundy-500 group-hover:w-full transition-all duration-700 ease-lux" />
-                </div>
-              </div>
-            </FadeIn>
           </div>
         </div>
       </section>
