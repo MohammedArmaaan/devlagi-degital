@@ -18,23 +18,19 @@ export default function Products({ navigate }: Props) {
   return (
     <div className="bg-ink-50 min-h-screen">
       
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-24 overflow-hidden flex items-center justify-center min-h-[40vh]">
-        <div className="absolute inset-0 w-full h-full">
-          <img 
-            src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1920" 
-            alt="Products Banner" 
-            className="w-full h-full object-cover" 
-          />
-          <div className="absolute inset-0 bg-ink-950/70" />
+      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden flex items-center justify-center min-h-[50vh]">
+        <div className="absolute inset-0 z-0 w-full h-full">
+          <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=1920&q=80" alt="Banner" className="w-full h-full object-cover object-center" />
+          <div className="absolute inset-0 bg-black/60" />
         </div>
         <div className="container-luxe relative z-10">
           <FadeIn>
             <div className="text-center max-w-2xl mx-auto">
-              <div className="section-label !text-white/80 border-white/20 justify-center mb-6" style={{ display: 'inline-flex' }}>Products</div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight">Our Products</h1>
-              <div className="w-12 h-0.5 bg-burgundy-500 mx-auto mb-6" />
-              <p className="text-white/80 font-sans text-sm md:text-base leading-relaxed tracking-wide">
-                Explore our premium range of customizable wallpapers, blinds, and decorative films designed to elevate your space.
+              <div className="section-label !text-white/80 border-white/20 justify-center mb-6" style={{ display: 'inline-flex' }}>Our Catalog</div>
+              <h1 className="heading-1 mb-6 text-balance text-white">Premium Products</h1>
+              <div className="w-12 h-0.5 bg-white/30 mx-auto mb-6" />
+              <p className="text-white/90 text-lg">
+                Discover our extensive collection of high-quality wallpapers, blinds, glass films, and frames. Designed to elevate any space with style and durability.
               </p>
             </div>
           </FadeIn>

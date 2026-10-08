@@ -1,5 +1,4 @@
 import { ArrowRight, Factory, Palette, Shield, Users, MapPin, Phone, Clock, Instagram, Star , Loader2} from 'lucide-react';
-import { useBanner } from '@/hooks/useBanner';
 import { motion } from 'framer-motion';
 import FadeIn from '@/components/FadeIn';
 import AnimatedText from '@/components/AnimatedText';
@@ -24,7 +23,14 @@ const stats = [
 ];
 
 export default function About({ navigate }: Props) {
-  const { banner, isLoading: isBannerLoading } = useBanner('About');
+  const banner = {
+    title: "About Us",
+    subtitle: "Our Story",
+    description: "Learn more about Devlaji Digital Home Decor.",
+    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80",
+    link: []
+  };
+  const isBannerLoading = false;
   return (
     <div className="bg-white min-h-screen">
       {(isBannerLoading || banner?.image) && (
@@ -138,7 +144,7 @@ export default function About({ navigate }: Props) {
                 <div className="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-ink-950/20 to-transparent opacity-90" />
                 <div className="absolute bottom-8 left-8 right-8">
                   <span className="text-[10px] md:text-[11px] uppercase text-burgundy-300 font-bold tracking-[0.3em] mb-3 block">Founder & Production Manager</span>
-                  <h3 className="text-3xl md:text-4xl font-serif text-white mb-3">Ayan Kachhawa</h3>
+                  <h3 className="text-3xl md:text-4xl font-serif text-white mb-3">Ayan Kuchamanwala</h3>
                   <p className="text-white/80 font-sans text-sm line-clamp-3 mb-6 max-w-md leading-relaxed">
                     With 8 years of experience in customized wallpapers, Ayan expertly manages production, ensuring top-tier manufacturing quality and design innovation for every product.
                   </p>

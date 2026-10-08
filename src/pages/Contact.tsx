@@ -1,6 +1,5 @@
 import { useWhatsapp } from '@/hooks/useWhatsapp';
 import { Phone, MapPin, Clock, Instagram, Star, ArrowUpRight , Loader2} from 'lucide-react';
-import { useBanner } from '@/hooks/useBanner';
 import { motion } from 'framer-motion';
 import FadeIn from '@/components/FadeIn';
 import AnimatedText from '@/components/AnimatedText';
@@ -8,7 +7,14 @@ import EnquiryForm from '@/components/EnquiryForm';
 import { business } from '@/lib/data';
 
 export default function Contact() {
-  const { banner, isLoading: isBannerLoading } = useBanner('contact');
+  const banner = {
+    title: "Contact Us",
+    subtitle: "Get in Touch",
+    description: "We would love to hear from you. Reach out for any inquiries.",
+    image: "https://images.unsplash.com/photo-1423666639041-f56000c27a9a?auto=format&fit=crop&w=1920&q=80",
+    link: []
+  };
+  const isBannerLoading = false;
   const whatsappNo = useWhatsapp();
   return (
     <div className="bg-white min-h-screen">

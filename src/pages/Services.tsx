@@ -1,6 +1,5 @@
 import { ArrowRight, Check , Loader2} from 'lucide-react';
 import { useState } from 'react';
-import { useBanner } from '@/hooks/useBanner';
 import { useLeadGatekeeper } from '@/contexts/LeadContext';
 import { motion } from 'framer-motion';
 import { services } from '@/lib/data';
@@ -14,7 +13,14 @@ type Props = { navigate: (path: string) => void };
 export default function Services({ navigate }: Props) {
   const { requireLead } = useLeadGatekeeper();
   
-  const { banner, isLoading: isBannerLoading } = useBanner('service');
+  const banner = {
+    title: "Our Services",
+    subtitle: "What We Do",
+    description: "Comprehensive interior decor solutions from manufacturing to installation.",
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=80",
+    link: []
+  };
+  const isBannerLoading = false;
   return (
     <div className="bg-white min-h-screen">
       {(isBannerLoading || banner?.image) && (

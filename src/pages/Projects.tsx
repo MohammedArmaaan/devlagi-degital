@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ArrowRight, Search } from 'lucide-react';
-import { useBanner } from '@/hooks/useBanner';
 import { motion, AnimatePresence } from 'framer-motion';
 import FadeIn from '@/components/FadeIn';
 import { useLeadGatekeeper } from '@/contexts/LeadContext';
@@ -12,7 +11,14 @@ type Props = { navigate: (path: string) => void };
 const categories = ['All', 'Residential', 'commercial', 'hospital', 'industry', 'retail'];
 export default function Projects({ navigate }: Props) {
   const { requireLead } = useLeadGatekeeper();
-  const { banner, isLoading: isBannerLoading } = useBanner('project');
+  const banner = {
+    title: "Our Projects",
+    subtitle: "Portfolio",
+    description: "A glimpse into our 54,000+ completed projects across India.",
+    image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1920&q=80",
+    link: []
+  };
+  const isBannerLoading = false;
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   
   const [filter, setFilter] = useState('All');

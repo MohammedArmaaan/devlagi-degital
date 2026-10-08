@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import FadeIn from '@/components/FadeIn';
 import { ArrowRight, ArrowLeft, Image as ImageIcon } from 'lucide-react';
 import AnimatedText from '@/components/AnimatedText';
-import { useBanner } from '@/hooks/useBanner';
 import { categories as staticCategories } from '@/lib/data';
 
 // The interface we need
@@ -17,7 +16,14 @@ type Props = {
 };
 
 export default function Collections({ navigate }: Props) {
-  const { banner, isLoading: isBannerLoading } = useBanner('collection');
+  const banner = {
+    title: "Premium Collections",
+    subtitle: "Our Collections",
+    description: "Explore our curated collections of wallpapers and interior decor.",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80",
+    link: []
+  };
+  const isBannerLoading = false;
   
   const categories: FrontendCategory[] = staticCategories.map(c => ({
     id: c.id,
@@ -36,47 +42,20 @@ export default function Collections({ navigate }: Props) {
       {(isBannerLoading || banner?.image) && (
       <>
         {/* Hero Banner Section */}
-      <section className="relative pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
-                <div 
-          className={`absolute inset-0 z-0 w-full h-full ${banner?.link?.[0] ? 'cursor-pointer' : ''}`}
-          onClick={() => {
-            const link = banner?.link?.[0];
-            if (link) {
-              if (link.startsWith('http')) window.location.href = link;
-              else navigate(link);
-            }
-          }}
-        >
-          {isBannerLoading ? (
-            <div className="absolute inset-0 z-20"></div>
-          ) : banner?.image ? (
-            <img src={banner.image} alt="Banner" className="w-full h-full object-cover object-center" />
-          ) : (
-            <div className="absolute inset-0 bg-ink-950 flex items-center justify-center"></div>
-          )}
-          <div className="absolute inset-0 bg-ink-950/60" />
+      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden flex items-center justify-center min-h-[50vh]">
+        <div className="absolute inset-0 z-0 w-full h-full">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80" alt="Banner" className="w-full h-full object-cover object-center" />
+          <div className="absolute inset-0 bg-black/60" />
         </div>
-
         <div className="container-luxe relative z-10">
           <FadeIn>
-            <button onClick={() => navigate('/#')} className="flex items-center gap-2 text-white/80 hover:text-white transition-colors duration-300 font-sans text-xs tracking-wide-2 uppercase mb-8 group">
-              <ArrowLeft className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" />
-              Back to Home
-            </button>
-          </FadeIn>
-
-          <FadeIn>
-            <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-3 mb-6 font-sans text-xs tracking-widest uppercase text-white/90 font-semibold">
-                <span className="w-8 h-px bg-white/50" />
-                Our Range
-              </div>
-              <h1 className="heading-1 text-white mb-6">
-                <AnimatedText text={banner?.title || ''} />
-              </h1>
-              <p className="body-text text-white/80 text-lg md:text-xl max-w-2xl">
-                  {banner?.description}
-                </p>
+            <div className="text-center max-w-2xl mx-auto">
+              <div className="section-label !text-white/80 border-white/20 justify-center mb-6" style={{ display: 'inline-flex' }}>Our Collections</div>
+              <h1 className="heading-1 mb-6 text-balance text-white">Premium Collections</h1>
+              <div className="w-12 h-0.5 bg-white/30 mx-auto mb-6" />
+              <p className="text-white/90 text-lg">
+                Explore our curated collections of wallpapers and interior decor.
+              </p>
             </div>
           </FadeIn>
         </div>

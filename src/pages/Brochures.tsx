@@ -9,7 +9,6 @@ import TiltCard from '@/components/TiltCard';
 import { brochures as allBrochuresData } from '@/lib/data';
 import DOMPurify from 'dompurify';
 import { getImageUrl } from '@/lib/imageUtils';
-import { useBanner } from '@/hooks/useBanner';
 import { trackInterest } from '@/lib/trackInterest';
 
 type Props = { navigate: (path: string) => void };
@@ -50,7 +49,14 @@ export default function Brochures({ navigate }: Props) {
     });
   };
 
-  const { banner, isLoading: isBannerLoading } = useBanner('Brochures');
+  const banner = {
+    title: "Brochures",
+    subtitle: "Downloads",
+    description: "Explore our product catalogs and brochures.",
+    image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1920&q=80",
+    link: []
+  };
+  const isBannerLoading = false;
 
   return (
     <div className="bg-white min-h-screen">
