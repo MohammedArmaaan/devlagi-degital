@@ -69,19 +69,22 @@ const heroBenefits = [
 
 const heroSlides = [
   {
-    image: 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=1920',
-    title: 'Stylish Privacy.',
-    subtitle: 'Natural Light.',
+    image: '/ProductBanner/ProductBanner3.png',
   },
   {
-    image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1920',
-    title: 'Custom Design.',
-    subtitle: 'Flawless Finish.',
+    image: '/ProductBanner/01Product.png',
   },
   {
-    image: 'https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=1920',
-    title: 'Elegant Spaces.',
-    subtitle: 'Modern Decor.',
+    image: '/ProductBanner/02Product.png',
+  },
+  {
+    image: '/ProductBanner/04Product.png',
+  },
+  {
+    image: '/ProductBanner/05Product.png',
+  },
+  {
+    image: '/ProductBanner/06Product.png',
   }
 ];
 
@@ -155,64 +158,22 @@ export default function Home({ navigate }: Props) {
   return (
     <div className="bg-white">
       {/* Hero */}
-      <section ref={heroRef} className="relative h-[100svh] min-h-[600px] w-full overflow-hidden">
+      <section ref={heroRef} className="relative w-full h-[60svh] md:h-[100svh] overflow-hidden bg-ink-50">
         <div className="absolute inset-0 w-full h-full" ref={emblaRef}>
           <div className="flex h-full">
             {heroSlides.map((slide, index) => (
               <div key={index} className="relative flex-[0_0_100%] h-full min-w-0">
-                <motion.div className="absolute inset-0" animate={{ scale: selectedIndex === index ? 1.05 : 1 }} transition={{ duration: 6, ease: 'linear' }}>
-                  <img
-                    src={slide.image}
-                    alt="Interior decor"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/40" />
-                </motion.div>
+                <img
+                  src={slide.image}
+                  alt="Interior decor"
+                  className="w-full h-full object-cover object-bottom"
+                />
               </div>
             ))}
           </div>
         </div>
 
-        {/* Centered Text Overlay */}
-        <div className="absolute inset-0 flex flex-col items-center justify-start text-center p-6 pt-[50vh] md:pt-[55vh] z-10 pointer-events-none">
-          <AnimatePresence mode="wait">
-              <motion.div
-                key={selectedIndex}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-                className="max-w-5xl mx-auto flex flex-col items-center"
-              >
-                <h1 className="font-serif text-2xl sm:text-3xl md:text-5xl lg:text-[4rem] text-white leading-[1.1] mb-6 md:mb-8 font-medium drop-shadow-2xl flex flex-wrap justify-center items-center text-center">
-                  {heroSlides[selectedIndex].title.replace('.', '').split('').map((char, index) => (
-                    <motion.span
-                      key={`title-${index}`}
-                      initial={{ opacity: 0, display: 'inline-block' }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.1, delay: index * 0.05 }}
-                    >
-                      {char === ' ' ? '\u00A0' : char}
-                    </motion.span>
-                  ))}
-                  <div className="w-full h-0" />
-                  {heroSlides[selectedIndex].subtitle.replace('.', '').split('').map((char, index) => (
-                    <motion.span
-                      key={`subtitle-${index}`}
-                      initial={{ opacity: 0, display: 'inline-block' }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.1, delay: (heroSlides[selectedIndex].title.length * 0.05) + (index * 0.05) }}
-                    >
-                      {char === ' ' ? '\u00A0' : char}
-                    </motion.span>
-                  ))}
-                  
-                </h1>
-              </motion.div>
-            </AnimatePresence>
 
-          
-        </div>
       </section>
 
       {/* Benefits Strip */}
