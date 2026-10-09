@@ -133,6 +133,27 @@ export default function About({ navigate }: Props) {
           
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 max-w-7xl mx-auto">
             {/* Founder 1 */}
+            <FadeIn delay={0.2} y={40} className="md:col-span-6 lg:col-span-6">
+              <div className="group relative w-full h-[400px] md:h-[500px] rounded-none overflow-hidden cursor-default shadow-sm hover:shadow-2xl transition-all duration-500">
+                <img 
+                  src="/About/Founder_Image.jpeg" 
+                  alt="Pioneer and Founder" 
+                  className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
+                  style={{ objectPosition: 'center top' }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-ink-950/20 to-transparent opacity-90" />
+                <div className="absolute bottom-8 left-8 right-8">
+                  <span className="text-[10px] md:text-[11px] uppercase text-white font-bold tracking-[0.3em] mb-3 block">FOUNDER OF DEVLAJI DIGITAL HOME DECOR</span>
+                  <h3 className="text-3xl md:text-4xl font-serif text-white mb-3">Sahan Devlaji</h3>
+                  <p className="text-white/80 font-sans text-sm line-clamp-3 mb-6 max-w-md leading-relaxed">
+                    As the founder of Devlaji, Sahan brings more than 5 years of experience in directly dealing with clients, CRM, and personally handling site visits to deliver exceptional service.
+                  </p>
+                  <div className="w-12 h-px bg-burgundy-500 group-hover:w-full transition-all duration-1000 ease-lux" />
+                </div>
+              </div>
+            </FadeIn>
+            
+            {/* Founder 2 */}
             <FadeIn delay={0.1} y={40} className="md:col-span-6 lg:col-span-6">
               <div className="group relative w-full h-[400px] md:h-[500px] rounded-none overflow-hidden cursor-default shadow-sm hover:shadow-2xl transition-all duration-500">
                 <img 
@@ -143,8 +164,8 @@ export default function About({ navigate }: Props) {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-ink-950/20 to-transparent opacity-90" />
                 <div className="absolute bottom-8 left-8 right-8">
-                  <span className="text-[10px] md:text-[11px] uppercase text-burgundy-300 font-bold tracking-[0.3em] mb-3 block">Founder & Production Manager</span>
-                  <h3 className="text-3xl md:text-4xl font-serif text-white mb-3">Ayan Kuchamanwala</h3>
+                  <span className="text-[10px] md:text-[11px] uppercase text-white font-bold tracking-[0.3em] mb-3 block">Founder & Production Manager</span>
+                  <h3 className="text-3xl md:text-4xl font-serif text-white mb-3">Ayan Kucherawala</h3>
                   <p className="text-white/80 font-sans text-sm line-clamp-3 mb-6 max-w-md leading-relaxed">
                     With 8 years of experience in customized wallpapers, Ayan expertly manages production, ensuring top-tier manufacturing quality and design innovation for every product.
                   </p>
@@ -152,28 +173,6 @@ export default function About({ navigate }: Props) {
                 </div>
               </div>
             </FadeIn>
-
-            {/* Founder 2 */}
-            <FadeIn delay={0.2} y={40} className="md:col-span-6 lg:col-span-6">
-              <div className="group relative w-full h-[400px] md:h-[500px] rounded-none overflow-hidden cursor-default shadow-sm hover:shadow-2xl transition-all duration-500">
-                <img 
-                  src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=1000&q=80" 
-                  alt="Pioneer and Founder" 
-                  className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
-                  style={{ objectPosition: 'center top' }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-ink-950/20 to-transparent opacity-90" />
-                <div className="absolute bottom-8 left-8 right-8">
-                  <span className="text-[10px] md:text-[11px] uppercase text-burgundy-300 font-bold tracking-[0.3em] mb-3 block">Pioneer & Founder</span>
-                  <h3 className="text-3xl md:text-4xl font-serif text-white mb-3">Sohan Devlaji</h3>
-                  <p className="text-white/80 font-sans text-sm line-clamp-3 mb-6 max-w-md leading-relaxed">
-                    As the pioneer and founder of Devlaji, Sohan brings more than 5 years of experience in directly dealing with clients, CRM, and personally handling site visits to deliver exceptional service.
-                  </p>
-                  <div className="w-12 h-px bg-burgundy-500 group-hover:w-full transition-all duration-1000 ease-lux" />
-                </div>
-              </div>
-            </FadeIn>
-
           </div>
         </div>
       </section>

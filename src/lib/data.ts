@@ -607,7 +607,7 @@ export const genericProducts = [
     title: 'Metallic Wallpaper',
     category: 'Wallpaper',
     price: 1500,
-    description: 'Add a touch of elegance and shine to your walls with our premium metallic wallpapers. These wallpapers are crafted to reflect light beautifully, creating a luxurious atmosphere in any room.',
+    description: 'Elevate your interiors with our premium Metallic Wallpapers. Designed to playfully reflect light and create breathtaking visual effects, these wallpapers effortlessly turn ordinary walls into captivating focal points. Whether you\'re decorating a cozy home or a high-end commercial space, our diverse range of patterns and luxury finishes adds that perfect touch of sophisticated elegance. It\'s not just a wallpaper; it\'s a statement piece that brings your space to life.',
     features: ['Premium Metallic Finish', 'Reflective Surface', 'Durable & Washable', 'Easy to Install'],
     image: 'https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&w=800&q=80',
     gallery: []
@@ -617,7 +617,7 @@ export const genericProducts = [
     title: 'Metallic Blinds',
     category: 'Blinds',
     price: 2200,
-    description: 'Sleek and modern metallic blinds providing perfect light control and a contemporary look. Designed for both residential and commercial spaces needing a sophisticated touch.',
+    description: 'Discover the perfect blend of modern aesthetics and everyday functionality with our Metallic Blinds. Crafted from top-tier materials, these sleek window coverings offer precise light control and ultimate privacy, all while adding a refined, sophisticated vibe to your room. Available in stunning metallic finishes, they seamlessly adapt to any contemporary decor or stand out as a bold design element. Durable, easy to clean, and distinctly luxurious, they are the ideal choice for modern homes and commercial offices.',
     features: ['Precision Light Control', 'Modern Aesthetic', 'Rust-Resistant', 'Smooth Operation'],
     image: 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80',
     gallery: []
@@ -627,7 +627,7 @@ export const genericProducts = [
     title: 'Metallic Glass Films',
     category: 'Glass Films',
     price: 1200,
-    description: 'Enhance privacy and aesthetics with our specialized metallic glass films. Perfect for office partitions and modern home windows, offering a mirror-like finish from the outside.',
+    description: 'Transform your plain glass surfaces into striking design features with our innovative Metallic Glass Films. Offering a sleek, reflective finish, these films bring a highly modern and stylish look to your windows, doors, and office partitions. Beyond their visual appeal, they are incredibly practical—providing superior daytime privacy, significantly reducing glare, and even improving energy efficiency by reflecting away unwanted heat. Easy to maintain and wonderfully elegant, they bring a sophisticated, contemporary edge to any space.',
     features: ['Enhanced Privacy', 'UV Protection', 'Mirror Finish', 'Scratch-Resistant'],
     image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
     gallery: []
@@ -637,7 +637,7 @@ export const genericProducts = [
     title: 'Metallic Canvas Frames',
     category: 'Frames',
     price: 3500,
-    description: 'Beautifully crafted metallic canvas frames to showcase your art in style. The metallic edges provide a striking contrast that elevates any artwork or photograph.',
+    description: 'Blend art with modern elegance using our premium Metallic Canvas Frames. Featuring a gorgeous metallic finish, these frames offer a stunning, contemporary way to showcase your favorite photographs and artwork. Designed to beautifully complement a wide range of interior decors, they instantly elevate the visual appeal of living rooms, professional galleries, and corporate offices alike. Durable, eye-catching, and available in multiple sizes and finishes, they are the ultimate choice for giving your wall art a chic, luxurious upgrade.',
     features: ['Sturdy Build', 'Elegant Metallic Edge', 'Various Sizes', 'Gallery Quality'],
     image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80',
     gallery: []
@@ -647,7 +647,7 @@ export const genericProducts = [
     title: 'Wall Murals',
     category: 'Murals',
     price: 4500,
-    description: 'Transform your room with our stunning, high-quality large scale wall murals. Choose from our vast collection or provide your own custom design for a truly unique space.',
+    description: 'Turn your blank walls into breathtaking visual masterpieces with our custom Wall Murals. Designed to add incredible depth, character, and creativity to your space, our murals range from serene nature scenes and dynamic cityscapes to bold abstract art. Crafted from premium, fade-resistant materials, they are built to last and easy to install. Whether you want to create a calming retreat in your bedroom, a bold statement in your living area, or an inspiring vibe in your office, our murals provide a truly unique and stylish transformation.',
     features: ['High-Resolution Print', 'Custom Sizing', 'Seamless Look', 'Vibrant Colors'],
     image: 'https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=800&q=80',
     gallery: []
@@ -657,7 +657,7 @@ export const genericProducts = [
     title: 'Canvas Frames',
     category: 'Frames',
     price: 2500,
-    description: 'Classic and durable canvas frames for your personal or commercial art pieces. Made from premium materials ensuring your canvas stays taut and beautifully presented.',
+    description: 'Showcase your cherished memories and favorite artworks with our timeless Canvas Frames. Crafted with meticulous attention to detail, these frames provide a classic, elegant display that truly enhances the visual appeal of any piece. Made from premium, sturdy materials, they ensure your canvas remains perfectly taut and beautifully presented for years to come. Whether for a cozy home gallery or a professional studio setup, our canvas frames offer the perfect mix of traditional craftsmanship and lasting durability.',
     features: ['Solid Wood Option', 'Taut Stretching', 'Classic Look', 'Durable'],
     image: 'https://images.unsplash.com/photo-1580136608260-4eb11f4b24fe?auto=format&fit=crop&w=800&q=80',
     gallery: []
@@ -667,7 +667,7 @@ export const genericProducts = [
     title: 'Decorative Glass Films',
     category: 'Glass Films',
     price: 900,
-    description: 'Add beautiful patterns and privacy to your glass surfaces with our decorative films. Ranging from frosted finishes to intricate stained-glass styles.',
+    description: 'Upgrade your glass surfaces beautifully with our versatile Decorative Glass Films. Perfect for adding both privacy and aesthetic charm, these films are available in a rich variety of patterns, colors, and textured finishes. From classic frosted looks that softly diffuse light to intricate decorative patterns that match your interior vibe, the creative possibilities are endless. Easy to install and exceptionally easy to maintain, they offer a smart, affordable way to transform plain windows and partitions into functional, stylish design elements.',
     features: ['Various Patterns', 'Light Filtering', 'Easy to Apply', 'Residue-Free Removal'],
     image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
     gallery: []
@@ -677,7 +677,7 @@ export const genericProducts = [
     title: 'Blinds',
     category: 'Blinds',
     price: 1800,
-    description: 'Versatile and stylish window blinds to suit any room and decor. Our classic blinds offer durability, easy maintenance, and excellent light filtration.',
+    description: 'Take complete control of your light and privacy with our versatile and stylish Blinds. Designed to seamlessly complement any decor style—from warm traditional to ultra-modern—our blinds are available in a stunning array of materials, colors, and elegant designs. Whether you love the natural warmth of wooden finishes, the sleek profile of aluminum, or the soft touch of fabric, our collection is built for effortless operation, long-lasting durability, and low maintenance. Enhance the comfort and beauty of your windows with our premium, custom-fit solutions.',
     features: ['Easy Maintenance', 'Durable Materials', 'Versatile Styles', 'Custom Fit'],
     image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80',
     gallery: []

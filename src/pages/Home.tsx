@@ -235,8 +235,8 @@ export default function Home({ navigate }: Props) {
 
       
       {/* Premium Collections Section */}
-      <section className="py-16 md:py-24 bg-white relative">
-        <div className="container-luxe max-w-7xl mx-auto px-4 md:px-8 mb-12">
+      <section className="pt-16 md:pt-24 pb-8 md:pb-12 bg-white relative">
+        <div className="container-luxe max-w-7xl mx-auto px-4 md:px-8 mb-8 md:mb-10">
           <FadeIn>
             <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
               <div className="max-w-2xl">
@@ -292,23 +292,35 @@ export default function Home({ navigate }: Props) {
       </section>
 
       {/* Products Section */}
-      <section className="py-12 md:py-20 relative bg-ink-50">
+      <section className="pb-12 md:pb-20 pt-0 relative bg-white">
         <div className="container-luxe max-w-7xl mx-auto px-4 md:px-8">
-          <div className="w-full">
-            {/* Header */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
-              <div>
-                <h2 className="text-xl md:text-2xl font-bold text-ink-950 mb-1">Featured Products</h2>
-                <p className="text-ink-500 text-sm">Browse our latest decor offerings</p>
+          
+          {/* Header & Button */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-4 gap-4">
+            <FadeIn>
+              <div className="text-left max-w-2xl">
+                <span className="font-sans text-[10px] tracking-[0.2em] uppercase text-burgundy-600 font-bold mb-4 block">
+                  Offerings
+                </span>
+                <h2 className="text-3xl md:text-5xl font-serif text-ink-950 mb-2">Featured Products</h2>
+                <p className="text-ink-600 text-sm md:text-base">Browse our latest decor offerings</p>
+                <div className="w-12 h-0.5 bg-burgundy-600 mt-6" />
               </div>
-              <button 
-                onClick={() => navigate('/products')}
-                className="bg-ink-950 text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-ink-900 transition-colors flex items-center gap-2"
-              >
-                Explore all <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
+            </FadeIn>
+            <button 
+              onClick={() => navigate('/products')}
+              className="bg-ink-950 text-white px-5 py-2.5 rounded-none text-sm font-medium hover:bg-ink-900 transition-colors flex items-center gap-2"
+            >
+              Explore all <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
 
+          {/* Full Image Banner */}
+          <div className="w-full mb-4">
+            <img src="/ProductBanner/ProductBanner3.png" alt="Product Banner" className="w-full h-auto object-contain" />
+          </div>
+
+          <div className="w-full">
             {/* Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4 md:gap-6">
               {genericProducts.map((product, i) => (
@@ -338,21 +350,30 @@ export default function Home({ navigate }: Props) {
 
                     {/* Back Side */}
                     <div 
-                      className="absolute inset-0 w-full h-full  bg-ink-950 p-3 sm:p-6 flex flex-col justify-center items-center text-center shadow-lg"
+                      className="absolute inset-0 w-full h-full p-3 sm:p-6 flex flex-col justify-center items-center text-center shadow-lg overflow-hidden"
                       style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
                     >
-                      <h3 className="font-serif text-base sm:text-xl md:text-2xl text-white mb-2 sm:mb-3">{product.title}</h3>
-                      <p className="text-ink-300 text-[10px] sm:text-sm mb-3 sm:mb-6 line-clamp-3 sm:line-clamp-4 leading-relaxed">{product.description}</p>
+                      <img 
+                        src={product.image} 
+                        alt={product.title}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-ink-950/85"></div>
                       
-                      <button 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          navigate(`/products/${product.slug}`);
-                        }}
-                        className="bg-transparent border border-white text-white px-3 py-1.5 sm:px-6 sm:py-2.5 text-[9px] sm:text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-ink-950 transition-colors flex items-center gap-1 sm:gap-2"
-                      >
-                        View Details <ArrowRight className="w-3 h-3" />
-                      </button>
+                      <div className="relative z-10 flex flex-col items-center">
+                        <h3 className="font-serif text-base sm:text-xl md:text-2xl text-white mb-2 sm:mb-3">{product.title}</h3>
+                        <p className="text-white/90 text-[10px] sm:text-sm mb-3 sm:mb-6 line-clamp-3 sm:line-clamp-4 leading-relaxed">{product.description}</p>
+                        
+                        <button 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(`/products/${product.slug}`);
+                          }}
+                          className="bg-transparent border border-white text-white px-3 py-1.5 sm:px-6 sm:py-2.5 text-[9px] sm:text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-ink-950 transition-colors flex items-center gap-1 sm:gap-2"
+                        >
+                          View Details <ArrowRight className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
 
                   </div>

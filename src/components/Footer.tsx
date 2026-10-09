@@ -8,14 +8,15 @@ type Props = { navigate: (path: string) => void };
 export default function Footer({ navigate }: Props) {
   const whatsappNo = useWhatsapp();
   const navLinks = [
-    { label: 'Home', path: '/' },
-    { label: 'Services', path: '/services' },
-    { label: 'Products', path: '/products' },
-    { label: 'Projects', path: '/projects' },
-    { label: 'Brochures', path: '/brochures' },
-    { label: 'About', path: '/about' },
-    { label: 'Contact', path: '/contact' },
-  ];
+  { label: 'Home', path: '/' },
+  { label: 'Products', path: '/products' },
+  { label: 'Services', path: '/services' },
+  { label: 'Collections', path: '/collections' },
+  { label: 'Projects', path: '/projects' },
+  { label: 'Brochures', path: '/brochures' },
+  { label: 'About', path: '/about' },
+  { label: 'Contact', path: '/contact' },
+];
 
   return (
     <footer className="relative border-t border-ink-200/40" style={{ background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(20px)' }}>
@@ -96,5 +97,3 @@ export default function Footer({ navigate }: Props) {
     </footer>
   );
 }
-
-

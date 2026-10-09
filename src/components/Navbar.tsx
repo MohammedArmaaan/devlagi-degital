@@ -12,9 +12,9 @@ type Props = {
 
 const links = [
   { label: 'Home', path: '/' },
-  { label: 'Collections', path: '/collections' },
-  { label: 'Services', path: '/services' },
   { label: 'Products', path: '/products' },
+  { label: 'Services', path: '/services' },
+  { label: 'Collections', path: '/collections' },
   { label: 'Projects', path: '/projects' },
   { label: 'Brochures', path: '/brochures' },
   { label: 'About', path: '/about' },

@@ -47,6 +47,7 @@ import Collections from '@/pages/Collections';
 import Privacy from '@/pages/Privacy';
 import Terms from '@/pages/Terms';
 import Returns from '@/pages/Returns';
+import CookiesPolicy from '@/pages/CookiesPolicy';
 
 
 // Admin Layout & Pages
@@ -89,6 +90,8 @@ function App() {
         return <Terms />;
       case 'returns':
         return <Returns />;
+      case 'cookies':
+        return <CookiesPolicy />;
       
       default:
         return <Home   navigate={navigate} />;
