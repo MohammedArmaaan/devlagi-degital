@@ -68,21 +68,21 @@ const heroBenefits = [
 
 
 const heroSlides = [
-  {
-    image: '/ProductBanner/ProductBanner3.png',
-  },
-  {
-    image: '/ProductBanner/01Product.png',
-  },
-  {
-    image: '/ProductBanner/02Product.png',
-  },
-  {
-    image: '/ProductBanner/04Product.png',
-  },
-  {
-    image: '/ProductBanner/05Product.png',
-  },
+  // {
+  //   image: '/ProductBanner/ProductBanner3.png',
+  // },
+  // {
+  //   image: '/ProductBanner/01Product.png',
+  // },
+  // {
+  //   image: '/ProductBanner/02Product.png',
+  // },
+  // {
+  //   image: '/ProductBanner/04Product.png',
+  // },
+  // {
+  //   image: '/ProductBanner/05Product.png',
+  // },
   {
     image: '/ProductBanner/06Product.png',
   }
@@ -158,7 +158,7 @@ export default function Home({ navigate }: Props) {
   return (
     <div className="bg-white">
       {/* Hero */}
-      <section ref={heroRef} className="relative w-full h-[60svh] md:h-[100svh] overflow-hidden bg-ink-50">
+      <section ref={heroRef} className="relative w-full h-[100svh] overflow-hidden bg-ink-50">
         <div className="absolute inset-0 w-full h-full" ref={emblaRef}>
           <div className="flex h-full">
             {heroSlides.map((slide, index) => (
@@ -166,7 +166,7 @@ export default function Home({ navigate }: Props) {
                 <img
                   src={slide.image}
                   alt="Interior decor"
-                  className="w-full h-full object-cover object-bottom"
+                  className="w-full h-full object-cover md:object-bottom object-center"
                 />
               </div>
             ))}
